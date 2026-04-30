@@ -176,6 +176,7 @@ button{cursor:pointer;background:none}
 <body>
 <div id="app">
 
+  
 <!-- SPLASH -->
 <div class="screen" id="splash">
   <div class="s-rings">
@@ -239,7 +240,7 @@ button{cursor:pointer;background:none}
   <div class="bnav" id="bnav"></div>
 </div>
 
-<!-- GROUPS -->
+  <!-- GROUPS -->
 <div class="screen hidden" id="groups">
   <div class="page-hdr">
     <div class="hdr-top"><div class="hdr-title">Groupes</div><button class="ico-btn" onclick="showNewGroup()">➕</button></div>
@@ -327,4 +328,430 @@ button{cursor:pointer;background:none}
 
 <script>
 // ── SUPABASE ─────────────────────────────────────────
-const SURL = 'https://rivrluyqjrwcjopmgkq
+const SURL = 'https://rivrluyqjrwcjopmgkqn.supabase.co';
+const SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpdnJsdXlxanJ3Y2pvcG1na3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0OTIyNjIsImV4cCI6MjA5MzA2ODI2Mn0.t99edAvNjOch0AFI3kCbxdaT7QMMJIJMq1hY_yqC5Kk';
+const sb = supabase.createClient(SURL, SKEY);
+
+// ── UTILS ────────────────────────────────────────────
+const AVC=['#00897B','#667EEA','#F6A623','#2E7D32','#6B3FA0','#0288D1'];
+const avc=l=>AVC[l.charCodeAt(0)%AVC.length];
+const nt=()=>{const d=new Date();return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')};
+const $=id=>document.getElementById(id);
+const show=id=>{$(id)&&$(id).classList.remove('hidden')};
+const hide=id=>{$(id)&&$(id).classList.add('hidden')};
+function mkAv(l,size,online){return`<div class="av" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.38)}px;background:${avc(l)}">${l}${online?'<div class="dot"></div>':''}</div>`}
+function closeModals(){document.querySelectorAll('.overlay').forEach(e=>e.remove())}
+
+  // ── ÉTAT ─────────────────────────────────────────────
+let currentUser = null;
+let activeTab = 'chats';
+let activeConv = null;
+let activeCt = null;
+let allConvs = [];
+let lgStep = 'phone';
+let realtimeSub = null;
+
+// ── SPLASH ───────────────────────────────────────────
+setTimeout(async()=>{
+  hide('splash');
+  // Verifier session locale
+  const saved = localStorage.getItem('echo_user');
+  if(saved){
+    currentUser = JSON.parse(saved);
+    goTab('chats');
+  } else {
+    show('login');
+    buildOtp();
+    $('ph-inp').addEventListener('input',()=>{
+      const ok=$('ph-inp').value.replace(/\D/g,'').length>=8;
+      $('lg-btn').className='lg-btn '+(ok?'on':'off');
+    });
+    $('name-inp').addEventListener('input',()=>{
+      const ok=$('name-inp').value.trim().length>=2;
+      $('lg-btn').className='lg-btn '+(ok?'on':'off');
+    });
+  }
+},2200);
+
+function buildOtp(){
+  const row=$('otp-row');row.innerHTML='';
+  for(let i=0;i<6;i++){
+    const inp=document.createElement('input');
+    inp.type='text';inp.inputMode='numeric';inp.maxLength=1;inp.className='otp-box';inp.id='o'+i;
+    inp.addEventListener('input',e=>{
+      e.target.value=e.target.value.replace(/\D/,'').slice(-1);
+      e.target.classList.toggle('filled',!!e.target.value);
+      if(e.target.value&&i<5)$('o'+(i+1)).focus();
+      if([...Array(6)].every((_,j)=>$('o'+j)?.value)) verifyOtp();
+    });
+    row.appendChild(inp);
+  }
+}
+
+// ── LOGIN ────────────────────────────────────────────
+async function lgNext(){
+  if(lgStep==='phone'){
+    const ph=$('ph-inp').value.replace(/\D/g,'');
+    if(ph.length<8){$('ph-err').textContent='Numero trop court';return;}
+    $('ph-err').textContent='';
+    // Verifier si utilisateur existe
+    const {data} = await sb.from('users').select('*').eq('phone',ph).single();
+    if(data){
+      // Utilisateur existant — passer directement au code
+      currentUser = data;
+      localStorage.setItem('echo_user', JSON.stringify(data));
+      hide('login');
+      goTab('chats');
+    } else {
+      // Nouvel utilisateur — demander le nom
+      lgStep='name';
+      hide('step-phone');show('step-name');
+      $('lg-btn').className='lg-btn off';
+      $('lg-btn').textContent='Continuer';
+      $('name-inp').focus();
+    }
+  } else if(lgStep==='name'){
+    const name=$('name-inp').value.trim();
+    if(name.length<2){$('name-err').textContent='Entrez votre vrai nom';return;}
+    $('name-err').textContent='';
+    // Creer le compte
+    const ph=$('ph-inp').value.replace(/\D/g,'');
+    const {data,error} = await sb.from('users').insert({
+      phone: ph,
+      display_name: name,
+      avatar_letter: name[0].toUpperCase(),
+      online: true
+    }).select().single();
+    if(error){$('name-err').textContent='Erreur : '+error.message;return;}
+    currentUser = data;
+    localStorage.setItem('echo_user', JSON.stringify(data));
+    hide('login');
+    goTab('chats');
+  }
+}
+
+async function verifyOtp(){
+  // Pour la beta : accepter n'importe quel code
+  hide('login');
+  goTab('chats');
+}
+
+  // ── NAVIGATION ───────────────────────────────────────
+const TABS=[
+  {id:'chats',label:'Messages',icon:'💬',screen:'home'},
+  {id:'groups',label:'Groupes',icon:'👥',screen:'groups'},
+  {id:'channels',label:'Canaux',icon:'📢',screen:'channels'},
+  {id:'profile',label:'Profil',icon:'👤',screen:'profile'},
+];
+
+function goTab(id){
+  closeModals();
+  TABS.forEach(t=>hide(t.screen));
+  hide('conv');hide('callscreen');
+  activeTab=id;
+  const tb=TABS.find(x=>x.id===id);
+  if(tb){show(tb.screen);buildScreen(id);}
+  buildAllNavs();
+}
+
+function buildScreen(id){
+  if(id==='chats'){buildStories();loadConvs();}
+  else if(id==='groups')loadGroups();
+  else if(id==='channels')renderChannels();
+  else if(id==='profile')loadProfile();
+}
+
+function buildAllNavs(){
+  ['bnav','bnav2','bnav3','bnav4'].forEach(id=>{
+    const el=$(id);if(!el)return;
+    el.innerHTML=TABS.map(tb=>`<button class="nb" onclick="goTab('${tb.id}')" style="color:${activeTab===tb.id?'#00897B':'#8892A4'}"><span class="ni">${tb.icon}</span><span class="nl" style="font-weight:${activeTab===tb.id?700:500}">${tb.label}</span>${activeTab===tb.id?'<div class="nd"></div>':''}</button>`).join('');
+  });
+}
+
+// ── STORIES ──────────────────────────────────────────
+function buildStories(){
+  if(!currentUser)return;
+  const el=$('stories');
+  const letter=currentUser.avatar_letter||currentUser.display_name[0].toUpperCase();
+  let h=`<div class="st"><div class="st-av" style="background:linear-gradient(135deg,#26A69A,#004D40);position:relative">${letter}<div style="position:absolute;bottom:0;right:0;width:20px;height:20px;border-radius:50%;background:#00897B;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:700">+</div></div><div class="st-name">Moi</div></div>`;
+  el.innerHTML=h;
+}
+
+// ── CONVERSATIONS ────────────────────────────────────
+async function loadConvs(){
+  if(!currentUser){return;}
+  const el=$('clist');
+  el.innerHTML='<div class="empty"><div>💬</div>Chargement...</div>';
+
+  const {data,error} = await sb.from('conversations')
+    .select(`*, user1:users!conversations_user1_id_fkey(id,display_name,avatar_letter,online), user2:users!conversations_user2_id_fkey(id,display_name,avatar_letter,online)`)
+    .or(`user1_id.eq.${currentUser.id},user2_id.eq.${currentUser.id}`)
+    .order('created_at',{ascending:false});
+
+  if(error||!data||!data.length){
+    el.innerHTML='<div class="empty"><div>💬</div>Aucune conversation<br><small>Appuyez sur ✏️ pour commencer</small></div>';
+    return;
+  }
+  allConvs=data;
+  renderConvs(data);
+}
+
+function renderConvs(data){
+  const el=$('clist');
+  if(!data||!data.length){el.innerHTML='<div class="empty"><div>💬</div>Aucune conversation</div>';return;}
+  el.innerHTML=data.map(c=>{
+    const ct=c.user1_id===currentUser.id?c.user2:c.user1;
+    if(!ct)return'';
+    const letter=ct.avatar_letter||ct.display_name[0].toUpperCase();
+    return`<div class="ci" onclick="openConv('${c.id}','${ct.id}')">
+      ${mkAv(letter,44,ct.online)}
+      <div class="ci-info">
+        <div class="ci-top"><span class="ci-name">${ct.display_name}</span><span class="ci-time" style="color:#8892A4">${c.last_time||''}</span></div>
+        <div class="ci-bot"><span class="ci-last">${c.last_message||'Demarrer la conversation'}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+    }
+
+  function filterConvs(){
+  const q=$('search-inp').value.toLowerCase();
+  if(!q){renderConvs(allConvs);return;}
+  const filtered=allConvs.filter(c=>{
+    const ct=c.user1_id===currentUser.id?c.user2:c.user1;
+    return ct&&ct.display_name.toLowerCase().includes(q);
+  });
+  renderConvs(filtered);
+}
+
+// ── OUVRIR CONVERSATION ──────────────────────────────
+async function openConv(convId, ctId){
+  // Charger le contact
+  const {data:ct} = await sb.from('users').select('*').eq('id',ctId).single();
+  if(!ct)return;
+  activeCt=ct;
+  activeConv={id:convId};
+
+  const letter=ct.avatar_letter||ct.display_name[0].toUpperCase();
+  $('cv-av').innerHTML=mkAv(letter,40,ct.online);
+  $('cv-name').textContent=ct.display_name;
+  $('cv-status').textContent=ct.online?'En ligne':'Hors ligne';
+  $('cv-status').style.color=ct.online?'#43A047':'#8892A4';
+
+  await loadMessages(convId);
+  hide('home');show('conv');
+
+  // Realtime
+  if(realtimeSub)sb.removeChannel(realtimeSub);
+  realtimeSub=sb.channel('conv-'+convId)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${convId}`},
+      payload=>{ appendMsg(payload.new); })
+    .subscribe();
+}
+
+async function loadMessages(convId){
+  const {data} = await sb.from('messages')
+    .select('*')
+    .eq('conversation_id',convId)
+    .order('created_at',{ascending:true});
+  renderMsgs(data||[]);
+}
+
+function renderMsgs(msgs){
+  let h='<div class="day-sep"><span>Aujourd\'hui</span></div>';
+  msgs.forEach((m,i)=>{
+    const me=m.sender_id===currentUser.id;
+    const ps=i>0&&msgs[i-1].sender_id===m.sender_id;
+    const letter=me?(currentUser.avatar_letter||currentUser.display_name[0]):(activeCt.avatar_letter||activeCt.display_name[0]);
+    h+=`<div class="mrow ${me?'me':'them'}${ps?' close':''}">
+      ${!me?`<div class="m-av" style="opacity:${ps?0:1}">${mkAv(letter,28,false)}</div>`:''}
+      <div class="bubble ${me?'me':'them'}">
+        <div class="btxt">${m.text}</div>
+        <div class="bmeta">${m.time||''}${me?' ✓✓':''}</div>
+      </div>
+    </div>`;
+  });
+  $('msgs').innerHTML=h;
+  scrollBottom();
+}
+
+function appendMsg(m){
+  const me=m.sender_id===currentUser.id;
+  const letter=me?(currentUser.avatar_letter||currentUser.display_name[0]):(activeCt.avatar_letter||activeCt.display_name[0]);
+  const div=document.createElement('div');
+  div.className=`mrow ${me?'me':'them'}`;
+  div.innerHTML=`
+    ${!me?`<div class="m-av">${mkAv(letter,28,false)}</div>`:''}
+    <div class="bubble ${me?'me':'them'}">
+      <div class="btxt">${m.text}</div>
+      <div class="bmeta">${m.time||''}${me?' ✓✓':''}</div>
+    </div>`;
+  $('msgs').appendChild(div);
+  scrollBottom();
+}
+
+function scrollBottom(){setTimeout(()=>{const e=$('msgs');if(e)e.scrollTop=e.scrollHeight},50)}
+
+  // ── ENVOYER MESSAGE ──────────────────────────────────
+async function sendMsg(){
+  const inp=$('msg-inp'),text=inp.value.trim();
+  if(!text||!activeConv)return;
+  inp.value='';updSnd();
+  const time=nt();
+  await sb.from('messages').insert({
+    conversation_id:activeConv.id,
+    sender_id:currentUser.id,
+    text,time
+  });
+  await sb.from('conversations').update({last_message:text,last_time:time}).eq('id',activeConv.id);
+}
+
+function updSnd(){const v=$('msg-inp').value.trim();$('snd-btn').textContent=v?'➤':'🎤';$('snd-btn').className='snd-btn '+(v?'on':'off');}
+
+// ── NOUVEAU CHAT ─────────────────────────────────────
+function showNewChat(){
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="overlay" onclick="if(event.target===this)closeModals()">
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">Nouveau message</div>
+        <input class="modal-input" id="new-chat-inp" placeholder="Entrez le numero de telephone..." type="tel">
+        <button class="modal-btn mbtn-p" onclick="startNewChat()">Rechercher</button>
+        <button class="modal-btn mbtn-s" onclick="closeModals()">Annuler</button>
+        <div class="err" id="new-chat-err"></div>
+      </div>
+    </div>`);
+}
+
+async function startNewChat(){
+  const phone=$('new-chat-inp').value.replace(/\D/g,'');
+  if(phone.length<8){$('new-chat-err').textContent='Numero invalide';return;}
+  const {data:ct} = await sb.from('users').select('*').eq('phone',phone).single();
+  if(!ct){$('new-chat-err').textContent='Utilisateur introuvable sur Echo';return;}
+  if(ct.id===currentUser.id){$('new-chat-err').textContent='C\'est votre propre numero';return;}
+
+  // Verifier si conv existe
+  let {data:existing} = await sb.from('conversations')
+    .select('*')
+    .or(`and(user1_id.eq.${currentUser.id},user2_id.eq.${ct.id}),and(user1_id.eq.${ct.id},user2_id.eq.${currentUser.id})`)
+    .single();
+
+  if(!existing){
+    const {data:newConv} = await sb.from('conversations').insert({
+      user1_id:currentUser.id,
+      user2_id:ct.id
+    }).select().single();
+    existing=newConv;
+  }
+  closeModals();
+  openConv(existing.id,ct.id);
+}
+
+// ── GROUPES ──────────────────────────────────────────
+async function loadGroups(){
+  const {data} = await sb.from('groups').select('*').order('created_at',{ascending:false});
+  const el=$('grp-list');
+  if(!data||!data.length){el.innerHTML='<div class="empty"><div>👥</div>Aucun groupe<br><small>Creez le premier groupe</small></div>';return;}
+  el.innerHTML=data.map(g=>`
+    <div class="grp-item">
+      <div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(g.avatar_letter||'G')}">${g.avatar_letter||'G'}</div>
+      <div class="grp-info"><div class="grp-name">${g.name}</div><div class="grp-meta">${g.member_count||1} membres · ${g.last_message||'Groupe cree'}</div></div>
+    </div>`).join('');
+}
+
+function showNewGroup(){
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="overlay" onclick="if(event.target===this)closeModals()">
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">Nouveau groupe</div>
+        <input class="modal-input" id="grp-inp" placeholder="Nom du groupe">
+        <button class="modal-btn mbtn-p" onclick="createGroup()">Creer</button>
+        <button class="modal-btn mbtn-s" onclick="closeModals()">Annuler</button>
+      </div>
+    </div>`);
+}
+
+async function createGroup(){
+  const name=$('grp-inp').value.trim();
+  if(!name)return;
+  await sb.from('groups').insert({name,avatar_letter:name[0].toUpperCase(),created_by:currentUser.id,member_count:1});
+  closeModals();loadGroups();
+}
+
+  // ── CANAUX ───────────────────────────────────────────
+const CHANNELS_DEMO=[
+  {name:'Echo Officiel',av:'E',subs:'1.2K',last:'Echo Beta est maintenant en ligne !'},
+  {name:'Actualites Afrique',av:'A',subs:'8.4K',last:'Dernieres nouvelles du continent'},
+];
+function renderChannels(){
+  $('chan-list').innerHTML=CHANNELS_DEMO.map(c=>`
+    <div class="grp-item">
+      <div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(c.av)}">${c.av}</div>
+      <div class="grp-info"><div class="grp-name">${c.name}</div><div class="grp-meta">${c.subs} abonnes · ${c.last}</div></div>
+    </div>`).join('');
+}
+function showNewChannel(){document.body.insertAdjacentHTML('beforeend',`<div class="overlay" onclick="if(event.target===this)closeModals()"><div class="modal"><div class="modal-handle"></div><div class="modal-title">Nouveau canal</div><input class="modal-input" placeholder="Nom du canal"><button class="modal-btn mbtn-p" onclick="closeModals()">Creer</button><button class="modal-btn mbtn-s" onclick="closeModals()">Annuler</button></div></div>`);}
+
+// ── PROFIL ────────────────────────────────────────────
+function loadProfile(){
+  if(!currentUser)return;
+  const letter=currentUser.avatar_letter||currentUser.display_name[0].toUpperCase();
+  $('prof-av').textContent=letter;
+  $('prof-av').style.background=avc(letter);
+  $('prof-name').textContent=currentUser.display_name;
+  $('prof-phone').textContent='+229 '+currentUser.phone;
+}
+
+function showEditProfile(){
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="overlay" onclick="if(event.target===this)closeModals()">
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">Modifier le profil</div>
+        <input class="modal-input" id="edit-name" placeholder="Nom complet" value="${currentUser.display_name}">
+        <input class="modal-input" id="edit-bio" placeholder="Bio">
+        <button class="modal-btn mbtn-p" onclick="saveProfile()">Sauvegarder</button>
+        <button class="modal-btn mbtn-s" onclick="closeModals()">Annuler</button>
+      </div>
+    </div>`);
+}
+
+async function saveProfile(){
+  const name=$('edit-name').value.trim();
+  if(!name)return;
+  await sb.from('users').update({display_name:name,avatar_letter:name[0].toUpperCase()}).eq('id',currentUser.id);
+  currentUser.display_name=name;
+  currentUser.avatar_letter=name[0].toUpperCase();
+  localStorage.setItem('echo_user',JSON.stringify(currentUser));
+  closeModals();loadProfile();
+}
+
+// ── APPEL ─────────────────────────────────────────────
+function startCall(type){
+  const letter=activeCt.avatar_letter||activeCt.display_name[0];
+  $('call-av').style.background=avc(letter);$('call-av').textContent=letter;
+  $('call-name').textContent=activeCt.display_name;
+  $('call-status').textContent=type==='video'?'Appel video en cours...':'Appel audio en cours...';
+  hide('conv');show('callscreen');
+}
+function endCall(){hide('callscreen');show('conv');}
+
+// ── DÉCONNEXION ───────────────────────────────────────
+async function logout(){
+  if(!confirm('Se deconnecter ?'))return;
+  if(currentUser)await sb.from('users').update({online:false}).eq('id',currentUser.id);
+  localStorage.removeItem('echo_user');
+  currentUser=null;lgStep='phone';
+  hide('profile');show('login');
+  $('ph-inp').value='';$('lg-btn').className='lg-btn off';$('lg-btn').textContent='Continuer';
+  hide('step-otp');hide('step-name');show('step-phone');
+}
+
+// ── AUTRES ────────────────────────────────────────────
+function showAttach(){document.body.insertAdjacentHTML('beforeend',`<div class="overlay" onclick="if(event.target===this)closeModals()"><div class="modal"><div class="modal-handle"></div><div class="modal-title">Joindre un fichier</div><button class="modal-btn mbtn-p" onclick="closeModals()">📷 Photo / Video</button><button class="modal-btn mbtn-p" onclick="closeModals()">📄 Document</button><button class="modal-btn mbtn-s" onclick="closeModals()">Annuler</button></div></div>`);}
+function showEmoji(){const emojis=['😊','❤️','👍','😂','🙏','🔥','🎉','😍','💯','👏','😢','🤔'];document.body.insertAdjacentHTML('beforeend',`<div class="overlay" onclick="if(event.target===this)closeModals()"><div class="modal"><div class="modal-handle"></div><div class="modal-title">Emojis</div><div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:8px 0">${emojis.map(e=>`<button style="font-size:28px;background:none;border:none;cursor:pointer" onclick="addEmoji('${e}')">${e}</button>`).join('')}</div><button class="modal-btn mbtn-s" style="margin-top:8px" onclick="closeModals()">Fermer</button></div></div>`);}
+function addEmoji(e){$('msg-inp').value+=' '+e;updSnd();closeModals();}
+function showConvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="overlay" onclick="if(event.target===this)closeModals()"><div class="modal"><div class="modal-handle"></div><div class="modal-title">${activeCt?.display_name||''}</div><button class="modal-btn mbtn-p" onclick="closeModals()">🔕 Couper les notifications</button><button class="modal-btn mbtn-p" onclick="closeModals()">🗑️ Effacer la conversation</button><button class="modal-btn mbtn-s" onclick="closeModals()">Fermer</button></div></div>`);}
+</script>
+</body>
+</html>
