@@ -402,7 +402,7 @@ function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,
 
 let CU=null,tab='chats',aC=null,aCt=null,allCv=[],allGr=[],allCh=[],lgStep='phone',sb=null,rtSub=null,aGr=null,aChan=null,cTmr=null,cSec=0,muted=false,spk=false,ctry=CTRS[0],lang=localStorage.getItem('echo_lang')||'fr',curScr='home',otpCode='';
 const SCREENS=['home','groups','channels','profile','conv','csc','gcnv','ccnv'];
-const TABS=[{id:'chats',k:'ms',i:'💬',s:'home'},{id:'groups',k:'gr',i:'👥',s:'groups'},{id:'channels',k:'ch',i:'📢',s:'channels'},{id:'profile',k:'pr',i:'👤',s:'profile'}];
+const TABS=[{id:'chats',k:'ms',i:'💬',s:'home'},{id:'groups',k:'gr',i:'👥',s:'groups'},{id:'channels',k:'ch',i:'📡',s:'channels'},{id:'profile',k:'pr',i:'👤',s:'profile'}];
 
 // ── SUPABASE ──────────────────────────────────────────────────────────────
 function initSB(){return new Promise(r=>{if(window.supabase){sb=window.supabase.createClient(SU,SK);r(true);return;}const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';s.onload=()=>{sb=window.supabase.createClient(SU,SK);r(true)};s.onerror=()=>r(false);document.head.appendChild(s)});}
@@ -566,7 +566,7 @@ function buildSts(){
   $('sts').innerHTML=`<div class="st" onclick="showMyStatus()"><div class="sta" style="background:linear-gradient(135deg,#26A69A,#004D40);position:relative">${l}<div style="position:absolute;bottom:0;right:0;width:18px;height:18px;border-radius:50%;background:#00897B;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">+</div></div><div class="stn">${t('my')}</div></div>`;
 }
 function showMyStatus(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('my')}</div><input class="mi2" id="sti" placeholder="${t('ws')}" maxlength="100"><button class="mb mp" onclick="pubSts()">📢 ${t('pb')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('my')}</div><input class="mi2" id="sti" placeholder="${t('ws')}" maxlength="100"><button class="mb mp" onclick="pubSts()">📡 ${t('pb')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
 }
 function pubSts(){const v=$('sti')?.value.trim();if(v){cm();toast(t('sp2'));}}
 
