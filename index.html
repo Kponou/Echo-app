@@ -19,6 +19,8 @@ textarea{resize:none}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* SPLASH */
 #splash{background:linear-gradient(160deg,#26A69A,#004D40);align-items:center;justify-content:center;gap:32px;z-index:10}
 .sr{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ring{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.35);animation:ring 1.8s ease-out infinite}
@@ -26,28 +28,59 @@ textarea{resize:none}
 .sc{width:78px;height:78px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;color:#fff;position:absolute}
 .sn{font-size:40px;font-weight:900;color:#fff;letter-spacing:5px;text-align:center}
 .ss{font-size:15px;color:rgba(255,255,255,.9);margin-top:10px;text-align:center;font-style:italic}
-#login{background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.lw{display:flex;flex-direction:column;min-height:100%;padding:50px 26px 34px}
-.ll{text-align:center;margin-bottom:30px}
-.li{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#26A69A,#004D40);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px rgba(0,137,123,.3);font-size:34px;font-weight:900;color:#fff}
-.ln{font-size:26px;font-weight:800;color:#1A1A2E;letter-spacing:1px}
-.ls{font-size:13px;color:#00897B;margin-top:4px;font-weight:600}
-.lb{flex:1}
-.lt{font-size:20px;font-weight:700;color:#1A1A2E;margin-bottom:5px}
-.lh{font-size:13px;color:#8892A4;margin-bottom:16px}
-.pr{display:flex;align-items:center;gap:10px;background:#F0FFFE;border-radius:16px;padding:12px 14px;border:1.5px solid #B2DFDB;margin-bottom:10px}
+
+/* LOGIN */
+#login{background:#F5FFFE;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.lw{display:flex;flex-direction:column;min-height:100%;padding:40px 22px 34px;align-items:center}
+/* Logo SVG Echo */
+.echo-logo{width:110px;height:110px;margin-bottom:16px;flex-shrink:0}
+.ln{font-size:28px;font-weight:900;color:#1A1A2E;letter-spacing:1px;margin-bottom:4px}
+.lsl{font-size:13px;color:#00897B;font-weight:600;margin-bottom:30px}
+/* Choix initial */
+.lc{width:100%;display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
+.lbig{width:100%;padding:18px 20px;border-radius:20px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:14px;text-align:left;transition:all .2s;border:2px solid transparent}
+.lbig.new{background:linear-gradient(135deg,#26A69A,#004D40);color:#fff;box-shadow:0 6px 22px rgba(0,137,123,.28)}
+.lbig.ret{background:#fff;color:#1A1A2E;border-color:#B2DFDB;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.lbig-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.lbig.new .lbig-icon{background:rgba(255,255,255,.2)}
+.lbig.ret .lbig-icon{background:#E0F2F1}
+.lbig-txt{}
+.lbig-main{font-size:16px;font-weight:700}
+.lbig-sub{font-size:12px;opacity:.8;margin-top:2px;font-weight:400}
+
+/* Formulaires */
+.lcard{background:#fff;border-radius:20px;padding:22px;box-shadow:0 3px 16px rgba(0,0,0,.07);width:100%;margin-top:8px}
+.lcard-title{font-size:18px;font-weight:800;color:#1A1A2E;margin-bottom:5px}
+.lcard-sub{font-size:13px;color:#8892A4;margin-bottom:18px;line-height:1.5}
+.pr{display:flex;align-items:center;gap:10px;background:#F0FFFE;border-radius:14px;padding:12px 14px;border:1.5px solid #B2DFDB;margin-bottom:12px}
 .cb{display:flex;align-items:center;gap:5px;background:#E0F2F1;border-radius:10px;padding:6px 10px;font-size:13px;font-weight:700;color:#00897B;cursor:pointer;border:none;flex-shrink:0;white-space:nowrap}
 .pi{flex:1;border:none;background:transparent;font-size:15px;color:#1A1A2E}
-.li2{width:100%;background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:13px 15px;font-size:15px;color:#1A1A2E;margin-bottom:10px}
+.li2{width:100%;background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:13px 15px;font-size:15px;color:#1A1A2E;margin-bottom:12px}
+
+/* Choix SMS / Email */
+.vch{display:flex;gap:10px;margin-bottom:16px}
+.vchb{flex:1;padding:14px 10px;border-radius:14px;font-size:13px;font-weight:700;border:2px solid #B2DFDB;color:#8892A4;background:#fff;text-align:center;transition:all .2s;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+.vchb.sel{border-color:#00897B;color:#00897B;background:#F0FFFE}
+.vchb .vchi{font-size:24px}
+
+/* Code affiché */
+.otp-display{background:linear-gradient(135deg,#26A69A,#004D40);border-radius:16px;padding:18px;margin-bottom:14px;text-align:center}
+.otd-lbl{font-size:11px;color:rgba(255,255,255,.8);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.otd-code{font-size:36px;font-weight:900;color:#fff;letter-spacing:10px;font-family:'Courier New',monospace}
+.otd-hint{font-size:11px;color:rgba(255,255,255,.7);margin-top:8px}
 .or{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
 .ob{width:42px;height:52px;text-align:center;font-size:20px;font-weight:700;border:2px solid #B2DFDB;border-radius:12px;color:#1A1A2E;background:#F0FFFE;transition:border .2s}
 .ob.f{border-color:#00897B}
-.lbtn{width:100%;padding:15px;border-radius:18px;font-size:16px;font-weight:700;transition:all .2s;margin-top:10px}
+
+.lbtn{width:100%;padding:15px;border-radius:16px;font-size:16px;font-weight:700;transition:all .2s;margin-top:4px}
 .lbtn.on{background:linear-gradient(135deg,#26A69A,#004D40);color:#fff;box-shadow:0 6px 22px rgba(0,137,123,.28)}
 .lbtn.off{background:#E0F2F1;color:#aaa}
+.lback{background:none;color:#00897B;font-size:13px;font-weight:600;margin-top:12px;width:100%;text-align:center;padding:8px}
 .er{color:#c62828;font-size:13px;text-align:center;margin-top:5px;min-height:16px}
 .it{color:#00897B;font-size:12px;text-align:center;margin-top:4px}
-.ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);flex-shrink:0}
+
+/* HEADER */
+ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);flex-shrink:0}
 .ht{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
 .htl{font-size:20px;font-weight:800;color:#1A1A2E;display:flex;align-items:center;gap:10px}
 .beta{font-size:11px;background:#E0F2F1;color:#00897B;border-radius:20px;padding:2px 10px;font-weight:700}
@@ -65,7 +98,7 @@ textarea{resize:none}
 .st{text-align:center;flex-shrink:0;cursor:pointer}
 .sta{width:54px;height:54px;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;position:relative}
 .stn{font-size:11px;color:#8892A4;max-width:54px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.cl{flex:1;overflow-y:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.cl2{flex:1;overflow-y:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
 .ci{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:13px 15px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;animation:fadeIn .2s}
 .ci:active{opacity:.8}
 .cii{flex:1;min-width:0}
@@ -158,58 +191,146 @@ textarea{resize:none}
 <body>
 <div id="app">
 
+<!-- SPLASH --
 <div class="screen" id="splash">
   <div class="sr"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="sc">E</div></div>
-  <div><div class="sn">Echo</div><div class="ss" id="ss">Speak. Be heard.</div></div>
+  <div><div class="sn">Echo</div><div class="ss">Speak. Be heard.</div></div>
 </div>
 
+<!-- LOGIN -->
 <div class="screen hidden" id="login">
   <div class="lw">
-    <div class="ll"><div class="li">E</div><div class="ln">Echo</div><div class="ls" id="lsl">Speak. Be heard.</div></div>
-    <div class="lb" id="sp1">
-      <div class="lt" id="lt1">Bienvenue 🔊</div>
-      <div class="lh" id="lh1">Entrez votre numéro</div>
-      <div class="pr"><button class="cb" id="ctb" onclick="showCtry()">🇧🇯 +229</button><input class="pi" type="tel" id="phi" placeholder="XX XX XX XX XX"></div>
-      <div class="er" id="phe"></div>
+    <!-- Logo SVG Echo -->
+    <svg class="echo-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#4A90E2"/>
+          <stop offset="100%" style="stop-color:#7B4FD8"/>
+        </linearGradient>
+        <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#6BB5FF;stop-opacity:.3"/>
+          <stop offset="100%" style="stop-color:#9D7BFF;stop-opacity:.3"/>
+        </linearGradient>
+      </defs>
+      <rect width="200" height="200" rx="46" fill="url(#bg1)"/>
+      <rect x="12" y="12" width="176" height="176" rx="38" fill="url(#bg2)"/>
+      <rect x="28" y="26" width="144" height="118" rx="30" fill="white"/>
+      <path d="M 72 144 Q 68 170 90 162 Q 82 152 86 144 Z" fill="white"/>
+      <text x="100" y="102" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="800" fill="#5B4FD8" letter-spacing="-1">Echo</text>
+    </svg>
+    <div class="ln">Echo</div>
+    <div class="lsl">Speak. Be heard.</div>
+
+    <!-- Choix initial (affiché par défaut) -->
+    <div class="lc" id="l-choice">
+      <button class="lbig new" onclick="showRegister()">
+        <div class="lbig-icon">✨</div>
+        <div class="lbig-txt">
+          <div class="lbig-main">Je suis nouveau</div>
+          <div class="lbig-sub">Créer un compte gratuitement</div>
+        </div>
+      </button>
+      <button class="lbig ret" onclick="showLogin()">
+        <div class="lbig-icon" style="background:#E0F2F1">🔑</div>
+        <div class="lbig-txt">
+          <div class="lbig-main">J'ai déjà un compte</div>
+          <div class="lbig-sub">Se connecter avec mon numéro</div>
+        </div>
+      </button>
     </div>
-    <div class="lb hidden" id="sp2">
-      <div class="lt" id="lt2">Votre nom</div>
-      <div class="lh" id="lh2">Comment voulez-vous apparaître ?</div>
-      <input class="li2" type="text" id="nmi" placeholder="Aminata Diallo">
-      <input class="li2" type="email" id="emi" placeholder="votre@email.com">
-      <div class="er" id="nme"></div>
+
+    <!-- CONNEXION (anciens membres) -->
+    <div class="lcard hidden" id="l-login">
+      <div class="lcard-title">Connexion</div>
+      <div class="lcard-sub">Entrez votre numéro enregistré sur Echo</div>
+      <div class="pr">
+        <button class="cb" id="ctb-l" onclick="showCtry('l')">🇧🇯 +229</button>
+        <input class="pi" type="tel" id="phi-l" placeholder="XX XX XX XX">
+      </div>
+      <div class="er" id="le"></div>
+      <button class="lbtn off" id="lbtn-l" onclick="doLogin()">Se connecter</button>
+      <button class="lback" onclick="backToChoice()">← Retour</button>
     </div>
-    <div class="lb hidden" id="sp3">
-      <div class="lt" id="lt3">Code envoyé</div>
-      <div class="lh" id="lh3">Vérifiez votre email</div>
+
+    <!-- INSCRIPTION étape 1 : infos -->
+    <div class="lcard hidden" id="l-reg1">
+      <div class="lcard-title">Créer un compte</div>
+      <div class="lcard-sub">Entrez vos informations pour rejoindre Echo</div>
+      <div class="pr">
+        <button class="cb" id="ctb-r" onclick="showCtry('r')">🇧🇯 +229</button>
+        <input class="pi" type="tel" id="phi-r" placeholder="XX XX XX XX">
+      </div>
+      <input class="li2" type="text" id="nmi" placeholder="Votre nom complet">
+      <div class="er" id="re1"></div>
+      <button class="lbtn off" id="lbtn-r" onclick="goToVch()">Continuer →</button>
+      <button class="lback" onclick="backToChoice()">← Retour</button>
+    </div>
+
+    <!-- INSCRIPTION étape 2 : choix SMS ou Email -->
+    <div class="lcard hidden" id="l-vch">
+      <div class="lcard-title">Vérification</div>
+      <div class="lcard-sub">Comment voulez-vous recevoir votre code ?</div>
+      <div class="vch">
+        <button class="vchb sel" id="vch-sms" onclick="selVch('sms')">
+          <div class="vchi">📱</div>
+          <div>SMS</div>
+          <div style="font-size:11px;opacity:.7">Recommandé</div>
+        </button>
+        <button class="vchb" id="vch-email" onclick="selVch('email')">
+          <div class="vchi">📧</div>
+          <div>Email</div>
+          <div style="font-size:11px;opacity:.7">Via Gmail etc.</div>
+        </button>
+      </div>
+      <div id="vch-email-inp" class="hidden">
+        <input class="li2" type="email" id="emi" placeholder="votre@email.com">
+      </div>
+      <div class="er" id="ve"></div>
+      <button class="lbtn on" onclick="sendOtp()">Envoyer le code</button>
+      <button class="lback" onclick="showRegister()">← Retour</button>
+    </div>
+
+    <!-- INSCRIPTION étape 3 : saisie code -->
+    <div class="lcard hidden" id="l-otp">
+      <div class="lcard-title">Entrez le code</div>
+      <div class="lcard-sub" id="otp-sub">Entrez le code affiché ci-dessous</div>
+      <div class="otp-display">
+        <div class="otd-lbl">🔐 Code de vérification (Beta)</div>
+        <div class="otd-code" id="otp-show">------</div>
+        <div class="otd-hint">Recopiez ce code dans les cases ci-dessous</div>
+      </div>
       <div class="or" id="otr"></div>
-      <div class="it" id="oti"></div>
-      <div class="er" id="ote"></div>
+      <div class="er" id="oe"></div>
+      <button class="lbtn on" onclick="doVerify()">Vérifier et entrer ✓</button>
+      <button class="lback" onclick="showVch()">← Retour</button>
     </div>
-    <button class="lbtn off" id="lbtn" onclick="lgNext()">Continuer</button>
+
   </div>
 </div>
 
+<!-- HOME -->
 <div class="screen hidden" id="home">
   <div class="ph">
-    <div class="ht"><div class="htl">Echo <span class="beta">BETA</span></div><div class="hb"><button class="ib" onclick="showNewChat()">✍🏽</button></div></div>
-    <div class="sb"><span>🔍</span><input type="text" id="cvs" oninput="filterCvs()"></div>
+    <div class="ht"><div class="htl">Echo <span class="beta">BETA</span></div><div class="hb"><button class="ib" onclick="showNewChat()">✏️</button></div></div>
+    <div class="sb"><span>🔍</span><input type="text" id="cvs" oninput="filterCvs()" placeholder="Rechercher..."></div>
   </div>
   <div class="sts" id="sts"></div>
-  <div class="cl" id="cvl"></div>
+  <div class="cl2" id="cvl"></div>
   <div class="bn" id="bn1"></div>
 </div>
 
+<!-- GROUPS -->
 <div class="screen hidden" id="groups">
   <div class="ph">
-    <div class="ht"><div class="htl" id="gtt">Groupes</div><button class="ib" onclick="showNewGrp()">➕</button></div>
-    <div class="sb"><span>🔍</span><input type="text" id="grs" oninput="filterGrps()"></div>
+    <div class="ht"><div class="htl">Groupes</div><button class="ib" onclick="showNewGrp()">➕</button></div>
+    <div class="sb"><span>🔍</span><input type="text" id="grs" oninput="filterGrps()" placeholder="Rechercher un groupe..."></div>
   </div>
   <div class="gl" id="grl"></div>
   <button class="fab" onclick="showNewGrp()">➕</button>
   <div class="bn" id="bn2"></div>
 </div>
 
+<!-- GROUP CONV -->
 <div class="screen hidden" id="gcnv">
   <div class="ch">
     <button class="bk" onclick="goBack()">←</button>
@@ -221,20 +342,22 @@ textarea{resize:none}
   <div class="ib2">
     <button style="font-size:20px;color:#8892A4" onclick="showAttach()">📎</button>
     <div class="iw"><textarea id="gti" rows="1" oninput="ar(this);uG()"></textarea><button style="font-size:18px" onclick="showEmoji('gti')">😊</button></div>
-    <button class="sbt off" id="gsb" onclick="sendGrp()">🎤</button>
+    <button class="sbt off" id="gsb" onclick="sendGrp()">🗣️</button>
   </div>
 </div>
 
+<!-- CHANNELS -->
 <div class="screen hidden" id="channels">
   <div class="ph">
-    <div class="ht"><div class="htl" id="ctt">Canaux</div><button class="ib" onclick="showNewChan()">➕</button></div>
-    <div class="sb"><span>🔍</span><input type="text" id="chs" oninput="filterChans()"></div>
+    <div class="ht"><div class="htl">Canaux</div><button class="ib" onclick="showNewChan()">➕</button></div>
+    <div class="sb"><span>🔍</span><input type="text" id="chs" oninput="filterChans()" placeholder="Rechercher un canal..."></div>
   </div>
   <div class="gl" id="chl"></div>
   <button class="fab" onclick="showNewChan()">➕</button>
   <div class="bn" id="bn3"></div>
 </div>
 
+<!-- CHANNEL CONV -->
 <div class="screen hidden" id="ccnv">
   <div class="ch">
     <button class="bk" onclick="goBack()">←</button>
@@ -245,44 +368,46 @@ textarea{resize:none}
   <div class="mg" id="cms"></div>
   <div class="ib2">
     <div class="iw"><textarea id="cti" rows="1" oninput="ar(this);uC()"></textarea><button style="font-size:18px" onclick="showEmoji('cti')">😊</button></div>
-    <button class="sbt off" id="csb" onclick="sendChan()">🎤</button>
+    <button class="sbt off" id="csb" onclick="sendChan()">🗣️</button>
   </div>
 </div>
 
+<!-- PROFILE -->
 <div class="screen hidden" id="profile">
   <div class="ps">
     <div class="pt">
       <div class="paw" onclick="changePhoto()"><div class="pa" id="pav" style="background:#00897B">G</div><div class="pae">📷</div></div>
       <div class="pn" id="pnm">---</div><div class="pp" id="pph"></div>
-      <button class="peb" id="peb" onclick="showEdit()">✏️ Modifier</button>
+      <button class="peb" onclick="showEdit()">✏️ Modifier le profil</button>
     </div>
     <div class="pc">
-      <div class="pct" id="ltt">Langue</div>
+      <div class="pct">Langue</div>
       <div class="lo">
-        <button class="lop" id="bf" onclick="setLang('fr')">🇫🇷 Français</button>
-        <button class="lop" id="be" onclick="setLang('en')">🇬🇧 English</button>
-        <button class="lop" id="bh" onclick="setLang('ha')">🇳🇬 Hausa</button>
+        <button class="lop ac" id="bfr" onclick="setLang('fr')">🇫🇷 Français</button>
+        <button class="lop" id="ben" onclick="setLang('en')">🇬🇧 English</button>
+        <button class="lop" id="bha" onclick="setLang('ha')">🇳🇬 Hausa</button>
         <button class="lop" id="bfo" onclick="setLang('fo')">🇧🇯 Fongbe</button>
         <button class="lop" id="big" onclick="setLang('ig')">🇳🇬 Igbo</button>
       </div>
     </div>
     <div class="pc">
-      <div class="pct" id="pvt">Confidentialité</div>
-      <div class="pw"><div class="pwi">🔒</div><div class="pwf"><div class="pwl" id="e2l">Chiffrement E2E</div><div class="pwv">Actif</div></div><div class="tgl on" onclick="this.classList.toggle('on')"></div></div>
-      <div class="pw"><div class="pwi">🔔</div><div class="pwf"><div class="pwl" id="ntl">Notifications</div><div class="pwv" id="ntv">Activées</div></div><div class="tgl on" id="ntg" onclick="togNotif()"></div></div>
+      <div class="pct">Confidentialité</div>
+      <div class="pw"><div class="pwi">🔒</div><div class="pwf"><div class="pwl">Chiffrement E2E</div><div class="pwv">Actif sur tous les messages</div></div><div class="tgl on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="pw"><div class="pwi">🔔</div><div class="pwf"><div class="pwl">Notifications</div><div class="pwv" id="ntv">Activées</div></div><div class="tgl on" id="ntg" onclick="togNotif()"></div></div>
     </div>
     <div class="pc">
-      <div class="pct" id="pat">À propos</div>
-      <div class="pw" onclick="showVer()"><div class="pwi">ℹ️</div><div class="pwf"><div class="pwl" id="vrl">Version</div><div class="pwv">Echo Beta 1.0</div></div><div class="pwa">›</div></div>
-      <div class="pw" onclick="showSup()"><div class="pwi">❤️</div><div class="pwf"><div class="pwl" id="spl">Soutenir Echo</div></div><div class="pwa">›</div></div>
-      <div class="pw" onclick="showShare()"><div class="pwi">📤</div><div class="pwf"><div class="pwl" id="shl">Partager Echo</div></div><div class="pwa">›</div></div>
-      <div class="pw" onclick="doLogout()"><div class="pwi">🚪</div><div class="pwf"><div class="pwl" id="ltl" style="color:#c62828;font-weight:600">Se déconnecter</div></div></div>
+      <div class="pct">À propos</div>
+      <div class="pw" onclick="showVer()"><div class="pwi">ℹ️</div><div class="pwf"><div class="pwl">Version</div><div class="pwv">Echo Beta 1.0 — 2026</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="showSup()"><div class="pwi">❤️</div><div class="pwf"><div class="pwl">Soutenir Echo</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="showShare()"><div class="pwi">📤</div><div class="pwf"><div class="pwl">Partager Echo</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="doLogout()"><div class="pwi">🚪</div><div class="pwf"><div class="pwl" style="color:#c62828;font-weight:600">Se déconnecter</div></div></div>
     </div>
     <div style="height:30px"></div>
   </div>
   <div class="bn" id="bn4"></div>
 </div>
 
+<!-- CONVERSATION -->
 <div class="screen hidden" id="conv">
   <div class="ch">
     <button class="bk" onclick="goBack()">←</button>
@@ -298,10 +423,11 @@ textarea{resize:none}
   <div class="ib2">
     <button style="font-size:20px;color:#8892A4" onclick="showAttach()">📎</button>
     <div class="iw"><textarea id="mti" rows="1" oninput="ar(this);uS()"></textarea><button style="font-size:18px" onclick="showEmoji('mti')">😊</button></div>
-    <button class="sbt off" id="snd" onclick="sendMsg()">🎤</button>
+    <button class="sbt off" id="snd" onclick="sendMsg()">🗣️</button>
   </div>
 </div>
 
+<!-- CALL -->
 <div class="screen hidden" id="csc">
   <div style="text-align:center">
     <div class="cav" id="calav"></div>
@@ -316,77 +442,30 @@ textarea{resize:none}
   </div>
 </div>
 
-<input type="file" id="phi2" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+<input type="file" id="phi3" accept="image/*" style="display:none" onchange="handlePhoto(event)">
 </div>
 
 <script>
 const SU='https://rivrluyqjrwcjopmgkqn.supabase.co';
 const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpdnJsdXlxanJ3Y2pvcG1na3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0OTIyNjIsImV4cCI6MjA5MzA2ODI2Mn0.t99edAvNjOch0AFI3kCbxdaT7QMMJIJMq1hY_yqC5Kk';
 
-// ── TRADUCTIONS 5 LANGUES ────────────────────────────────────────────────
-const TR={
-fr:{sl:'Speak. Be heard.',wl:'Bienvenue 👋',ep:'Entrez votre numéro',yn:'Votre nom',ha:'Comment voulez-vous apparaître ?',ct:'Continuer',ca:'Créer mon compte',ms:'Messages',gr:'Groupes',ch:'Canaux',pr:'Profil',se:'Rechercher...',sg:'Rechercher un groupe...',sc:'Rechercher un canal...',nm:'Nouveau message',ng:'Nouveau groupe',nc:'Nouveau canal',wm:'Écrire un message...',wg:'Écrire dans le groupe...',wc:'Écrire dans le canal...',td:'Aujourd\'hui',on:'En ligne',of:'Hors ligne',ld:'Chargement...',nv:'Aucune conversation',st:'Appuyez sur ✏️ pour commencer',gn:'Nom du groupe',cd:'Description',cg:'Créer',cn:'Nom du canal',mb:'membres',su:'abonnés',my:'Mon statut',ws:'Écrire un statut...',pb:'Publier',la:'Langue',pv:'Confidentialité',ab:'À propos',e2:'Chiffrement E2E',no:'Notifications',no2:'Activées',no3:'Désactivées',vr:'Version',sp:'Soutenir Echo',sh:'Partager Echo',lo:'Se déconnecter',ep2:'Modifier le profil',fn:'Nom complet',bi:'Bio',sv:'Sauvegarder',cl:'Fermer',dl:'Supprimer',sr:'Rechercher',pn:'Numéro',nf:'Utilisateur introuvable',ip:'Numéro invalide',on2:'C\'est votre numéro',ns:'Nom trop court',ce:'Erreur de connexion',se2:'Recherche...',mc:'Couper notifications',cc:'Effacer conversation',cs:'Paramètres',im:'Inviter',lg:'Quitter le groupe',dg:'Supprimer le groupe',sb2:'S\'abonner',sc2:'Partager le canal',lc:'Quitter le canal',cs2:'Appels bientôt disponibles',ci:'Connexion...',cp:'Appel audio...',cv:'Appel vidéo...',mu:'Micro coupé',mu2:'Micro actif',sk:'Haut-parleur actif',sk2:'Haut-parleur coupé',at:'Joindre',ph:'Photo / Vidéo',do:'Document',vm:'Message vocal',dm:'Supprimer ce message ?',md:'Message supprimé',pu:'Profil mis à jour',fo:'Photo mise à jour',sp2:'Statut publié',lc2:'Lien copié !',no4:'Notifications activées',no5:'Notifications désactivées',gc:'Groupe créé',gd:'Groupe supprimé',is:'Invitation envoyée',sb3:'Abonné !',cv2:'Conversation effacée',dg2:'Supprimer ce groupe ?',dc:'Effacer tous les messages ?',dl2:'Se déconnecter ?',ng2:'Aucun groupe',cg2:'Créez le premier groupe',nc2:'Aucun canal',wi:'Bienvenue dans',sc3:'Choisir un pays',dn:'Don',la2:'Plus tard',eb:'KPONOU Studio',gs:'Paramètres du groupe',cs3:'Paramètres du canal',vf:'Code envoyé à votre email. Vérifiez votre boîte.',re:'Renvoyer le code',mi:'Membres',ad:'Audio',vi:'Vidéo',sm:'Envoyer',pr2:'Paramètres de discussion'},
-en:{sl:'Speak. Be heard.',wl:'Welcome 👋',ep:'Enter your number',yn:'Your name',ha:'How do you want to appear?',ct:'Continue',ca:'Create account',ms:'Messages',gr:'Groups',ch:'Channels',pr:'Profile',se:'Search...',sg:'Search group...',sc:'Search channel...',nm:'New message',ng:'New group',nc:'New channel',wm:'Write a message...',wg:'Write in group...',wc:'Write in channel...',td:'Today',on:'Online',of:'Offline',ld:'Loading...',nv:'No conversation',st:'Tap ✏️ to start',gn:'Group name',cd:'Description',cg:'Create',cn:'Channel name',mb:'members',su:'subscribers',my:'My status',ws:'Write a status...',pb:'Publish',la:'Language',pv:'Privacy',ab:'About',e2:'End-to-end encryption',no:'Notifications',no2:'Enabled',no3:'Disabled',vr:'Version',sp:'Support Echo',sh:'Share Echo',lo:'Log out',ep2:'Edit profile',fn:'Full name',bi:'Bio',sv:'Save',cl:'Close',dl:'Delete',sr:'Search',pn:'Phone number',nf:'User not found',ip:'Invalid number',on2:'That\'s your number',ns:'Name too short',ce:'Connection error',se2:'Searching...',mc:'Mute notifications',cc:'Clear conversation',cs:'Settings',im:'Invite',lg:'Leave group',dg:'Delete group',sb2:'Subscribe',sc2:'Share channel',lc:'Leave channel',cs2:'Calls coming soon',ci:'Connecting...',cp:'Audio call...',cv:'Video call...',mu:'Mic muted',mu2:'Mic active',sk:'Speaker on',sk2:'Speaker off',at:'Attach',ph:'Photo / Video',do:'Document',vm:'Voice message',dm:'Delete this message?',md:'Message deleted',pu:'Profile updated',fo:'Photo updated',sp2:'Status published',lc2:'Link copied!',no4:'Notifications on',no5:'Notifications off',gc:'Group created',gd:'Group deleted',is:'Invite sent',sb3:'Subscribed!',cv2:'Conversation cleared',dg2:'Delete this group?',dc:'Delete all messages?',dl2:'Log out?',ng2:'No groups',cg2:'Create the first group',nc2:'No channels',wi:'Welcome to',sc3:'Select country',dn:'Donate',la2:'Maybe later',eb:'KPONOU Studio',gs:'Group settings',cs3:'Channel settings',vf:'Code sent to your email. Check your inbox.',re:'Resend code',mi:'Members',ad:'Audio',vi:'Video',sm:'Send',pr2:'Chat settings'},
-ha:{sl:'Yi magana. An ji ka.',wl:'Barka da zuwa 👋',ep:'Shigar da lambar waya',yn:'Sunanka',ha:'Yaya kake son bayyanar ka?',ct:'Ci gaba',ca:'Ƙirƙiri asusuna',ms:'Saƙonni',gr:'Ƙungiyoyi',ch:'Tashoshi',pr:'Bayanin kai',se:'Nema...',sg:'Nemi ƙungiya...',sc:'Nemi tasha...',nm:'Saƙo Sabo',ng:'Sabuwar ƙungiya',nc:'Sabuwar tasha',wm:'Rubuta saƙo...',wg:'Rubuta a ƙungiya...',wc:'Rubuta a tasha...',td:'Yau',on:'A kan layi',of:'Ba a kan layi',ld:'Ana lodawa...',nv:'Babu tattaunawa',st:'Danna ✏️ don fara',gn:'Sunan ƙungiya',cd:'Bayani',cg:'Ƙirƙiri',cn:'Sunan tasha',mb:'mambobi',su:'masu biyan kuɗi',my:'Yanayin na',ws:'Rubuta yanayi...',pb:'Buga',la:'Harshe',pv:'Sirri',ab:'Game da Echo',e2:'Rufaffen saƙo',no:'Sanarwa',no2:'An kunna',no3:'An kashe',vr:'Sigar',sp:'Goyi bayan Echo',sh:'Raba Echo',lo:'Fita',ep2:'Gyara bayanin kai',fn:'Cikakken suna',bi:'Bayani',sv:'Ajiye',cl:'Rufe',dl:'Share',sr:'Nema',pn:'Lambar waya',nf:'Ba a sami mai amfani ba',ip:'Lambar ba ta da inganci',on2:'Wannan lambar wayarka ce',ns:'Sunan ya yi gajeru',ce:'Kuskuren haɗi',se2:'Ana nema...',mc:'Kashe sanarwa',cc:'Share tattaunawa',cs:'Saituna',im:'Gayyata',lg:'Bar ƙungiya',dg:'Share ƙungiya',sb2:'Yi rijista',sc2:'Raba tasha',lc:'Bar tasha',cs2:'Kiraye-kiraye za su zo',ci:'Ana haɗawa...',cp:'Kiran murya...',cv:'Kiran bidiyo...',mu:'An kashe mikiyofon',mu2:'An kunna mikiyofon',sk:'An kunna mai magana',sk2:'An kashe mai magana',at:'Haɗa fayil',ph:'Hoto / Bidiyo',do:'Takarda',vm:'Saƙon murya',dm:'Share wannan saƙo?',md:'An share saƙo',pu:'An sabunta bayanin kai',fo:'An sabunta hoto',sp2:'An buga yanayin',lc2:'An kwafi hanyar haɗi!',no4:'An kunna sanarwa',no5:'An kashe sanarwa',gc:'An ƙirƙiri ƙungiya',gd:'An share ƙungiya',is:'An aika gayyata',sb3:'Kana biyan kuɗi!',cv2:'An share tattaunawa',dg2:'Share wannan ƙungiya?',dc:'Share duk saƙonni?',dl2:'Fita daga Echo?',ng2:'Babu ƙungiyoyi',cg2:'Ƙirƙiri ƙungiya ta farko',nc2:'Babu tashoshi',wi:'Barka da zuwa cikin',sc3:'Zaɓi ƙasa',dn:'Ba da gudummawa',la2:'Watakila daga baya',eb:'KPONOU Studio',gs:'Saitocin ƙungiya',cs3:'Saitocin tasha',vf:'An aika lambar a wayar imel. Duba imel ɗinka.',re:'Sake aika lambar',mi:'Mambobi',ad:'Murya',vi:'Bidiyo',sm:'Aika',pr2:'Saitocin tattaunawa'},
-fo:{sl:'Alo yì. È ko we.',wl:'Mi wà 👋',ep:'Ðo alowanú towe',yn:'Nùdo towe',ha:'Ðo nùdo towe b\'é?',ct:'Yi ɖ\'in',ca:'Sɛ̀n asusu',ms:'Nùkplɔkplɔ',gr:'Avɔ ta avɔ',ch:'Vodù lɛ',pr:'Mɛ ce',se:'Mɔ...',sg:'Mɔ avɔ...',sc:'Mɔ vodù...',nm:'Nùkplɔkplɔ yɔyɔ',ng:'Avɔ ta avɔ yɔyɔ',nc:'Vodù yɔyɔ',wm:'Scribo nùkplɔkplɔ...',wg:'Ðo avɔ ta avɔ mɛ...',wc:'Ðo vodù mɛ...',td:'Égbè',on:'Ɖò Internet jí',of:'Ɖò internet jí ǎ',ld:'È ɖò xà wɛ...',nv:'Nùkplɔkplɔ ɖěɖě ǎ',st:'Klán ✏️ bo dɔ bɛ́',gn:'Nùdo avɔ',cd:'Xó',cg:'Wá',cn:'Nùdo vodù',mb:'hagbé',su:'mɛ sɔgbe',my:'Nǔ ce kpodo',ws:'Scribo nǔ kpodo...',pb:'Ɖó',la:'Gbè',pv:'Hwɛjijɔ',ab:'Echo dó ta',e2:'Wɛkɛ E2E',no:'Nùwlan',no2:'Dó',no3:'Zé',vr:'Xwewu',sp:'D\'alɔ Echo',sh:'Vaɖó Echo',lo:'Bɔ',ep2:'Gbɔ mɛ ce',fn:'Nùdo vívɛ',bi:'Xó',sv:'Ɖó',cl:'Kplá',dl:'Hu',sr:'Mɔ',pn:'Alowanú',nf:'Mɛ gbɔn ǎ',ip:'Alowanú nyɔ ǎ',on2:'Alowanú towe ɖé',ns:'Nùdo kpè ǎ',ce:'Sɔgbe wɛ',se2:'È ɖò mɔ wɛ...',mc:'Zé nùwlan',cc:'Hu nùkplɔkplɔ',cs:'Afɔ',im:'Ylɔ',lg:'Bɔ avɔ',dg:'Hu avɔ',sb2:'Sɔgbe',sc2:'Vaɖó vodù',lc:'Bɔ vodù',cs2:'Nùkplɔkplɔ ɔ bɛ́ jɛ dó',ci:'È ɖò sɔgbe wɛ...',cp:'Nùkplɔkplɔ ɔ...',cv:'Vidéo ɔ...',mu:'Ɖyɔ bo kplá',mu2:'Dó',sk:'Dó gbè',sk2:'Zé gbè',at:'Ɖó nǔ',ph:'Foto / Vidéo',do:'Sɛ̀n',vm:'Gbè nùkplɔkplɔ',dm:'Hu nùkplɔkplɔ elɔ?',md:'Nùkplɔkplɔ ɔ hu ɖò',pu:'Mɛ ce gbɔ ɖò',fo:'Foto ɔ gbɔ ɖò',sp2:'Nǔ ɔ ɖó ɖò',lc2:'Hɛ́n sín ɖó!',no4:'Nùwlan dó ɖò',no5:'Nùwlan zé ɖò',gc:'Avɔ ɔ wá ɖò',gd:'Avɔ ɔ hu ɖò',is:'Ylɔ ɔ yì ɖò',sb3:'Sɔgbe ɖò!',cv2:'Nùkplɔkplɔ ɔ hu ɖò',dg2:'Hu avɔ elɔ?',dc:'Hu nùkplɔkplɔ lɛ bǐ?',dl2:'Bɔ Echo mɛ?',ng2:'Avɔ gbɔn ǎ',cg2:'Wá avɔ nukɔntɔn',nc2:'Vodù gbɔn ǎ',wi:'Mi wà',sc3:'Yan tò',dn:'D\'alɔ',la2:'Enyi gɔ́',eb:'KPONOU Studio',gs:'Afɔ avɔ',cs3:'Afɔ vodù',vf:'Nùkplɔkplɔ yì imel towe. Kpɔ́n imel towe.',re:'Sɛ́n nùkplɔkplɔ',mi:'Hagbé lɛ',ad:'Gbè',vi:'Vidéo',sm:'Sɛ́n',pr2:'Afɔ nùkplɔkplɔ'},
-ig:{sl:'Kwuo okwu. Anụ gị.',wl:'Nnọọ 👋',ep:'Tinye nọmba gị',yn:'Aha gị',ha:'Kedụ aha ị chọrọ igosi?',ct:'Gaa n\'ihu',ca:'Mepụta akaụntụ',ms:'Ozi',gr:'Ndị otu',ch:'Ọwa',pr:'Profaịlụ',se:'Chọọ...',sg:'Chọọ otu...',sc:'Chọọ ọwa...',nm:'Ozi ọhụrụ',ng:'Otu ọhụrụ',nc:'Ọwa ọhụrụ',wm:'Dee ozi...',wg:'Dee n\'otu...',wc:'Dee n\'ọwa...',td:'Taa',on:'N\'ịntanetị',of:'Ọ dịghị n\'ịntanetị',ld:'Na-ebugharị...',nv:'Enweghị mkparịta ụka',st:'Pịa ✏️ ịmalite',gn:'Aha otu',cd:'Nkọwa',cg:'Mepụta',cn:'Aha ọwa',mb:'ndị otu',su:'ndị ntinye',my:'Ọnọdụ m',ws:'Dee ọnọdụ...',pb:'Bipụta',la:'Asụsụ',pv:'Nzuzo',ab:'Maka Echo',e2:'Nchekwa E2E',no:'Ọkwa',no2:'Na-arụ ọrụ',no3:'Mechie',vr:'Ụdị',sp:'Nkwado Echo',sh:'Kesaa Echo',lo:'Pụọ',ep2:'Dezie profaịlụ',fn:'Aha zuru oke',bi:'Nkọwa',sv:'Chekwaa',cl:'Mechie',dl:'Hichapụ',sr:'Chọọ',pn:'Nọmba ekwentị',nf:'Ahụghị ọ bụla onye',ip:'Nọmba adịghị mma',on2:'Nọmba gị ka ọ bụ',ns:'Aha dị mkpụmkpụ',ce:'Njehie njikọ',se2:'Na-achọ...',mc:'Mechie ọkwa',cc:'Hichapụ mkparịta ụka',cs:'Ntọala',im:'Kpọọ ndị',lg:'Hapụ otu',dg:'Hichapụ otu',sb2:'Banye',sc2:'Kesaa ọwa',lc:'Hapụ ọwa',cs2:'Oku ga-abịa n\'oge ya',ci:'Na-ejikọ...',cp:'Oku olu...',cv:'Oku vidiyo...',mu:'Ekwochie maịkrofon',mu2:'Maịkrofon na-arụ ọrụ',sk:'Egbochie olu',sk2:'Olu mechiri',at:'Tinye faịlụ',ph:'Foto / Vidiyo',do:'Akwụkwọ',vm:'Ozi olu',dm:'Hichapụ ozi a?',md:'Ehichapụrụ ozi',pu:'Agbarịa profaịlụ',fo:'Agbarịa foto',sp2:'Ebipụtara ọnọdụ',lc2:'Edetụrụ njikọ!',no4:'Ọkwa na-arụ ọrụ',no5:'Ọkwa mechiri',gc:'Emepụtara otu',gd:'Ehichapụrụ otu',is:'Ezigara nkpọ',sb3:'Abanyeela!',cv2:'Ehichapụrụ mkparịta ụka',dg2:'Hichapụ otu a?',dc:'Hichapụ ozị niile?',dl2:'Pụọ na Echo?',ng2:'Enweghị otu',cg2:'Mepụta otu mbụ',nc2:'Enweghị ọwa',wi:'Nnọọ na',sc3:'Họrọ mba',dn:'Nye onyinye',la2:'Oge ọzọ ikwa',eb:'KPONOU Studio',gs:'Ntọala otu',cs3:'Ntọala ọwa',vf:'Ezigara koodu na email gị. Lelee email gị.',re:'Zipu koodu ọzọ',mi:'Ndị otu',ad:'Olu',vi:'Vidiyo',sm:'Zipụ',pr2:'Ntọala mkparịta ụka'}
-};
-
-// ── 150 PAYS ─────────────────────────────────────────────────────────────
-const CTRS=[
-// Afrique (54 pays)
-{c:'+229',f:'🇧🇯',n:'Bénin'},{c:'+234',f:'🇳🇬',n:'Nigeria'},{c:'+233',f:'🇬🇭',n:'Ghana'},{c:'+221',f:'🇸🇳',n:'Sénégal'},
-{c:'+225',f:'🇨🇮',n:"Côte d'Ivoire"},{c:'+237',f:'🇨🇲',n:'Cameroun'},{c:'+226',f:'🇧🇫',n:'Burkina Faso'},
-{c:'+228',f:'🇹🇬',n:'Togo'},{c:'+227',f:'🇳🇪',n:'Niger'},{c:'+223',f:'🇲🇱',n:'Mali'},
-{c:'+212',f:'🇲🇦',n:'Maroc'},{c:'+213',f:'🇩🇿',n:'Algérie'},{c:'+216',f:'🇹🇳',n:'Tunisie'},
-{c:'+20',f:'🇪🇬',n:'Égypte'},{c:'+251',f:'🇪🇹',n:'Éthiopie'},{c:'+254',f:'🇰🇪',n:'Kenya'},
-{c:'+255',f:'🇹🇿',n:'Tanzanie'},{c:'+256',f:'🇺🇬',n:'Ouganda'},{c:'+27',f:'🇿🇦',n:'Afrique du Sud'},
-{c:'+243',f:'🇨🇩',n:'RD Congo'},{c:'+242',f:'🇨🇬',n:'Congo'},{c:'+235',f:'🇹🇩',n:'Tchad'},
-{c:'+241',f:'🇬🇦',n:'Gabon'},{c:'+236',f:'🇨🇫',n:'Centrafrique'},{c:'+240',f:'🇬🇶',n:'Guinée Éq.'},
-{c:'+239',f:'🇸🇹',n:'São Tomé'},{c:'+245',f:'🇬🇼',n:'Guinée-Bissau'},{c:'+224',f:'🇬🇳',n:'Guinée'},
-{c:'+232',f:'🇸🇱',n:'Sierra Leone'},{c:'+231',f:'🇱🇷',n:'Liberia'},{c:'+220',f:'🇬🇲',n:'Gambie'},
-{c:'+238',f:'🇨🇻',n:'Cap-Vert'},{c:'+222',f:'🇲🇷',n:'Mauritanie'},{c:'+249',f:'🇸🇩',n:'Soudan'},
-{c:'+252',f:'🇸🇴',n:'Somalie'},{c:'+253',f:'🇩🇯',n:'Djibouti'},{c:'+291',f:'🇪🇷',n:'Érythrée'},
-{c:'+250',f:'🇷🇼',n:'Rwanda'},{c:'+257',f:'🇧🇮',n:'Burundi'},{c:'+258',f:'🇲🇿',n:'Mozambique'},
-{c:'+263',f:'🇿🇼',n:'Zimbabwe'},{c:'+260',f:'🇿🇲',n:'Zambie'},{c:'+265',f:'🇲🇼',n:'Malawi'},
-{c:'+267',f:'🇧🇼',n:'Botswana'},{c:'+264',f:'🇳🇦',n:'Namibie'},{c:'+268',f:'🇸🇿',n:'Eswatini'},
-{c:'+266',f:'🇱🇸',n:'Lesotho'},{c:'+261',f:'🇲🇬',n:'Madagascar'},{c:'+230',f:'🇲🇺',n:'Maurice'},
-{c:'+248',f:'🇸🇨',n:'Seychelles'},{c:'+269',f:'🇰🇲',n:'Comores'},{c:'+262',f:'🇾🇹',n:'Mayotte'},
-{c:'+244',f:'🇦🇴',n:'Angola'},{c:'+211',f:'🇸🇸',n:'Soudan du Sud'},
-// Europe
-{c:'+33',f:'🇫🇷',n:'France'},{c:'+44',f:'🇬🇧',n:'UK'},{c:'+49',f:'🇩🇪',n:'Allemagne'},
-{c:'+34',f:'🇪🇸',n:'Espagne'},{c:'+39',f:'🇮🇹',n:'Italie'},{c:'+351',f:'🇵🇹',n:'Portugal'},
-{c:'+32',f:'🇧🇪',n:'Belgique'},{c:'+41',f:'🇨🇭',n:'Suisse'},{c:'+31',f:'🇳🇱',n:'Pays-Bas'},
-{c:'+46',f:'🇸🇪',n:'Suède'},{c:'+47',f:'🇳🇴',n:'Norvège'},{c:'+45',f:'🇩🇰',n:'Danemark'},
-{c:'+358',f:'🇫🇮',n:'Finlande'},{c:'+48',f:'🇵🇱',n:'Pologne'},{c:'+43',f:'🇦🇹',n:'Autriche'},
-{c:'+30',f:'🇬🇷',n:'Grèce'},{c:'+36',f:'🇭🇺',n:'Hongrie'},{c:'+420',f:'🇨🇿',n:'Tchéquie'},
-{c:'+40',f:'🇷🇴',n:'Roumanie'},{c:'+7',f:'🇷🇺',n:'Russie'},{c:'+380',f:'🇺🇦',n:'Ukraine'},
-{c:'+353',f:'🇮🇪',n:'Irlande'},{c:'+352',f:'🇱🇺',n:'Luxembourg'},{c:'+356',f:'🇲🇹',n:'Malte'},
-{c:'+354',f:'🇮🇸',n:'Islande'},{c:'+421',f:'🇸🇰',n:'Slovaquie'},{c:'+386',f:'🇸🇮',n:'Slovénie'},
-{c:'+385',f:'🇭🇷',n:'Croatie'},{c:'+381',f:'🇷🇸',n:'Serbie'},{c:'+359',f:'🇧🇬',n:'Bulgarie'},
-// Amériques
-{c:'+1',f:'🇺🇸',n:'USA'},{c:'+1',f:'🇨🇦',n:'Canada'},{c:'+55',f:'🇧🇷',n:'Brésil'},
-{c:'+52',f:'🇲🇽',n:'Mexique'},{c:'+57',f:'🇨🇴',n:'Colombie'},{c:'+54',f:'🇦🇷',n:'Argentine'},
-{c:'+56',f:'🇨🇱',n:'Chili'},{c:'+51',f:'🇵🇪',n:'Pérou'},{c:'+58',f:'🇻🇪',n:'Venezuela'},
-{c:'+593',f:'🇪🇨',n:'Équateur'},{c:'+591',f:'🇧🇴',n:'Bolivie'},{c:'+595',f:'🇵🇾',n:'Paraguay'},
-{c:'+598',f:'🇺🇾',n:'Uruguay'},{c:'+592',f:'🇬🇾',n:'Guyana'},{c:'+597',f:'🇸🇷',n:'Suriname'},
-{c:'+509',f:'🇭🇹',n:'Haïti'},{c:'+1809',f:'🇩🇴',n:'Rép. Dom.'},{c:'+53',f:'🇨🇺',n:'Cuba'},
-{c:'+506',f:'🇨🇷',n:'Costa Rica'},{c:'+507',f:'🇵🇦',n:'Panama'},{c:'+502',f:'🇬🇹',n:'Guatemala'},
-{c:'+503',f:'🇸🇻',n:'Salvador'},{c:'+504',f:'🇭🇳',n:'Honduras'},{c:'+505',f:'🇳🇮',n:'Nicaragua'},
-// Asie
-{c:'+86',f:'🇨🇳',n:'Chine'},{c:'+81',f:'🇯🇵',n:'Japon'},{c:'+82',f:'🇰🇷',n:'Corée du Sud'},
-{c:'+91',f:'🇮🇳',n:'Inde'},{c:'+92',f:'🇵🇰',n:'Pakistan'},{c:'+880',f:'🇧🇩',n:'Bangladesh'},
-{c:'+62',f:'🇮🇩',n:'Indonésie'},{c:'+63',f:'🇵🇭',n:'Philippines'},{c:'+66',f:'🇹🇭',n:'Thaïlande'},
-{c:'+84',f:'🇻🇳',n:'Vietnam'},{c:'+60',f:'🇲🇾',n:'Malaisie'},{c:'+65',f:'🇸🇬',n:'Singapour'},
-{c:'+90',f:'🇹🇷',n:'Turquie'},{c:'+98',f:'🇮🇷',n:'Iran'},{c:'+964',f:'🇮🇶',n:'Irak'},
-{c:'+966',f:'🇸🇦',n:'Arabie Saoudite'},{c:'+971',f:'🇦🇪',n:'Émirats'},{c:'+972',f:'🇮🇱',n:'Israël'},
-{c:'+961',f:'🇱🇧',n:'Liban'},{c:'+962',f:'🇯🇴',n:'Jordanie'},{c:'+974',f:'🇶🇦',n:'Qatar'},
-{c:'+965',f:'🇰🇼',n:'Koweït'},{c:'+973',f:'🇧🇭',n:'Bahreïn'},{c:'+968',f:'🇴🇲',n:'Oman'},
-{c:'+94',f:'🇱🇰',n:'Sri Lanka'},{c:'+95',f:'🇲🇲',n:'Myanmar'},{c:'+855',f:'🇰🇭',n:'Cambodge'},
-{c:'+856',f:'🇱🇦',n:'Laos'},{c:'+976',f:'🇲🇳',n:'Mongolie'},{c:'+7',f:'🇰🇿',n:'Kazakhstan'},
-// Océanie
-{c:'+61',f:'🇦🇺',n:'Australie'},{c:'+64',f:'🇳🇿',n:'Nlle-Zélande'},{c:'+679',f:'🇫🇯',n:'Fidji'}
-];
+// 476 EMOJIS
+const EMOJIS=['😀','😃','😄','😁','😆','😅','😂','🤣','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','😐','😑','😶','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤠','🤡','🥳','🥸','🤢','🤮','🤧','😷','🤒','🤕','🫠','🫡','🫢','🫣','🫥','🫤',
+'👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','👊','✊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','🫶','🫱','🫲','🫳','🫴',
+'❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟',
+'🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐽','🐸','🐵','🙈','🙉','🙊','🐔','🐧','🐦','🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦟','🦗','🕷️','🕸️','🦂','🐢','🐍','🦎','🦖','🦕','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊','🐅','🐆','🦓','🦍','🐘','🦛','🦏','🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🦙','🐐','🦌','🐕','🐩','🦮','🐈','🐓','🦃','🦚','🦜','🦢','🦩','🕊️','🐇','🦝','🦨','🦡','🦦','🦥','🐁','🐀','🐿️','🦔',
+'🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🫑','🌽','🥕','🫒','🧄','🧅','🥔','🍠','🥐','🥯','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🫓','🥪','🥙','🧆','🌮','🌯','🫔','🥗','🥘','🫕','🥫','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🦪','🍤','🍙','🍚','🍘','🍥','🥠','🥮','🍢','🍧','🍦','🍨','🍩','🍪','🎂','🍰','🧁','🥧','🍫','🍬','🍭','🍮','🍯','🍼','🥛','☕','🫖','🍵','🍶','🍾','🍷','🍸','🍹','🍺','🍻','🥂','🥃','🧃','🥤','🧋','🧉',
+'⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🥏','🎱','🪀','🏓','🏸','🏒','🏑','🥍','🏏','🪃','🥅','⛳','🪁','🏹','🎣','🤿','🥊','🥋','🎽','🛹','🛷','⛸️','🥌','🎿','⛷️','🏂','🪂','🏆','🥇','🥈','🥉','🏅','🎖️','🏵️','🎗️','🎫','🎟️',
+'🎵','🎶','🎹','🥁','🪘','🎷','🎺','🪗','🎸','🪕','🎤','🎧','🎼','🎭','🩰','🎨','🎬',
+'🌍','🌎','🌏','🗺️','🗻','🏔️','⛰️','🌋','🧭','🏕️','🏖️','🏜️','🏝️','🏞️','🏟️','🏛️','🏗️','🧱','🛖','🏘️','🏚️','🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🕌','🛕','🕍','⛩️','🕋','⛲','⛺','🌃','🏙️','🌄','🌅','🌆','🌇','🌉',
+'🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚝','🚞','🚋','🚌','🚍','🚎','🚐','🚑','🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🛻','🚚','🚛','🚜','🏎️','🏍️','🛵','🚲','🛴','🚨','🚥','🚦','🛑','🚧','⚓','⛵','🛶','🚤','🛳️','⛴️','🛥️','🚢','✈️','🛩️','🛫','🛬','💺','🚁','🚀','🛸',
+'⌛','⏳','⌚','⏰','⏱️','⏲️','🕰️','🌡️','🎈','🎏','🎐','🎑','🧧','🎀','🎁','🎊','🎉',
+'✅','❌','⭕','☑️','✔️','⭐','🔵','🔴','🟠','🟡','🟢','🟣','🟤','⚫','⚪','🟥','🟧','🟨','🟩','🟦','🟪','🟫','⬛','⬜','🔶','🔷','🔸','🔹','🔺','🔻','💠','🔘','🔲','🔳',
+'🇧🇯','🇳🇬','🇬🇭','🇸🇳','🇨🇮','🇨🇲','🇧🇫','🇹🇬','🇳🇪','🇲🇱','🇲🇦','🇩🇿','🇹🇳','🇪🇬','🇪🇹','🇰🇪','🇹🇿','🇺🇬','🇿🇦','🇨🇩','🇨🇬','🇹🇩','🇬🇦','🇬🇳','🇸🇱','🇱🇷','🇬🇲','🇨🇻','🇲🇷','🇸🇩','🇸🇴','🇩🇯','🇪🇷','🇷🇼','🇧🇮','🇲🇿','🇿🇼','🇿🇲','🇲🇼','🇧🇼','🇳🇦','🇸🇿','🇱🇸','🇲🇬','🇲🇺','🇸🇨','🇰🇲','🇦🇴','🇸🇸',
+'🇫🇷','🇬🇧','🇩🇪','🇪🇸','🇮🇹','🇵🇹','🇧🇪','🇨🇭','🇳🇱','🇸🇪','🇳🇴','🇩🇰','🇫🇮','🇵🇱','🇦🇹','🇬🇷','🇭🇺','🇷🇺','🇺🇦','🇮🇪',
+'🇺🇸','🇨🇦','🇧🇷','🇲🇽','🇨🇴','🇦🇷','🇨🇱','🇵🇪','🇻🇪','🇭🇹',
+'🇨🇳','🇯🇵','🇮🇳','🇵🇰','🇮🇩','🇹🇭','🇻🇳','🇹🇷','🇸🇦','🇦🇪','🇮🇱','🇦🇺','🇳🇿',
+'🏳️','🏴','🏳️‍🌈','🏴‍☠️'];
 
 const AVC=['#00897B','#667EEA','#F6A623','#2E7D32','#6B3FA0','#0288D1'];
 const avc=l=>l?AVC[l.charCodeAt(0)%AVC.length]:'#00897B';
@@ -397,17 +476,23 @@ const hide=id=>{const e=$(id);if(e)e.classList.add('hidden')};
 function mkAv(l,sz,on){const lt=l||'?';return`<div class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.38)}px;background:${avc(lt)}">${lt}${on?'<div class="dot"></div>':''}</div>`}
 function cm(){document.querySelectorAll('.ov').forEach(e=>e.remove())}
 function toast(m){const t=document.createElement('div');t.className='tos';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
-function t(k){return TR[lang][k]||TR.fr[k]||k}
 function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
 
-let CU=null,tab='chats',aC=null,aCt=null,allCv=[],allGr=[],allCh=[],lgStep='phone',sb=null,rtSub=null,aGr=null,aChan=null,cTmr=null,cSec=0,muted=false,spk=false,ctry=CTRS[0],lang=localStorage.getItem('echo_lang')||'fr',curScr='home',otpCode='';
+let CU=null,tab='chats',aC=null,aCt=null,allCv=[],allGr=[],allCh=[],sb=null,rtSub=null,aGr=null,aChan=null,cTmr=null,cSec=0,muted=false,spk=false,country={c:'+229',f:'🇧🇯',n:'Bénin'},ctryFor='',lang=localStorage.getItem('echo_lang')||'fr',genOtp='',vchMethod='sms';
 const SCREENS=['home','groups','channels','profile','conv','csc','gcnv','ccnv'];
-const TABS=[{id:'chats',k:'ms',i:'💬',s:'home'},{id:'groups',k:'gr',i:'👥',s:'groups'},{id:'channels',k:'ch',i:'📡',s:'channels'},{id:'profile',k:'pr',i:'👤',s:'profile'}];
+const TABS=[{id:'chats',l:'Messages',i:'💬',s:'home'},{id:'groups',l:'Groupes',i:'👥',s:'groups'},{id:'channels',l:'Canaux',i:'📢',s:'channels'},{id:'profile',l:'Profil',i:'👤',s:'profile'}];
+
+const CTRS=[
+  {c:'+229',f:'🇧🇯',n:'Bénin'},{c:'+234',f:'🇳🇬',n:'Nigeria'},{c:'+233',f:'🇬🇭',n:'Ghana'},{c:'+221',f:'🇸🇳',n:'Sénégal'},{c:'+225',f:'🇨🇮',n:"Côte d'Ivoire"},{c:'+237',f:'🇨🇲',n:'Cameroun'},{c:'+226',f:'🇧🇫',n:'Burkina Faso'},{c:'+228',f:'🇹🇬',n:'Togo'},{c:'+227',f:'🇳🇪',n:'Niger'},{c:'+223',f:'🇲🇱',n:'Mali'},{c:'+212',f:'🇲🇦',n:'Maroc'},{c:'+213',f:'🇩🇿',n:'Algérie'},{c:'+216',f:'🇹🇳',n:'Tunisie'},{c:'+20',f:'🇪🇬',n:'Égypte'},{c:'+251',f:'🇪🇹',n:'Éthiopie'},{c:'+254',f:'🇰🇪',n:'Kenya'},{c:'+255',f:'🇹🇿',n:'Tanzanie'},{c:'+256',f:'🇺🇬',n:'Ouganda'},{c:'+27',f:'🇿🇦',n:'Afrique du Sud'},{c:'+243',f:'🇨🇩',n:'RD Congo'},{c:'+242',f:'🇨🇬',n:'Congo'},{c:'+235',f:'🇹🇩',n:'Tchad'},{c:'+241',f:'🇬🇦',n:'Gabon'},{c:'+236',f:'🇨🇫',n:'Centrafrique'},{c:'+245',f:'🇬🇼',n:'Guinée-Bissau'},{c:'+224',f:'🇬🇳',n:'Guinée'},{c:'+232',f:'🇸🇱',n:'Sierra Leone'},{c:'+231',f:'🇱🇷',n:'Liberia'},{c:'+220',f:'🇬🇲',n:'Gambie'},{c:'+238',f:'🇨🇻',n:'Cap-Vert'},{c:'+222',f:'🇲🇷',n:'Mauritanie'},{c:'+249',f:'🇸🇩',n:'Soudan'},{c:'+252',f:'🇸🇴',n:'Somalie'},{c:'+253',f:'🇩🇯',n:'Djibouti'},{c:'+291',f:'🇪🇷',n:'Érythrée'},{c:'+250',f:'🇷🇼',n:'Rwanda'},{c:'+257',f:'🇧🇮',n:'Burundi'},{c:'+258',f:'🇲🇿',n:'Mozambique'},{c:'+263',f:'🇿🇼',n:'Zimbabwe'},{c:'+260',f:'🇿🇲',n:'Zambie'},{c:'+265',f:'🇲🇼',n:'Malawi'},{c:'+267',f:'🇧🇼',n:'Botswana'},{c:'+264',f:'🇳🇦',n:'Namibie'},{c:'+268',f:'🇸🇿',n:'Eswatini'},{c:'+266',f:'🇱🇸',n:'Lesotho'},{c:'+261',f:'🇲🇬',n:'Madagascar'},{c:'+230',f:'🇲🇺',n:'Maurice'},{c:'+248',f:'🇸🇨',n:'Seychelles'},{c:'+269',f:'🇰🇲',n:'Comores'},{c:'+244',f:'🇦🇴',n:'Angola'},{c:'+211',f:'🇸🇸',n:'Soudan du Sud'},
+  {c:'+33',f:'🇫🇷',n:'France'},{c:'+44',f:'🇬🇧',n:'UK'},{c:'+49',f:'🇩🇪',n:'Allemagne'},{c:'+34',f:'🇪🇸',n:'Espagne'},{c:'+39',f:'🇮🇹',n:'Italie'},{c:'+351',f:'🇵🇹',n:'Portugal'},{c:'+32',f:'🇧🇪',n:'Belgique'},{c:'+41',f:'🇨🇭',n:'Suisse'},{c:'+31',f:'🇳🇱',n:'Pays-Bas'},{c:'+46',f:'🇸🇪',n:'Suède'},{c:'+47',f:'🇳🇴',n:'Norvège'},{c:'+45',f:'🇩🇰',n:'Danemark'},{c:'+358',f:'🇫🇮',n:'Finlande'},{c:'+48',f:'🇵🇱',n:'Pologne'},{c:'+43',f:'🇦🇹',n:'Autriche'},{c:'+30',f:'🇬🇷',n:'Grèce'},{c:'+36',f:'🇭🇺',n:'Hongrie'},{c:'+7',f:'🇷🇺',n:'Russie'},{c:'+380',f:'🇺🇦',n:'Ukraine'},{c:'+353',f:'🇮🇪',n:'Irlande'},
+  {c:'+1',f:'🇺🇸',n:'USA'},{c:'+1',f:'🇨🇦',n:'Canada'},{c:'+55',f:'🇧🇷',n:'Brésil'},{c:'+52',f:'🇲🇽',n:'Mexique'},{c:'+57',f:'🇨🇴',n:'Colombie'},{c:'+54',f:'🇦🇷',n:'Argentine'},{c:'+56',f:'🇨🇱',n:'Chili'},{c:'+51',f:'🇵🇪',n:'Pérou'},{c:'+58',f:'🇻🇪',n:'Venezuela'},{c:'+509',f:'🇭🇹',n:'Haïti'},
+  {c:'+86',f:'🇨🇳',n:'Chine'},{c:'+81',f:'🇯🇵',n:'Japon'},{c:'+91',f:'🇮🇳',n:'Inde'},{c:'+92',f:'🇵🇰',n:'Pakistan'},{c:'+62',f:'🇮🇩',n:'Indonésie'},{c:'+66',f:'🇹🇭',n:'Thaïlande'},{c:'+84',f:'🇻🇳',n:'Vietnam'},{c:'+90',f:'🇹🇷',n:'Turquie'},{c:'+966',f:'🇸🇦',n:'Arabie Saoudite'},{c:'+971',f:'🇦🇪',n:'Émirats'},{c:'+61',f:'🇦🇺',n:'Australie'},{c:'+64',f:'🇳🇿',n:'Nlle-Zélande'}
+];
 
 // ── SUPABASE ──────────────────────────────────────────────────────────────
-function initSB(){return new Promise(r=>{if(window.supabase){sb=window.supabase.createClient(SU,SK);r(true);return;}const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';s.onload=()=>{sb=window.supabase.createClient(SU,SK);r(true)};s.onerror=()=>r(false);document.head.appendChild(s)});}
+function initSB(){return new Promise(r=>{if(window.supabase){sb=window.supabase.createClient(SU,SK);r();return;}const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';s.onload=()=>{sb=window.supabase.createClient(SU,SK);r()};s.onerror=()=>r();document.head.appendChild(s)});}
 
-// ── BOUTON RETOUR ─────────────────────────────────────────────────────────
+// ── RETOUR TÉLÉPHONE ──────────────────────────────────────────────────────
 window.addEventListener('popstate',()=>{
   if(document.querySelectorAll('.ov').length){cm();return;}
   if(!$('conv').classList.contains('hidden')){goTab('chats');return;}
@@ -418,38 +503,98 @@ window.addEventListener('popstate',()=>{
 function goBack(){window.history.back();}
 function ph(){history.pushState({},'')}
 
-// ── LANGUE ────────────────────────────────────────────────────────────────
-function setLang(l){lang=l;localStorage.setItem('echo_lang',l);applyLang();buildNavs();toast(l==='fr'?'Français':l==='en'?'English':l==='ha'?'Hausa':l==='fo'?'Fongbe':'Igbo');}
-function applyLang(){
-  const mp={ss:'sl',lsl:'sl',lt1:'wl',lh1:'ep',lt2:'yn',lh2:'ha',gtt:'gr',ctt:'ch',ltt:'la',pvt:'pv',pat:'ab',e2l:'e2',ntl:'no',vrl:'vr',spl:'sp',shl:'sh',ltl:'lo',peb:'ep2'};
-  Object.entries(mp).forEach(([id,k])=>{const e=$(id);if(e)e.textContent=(id==='peb'?'✏️ ':'')+t(k)});
-  const ntg=$('ntg');if(ntg)$('ntv').textContent=ntg.classList.contains('on')?t('no2'):t('no3');
-  [['cvs','se'],['grs','sg'],['chs','sc'],['mti','wm'],['gti','wg'],['cti','wc']].forEach(([id,k])=>{const e=$(id);if(e)e.placeholder=t(k)});
-  ['fr','en','ha','fo','ig'].forEach(l=>{const b=$('b'+l);if(b)b.classList.toggle('ac',lang===l)});
-}
-
 // ── INIT ──────────────────────────────────────────────────────────────────
 window.addEventListener('load',async()=>{
-  applyLang();
   await initSB();
-  setTimeout(async()=>{
+  setTimeout(()=>{
     hide('splash');ph();
     const saved=localStorage.getItem('echo_user');
-    if(saved){try{CU=JSON.parse(saved);goTab('chats');}catch(e){localStorage.removeItem('echo_user');showLogin();}}
-    else showLogin();
+    if(saved){
+      try{
+        CU=JSON.parse(saved);
+        // Restaurer le dernier onglet visité
+        const lastTab=localStorage.getItem('echo_tab')||'chats';
+        goTab(lastTab);
+      }catch(e){localStorage.removeItem('echo_user');show('login');}
+    } else {
+      show('login');
+    }
   },2200);
+  // Inputs connexion
+  $('phi-l').addEventListener('input',()=>$('lbtn-l').className='lbtn '+($('phi-l').value.replace(/\D/g,'').length>=6?'on':'off'));
+  // Inputs inscription
+  ['phi-r','nmi'].forEach(id=>{
+    $(id).addEventListener('input',()=>{
+      const ok=$('phi-r').value.replace(/\D/g,'').length>=6&&$('nmi').value.trim().length>=2;
+      $('lbtn-r').className='lbtn '+(ok?'on':'off');
+    });
+  });
+  buildOtpBoxes();
 });
 
-function showLogin(){
-  show('login');
-  $('phi').addEventListener('input',()=>$('lbtn').className='lbtn '+($('phi').value.replace(/\D/g,'').length>=6?'on':'off'));
-  $('nmi').addEventListener('input',()=>{const ok=$('nmi').value.trim().length>=2&&$('emi').value.includes('@');$('lbtn').className='lbtn '+(ok?'on':'off')});
-  $('emi').addEventListener('input',()=>{const ok=$('nmi').value.trim().length>=2&&$('emi').value.includes('@');$('lbtn').className='lbtn '+(ok?'on':'off')});
-  buildOtpBoxes();
+// ── NAVIGATION LOGIN ──────────────────────────────────────────────────────
+function backToChoice(){
+  ['l-login','l-reg1','l-vch','l-otp'].forEach(x=>hide(x));
+  show('l-choice');
+}
+function showLogin(){hide('l-choice');show('l-login');$('phi-l').focus();}
+function showRegister(){hide('l-choice');hide('l-vch');hide('l-otp');show('l-reg1');$('phi-r').focus();}
+function showVch(){hide('l-otp');show('l-vch');}
+
+// ── CONNEXION ─────────────────────────────────────────────────────────────
+async function doLogin(){
+  if(!sb)return;
+  const btn=$('lbtn-l');btn.innerHTML='<div class="sp"></div>';btn.disabled=true;
+  const ph=$('phi-l').value.replace(/\D/g,'');
+  const fullPh=country.c.replace('+','')+ph;
+  try{
+    const {data}=await sb.from('users').select('*').eq('phone',fullPh).maybeSingle();
+    if(data){CU=data;localStorage.setItem('echo_user',JSON.stringify(data));await sb.from('users').update({online:true}).eq('id',data.id);hide('login');goTab('chats');}
+    else{btn.textContent='Se connecter';btn.disabled=false;btn.className='lbtn on';$('le').textContent='Numéro introuvable. Utilisez ✨ Je suis nouveau.';}
+  }catch(e){btn.textContent='Se connecter';btn.disabled=false;btn.className='lbtn on';$('le').textContent='Erreur de connexion.';}
+  }
+// ── INSCRIPTION ───────────────────────────────────────────────────────────
+async function goToVch(){
+  const ph=$('phi-r').value.replace(/\D/g,'');
+  const name=$('nmi').value.trim();
+  if(ph.length<6||name.length<2){$('re1').textContent='Remplissez tous les champs.';return;}
+  if(!sb){$('re1').textContent='Connexion en cours...';return;}
+  const fullPh=country.c.replace('+','')+ph;
+  const {data:existing}=await sb.from('users').select('id').eq('phone',fullPh).maybeSingle();
+  if(existing){$('re1').textContent='Ce numéro est déjà inscrit. Utilisez 🔑 J\'ai déjà un compte.';return;}
+  $('re1').textContent='';
+  hide('l-reg1');show('l-vch');
+}
+
+function selVch(m){
+  vchMethod=m;
+  $('vch-sms').classList.toggle('sel',m==='sms');
+  $('vch-email').classList.toggle('sel',m==='email');
+  m==='email'?show('vch-email-inp'):hide('vch-email-inp');
+}
+
+async function sendOtp(){
+  if(vchMethod==='email'){
+    const email=$('emi')?.value.trim();
+    if(!email||!email.includes('@')){$('ve').textContent='Entrez un email valide';return;}
+  }
+  // Générer code
+  genOtp=String(Math.floor(100000+Math.random()*900000));
+  const ph=$('phi-r').value.replace(/\D/g,'');
+  const name=$('nmi').value.trim();
+  const fullPh=country.c.replace('+','')+ph;
+  localStorage.setItem('echo_pending',JSON.stringify({ph:fullPh,name,letter:name[0].toUpperCase(),code:genOtp,exp:Date.now()+600000,method:vchMethod}));
+  // Afficher code
+  $('otp-show').textContent=genOtp;
+  $('otp-sub').textContent=vchMethod==='sms'?`Code SMS envoyé au ${country.c} ${ph} (Beta : code visible ci-dessus)`:`Code envoyé à ${$('emi')?.value||'votre email'} (Beta : code visible ci-dessus)`;
+  hide('l-vch');show('l-otp');
+  // Essayer envoi email via Supabase si email choisi
+  if(vchMethod==='email'&&sb){try{await sb.auth.signInWithOtp({email:$('emi').value,options:{shouldCreateUser:false}});}catch(e){}}
+  $('ob0')?.focus();
 }
 
 function buildOtpBoxes(){
-  const row=$('otr');row.innerHTML='';
+  const row=$('otr');if(!row)return;row.innerHTML='';
   for(let i=0;i<6;i++){
     const b=document.createElement('input');
     b.type='text';b.inputMode='numeric';b.maxLength=1;b.className='ob';b.id='ob'+i;
@@ -457,95 +602,48 @@ function buildOtpBoxes(){
       e.target.value=e.target.value.replace(/\D/,'').slice(-1);
       e.target.classList.toggle('f',!!e.target.value);
       if(e.target.value&&i<5)$('ob'+(i+1)).focus();
-      const code=[...Array(6)].map((_,j)=>$('ob'+j)?.value||'').join('');
-      if(code.length===6)verifyOtp(code);
     });
     row.appendChild(b);
   }
 }
 
-// ── LOGIN FLOW ────────────────────────────────────────────────────────────
-async function lgNext(){
+async function doVerify(){
   if(!sb)return;
-  const btn=$('lbtn');btn.innerHTML='<div class="sp"></div>';btn.disabled=true;
-
-  if(lgStep==='phone'){
-    const ph=$('phi').value.replace(/\D/g,'');
-    if(ph.length<6){showBtn(t('ct'));$('phe').textContent=t('ip');return;}
-    $('phe').textContent='';
-    const fullPh=ctry.c.replace('+','')+ph;
-    try{
-      const {data}=await sb.from('users').select('*').eq('phone',fullPh).maybeSingle();
-      if(data){
-        CU=data;localStorage.setItem('echo_user',JSON.stringify(data));
-        await sb.from('users').update({online:true}).eq('id',data.id);
-        hide('login');goTab('chats');
-      } else {
-        lgStep='name';hide('sp1');show('sp2');showBtn(t('ca'));$('nmi').focus();
-      }
-    }catch(e){showBtn(t('ct'));$('phe').textContent=t('ce');}
-} else if(lgStep==='name'){
-    const name=$('nmi').value.trim(),email=$('emi').value.trim(),ph=$('phi').value.replace(/\D/g,'');
-    if(name.length<2){showBtn(t('ca'));$('nme').textContent=t('ns');return;}
-    if(!email.includes('@')){showBtn(t('ca'));$('nme').textContent='Email invalide';return;}
-    // Générer code OTP 6 chiffres
-    otpCode=String(Math.floor(100000+Math.random()*900000));
-    // Envoyer via Supabase Edge (simulation — stocker en localStorage pour test)
-    localStorage.setItem('echo_otp_pending',JSON.stringify({code:otpCode,phone:ctry.c.replace('+','')+ph,name,email,exp:Date.now()+600000}));
-    // Tentative envoi email via Supabase Auth
-    try{
-      await sb.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:window.location.href}});
-    }catch(e){}
-    lgStep='otp';hide('sp2');show('sp3');
-    $('oti').textContent=t('vf');
-    $('lbtn').className='lbtn on';showBtn('Vérifier →');
-    $('ob0').focus();
-
-  } else if(lgStep==='otp'){
-    const code=[...Array(6)].map((_,i)=>$('ob'+i)?.value||'').join('');
-    await verifyOtp(code);
-  }
-}
-
-async function verifyOtp(code){
-  if(!code||code.length<6)return;
-  const pending=JSON.parse(localStorage.getItem('echo_otp_pending')||'{}');
-  const valid=pending.code===code&&Date.now()<(pending.exp||0);
-  // Accepter aussi le code Supabase (en production) — ici on accepte si match
-  if(!valid&&code!==otpCode){
-    $('ote').textContent='Code incorrect. Essayez encore.';return;
-  }
-  // Créer l'utilisateur
+  const entered=[...Array(6)].map((_,i)=>$('ob'+i)?.value||'').join('');
+  const pending=JSON.parse(localStorage.getItem('echo_pending')||'{}');
+  if(entered!==pending.code){$('oe').textContent='Code incorrect. Vérifiez les chiffres affichés.';return;}
+  if(Date.now()>pending.exp){$('oe').textContent='Code expiré. Recommencez.';showVch();return;}
   try{
-    const {data,error}=await sb.from('users').insert({
-      phone:pending.phone,display_name:pending.name,
-      avatar_letter:pending.name[0].toUpperCase(),
-      email:pending.email,online:true
-    }).select().single();
-    if(error){$('ote').textContent='Erreur: '+error.message;return;}
+    const {data,error}=await sb.from('users').insert({phone:pending.ph,display_name:pending.name,avatar_letter:pending.letter,online:true}).select().single();
+    if(error){$('oe').textContent='Erreur: '+error.message;return;}
     CU=data;localStorage.setItem('echo_user',JSON.stringify(data));
-    localStorage.removeItem('echo_otp_pending');
-    hide('login');goTab('chats');
-  }catch(e){$('ote').textContent=t('ce');}
+    localStorage.removeItem('echo_pending');
+    hide('login');goTab('chats');toast('Bienvenue sur Echo 🎉');
+  }catch(e){$('oe').textContent='Erreur de connexion.';}
 }
-
-function showBtn(txt){const b=$('lbtn');b.textContent=txt;b.disabled=false;b.className='lbtn on';}
 
 // ── PAYS ──────────────────────────────────────────────────────────────────
-function showCtry(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('sc3')}</div><input class="mi2" id="ctrs" placeholder="Chercher..." oninput="filterCtry()"><div id="ctrl">${renderCtryList(CTRS)}</div><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
+function showCtry(f){
+  ctryFor=f;
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Choisir un pays</div><input class="mi2" id="ctrs" placeholder="Chercher..." oninput="filterCtry()"><div id="ctrl">${rCtry(CTRS)}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
 }
-function renderCtryList(list){return list.map(c=>`<div class="cit" onclick="pickCtry('${c.c}','${c.f}','${c.n}')"><span style="font-size:22px">${c.f}</span><span style="flex:1;font-size:15px;color:#1A1A2E">${c.n}</span><span style="color:#00897B;font-weight:700">${c.c}</span></div>`).join('');}
-function filterCtry(){const q=$('ctrs').value.toLowerCase();$('ctrl').innerHTML=renderCtryList(CTRS.filter(c=>c.n.toLowerCase().includes(q)||c.c.includes(q)));}
-function pickCtry(c,f,n){ctry={c,f,n};$('ctb').textContent=f+' '+c;cm();}
+function rCtry(list){return list.map(c=>`<div class="cit" onclick="pickCtry('${c.c}','${c.f}','${c.n}')"><span style="font-size:22px">${c.f}</span><span style="flex:1;font-size:15px;color:#1A1A2E">${c.n}</span><span style="color:#00897B;font-weight:700">${c.c}</span></div>`).join('');}
+function filterCtry(){const q=$('ctrs').value.toLowerCase();$('ctrl').innerHTML=rCtry(CTRS.filter(c=>c.n.toLowerCase().includes(q)||c.c.includes(q)));}
+function pickCtry(c,f,n){
+  country={c,f,n};
+  const id=ctryFor==='l'?'ctb-l':'ctb-r';
+  const b=$(id);if(b)b.textContent=f+' '+c;
+  cm();
+}
 
-// ── NAVIGATION ────────────────────────────────────────────────────────────
+// ── NAVIGATION PRINCIPALE ─────────────────────────────────────────────────
 function goTab(id){
-  cm();SCREENS.forEach(s=>hide(s));tab=id;curScr=id;
+  cm();SCREENS.forEach(s=>hide(s));tab=id;
+  localStorage.setItem('echo_tab',id); // Sauvegarde pour refresh
   const tb=TABS.find(x=>x.id===id);
   if(tb){show(tb.s);buildScreen(id);}
   buildNavs();ph();
-}
+  }
 function buildScreen(id){
   if(id==='chats'){buildSts();loadCvs();}
   else if(id==='groups')loadGrps();
@@ -555,39 +653,37 @@ function buildScreen(id){
 function buildNavs(){
   ['bn1','bn2','bn3','bn4'].forEach(id=>{
     const el=$(id);if(!el)return;
-    el.innerHTML=TABS.map(tb=>`<button class="nb" onclick="goTab('${tb.id}')" style="color:${tab===tb.id?'#00897B':'#8892A4'}"><span class="ni">${tb.i}</span><span class="nl" style="font-weight:${tab===tb.id?700:500}">${t(tb.k)}</span>${tab===tb.id?'<div class="nd"></div>':''}</button>`).join('');
+    el.innerHTML=TABS.map(tb=>`<button class="nb" onclick="goTab('${tb.id}')" style="color:${tab===tb.id?'#00897B':'#8892A4'}"><span class="ni">${tb.i}</span><span class="nl" style="font-weight:${tab===tb.id?700:500}">${tb.l}</span>${tab===tb.id?'<div class="nd"></div>':''}</button>`).join('');
   });
 }
 
-// ── STATUTS / STORIES ─────────────────────────────────────────────────────
+// ── STORIES ───────────────────────────────────────────────────────────────
 function buildSts(){
   if(!CU)return;
   const l=CU.avatar_letter||CU.display_name[0].toUpperCase();
-  $('sts').innerHTML=`<div class="st" onclick="showMyStatus()"><div class="sta" style="background:linear-gradient(135deg,#26A69A,#004D40);position:relative">${l}<div style="position:absolute;bottom:0;right:0;width:18px;height:18px;border-radius:50%;background:#00897B;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">+</div></div><div class="stn">${t('my')}</div></div>`;
+  $('sts').innerHTML=`<div class="st" onclick="showMyStatus()"><div class="sta" style="background:linear-gradient(135deg,#26A69A,#004D40);position:relative">${l}<div style="position:absolute;bottom:0;right:0;width:18px;height:18px;border-radius:50%;background:#00897B;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">+</div></div><div class="stn">Mon statut</div></div>`;
 }
-function showMyStatus(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('my')}</div><input class="mi2" id="sti" placeholder="${t('ws')}" maxlength="100"><button class="mb mp" onclick="pubSts()">📡 ${t('pb')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
-function pubSts(){const v=$('sti')?.value.trim();if(v){cm();toast(t('sp2'));}}
+function showMyStatus(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubSts()">📢 Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
+function pubSts(){const v=$('sti')?.value.trim();if(v){cm();toast('Statut publié !')}}
 
 // ── CONVERSATIONS ─────────────────────────────────────────────────────────
 async function loadCvs(){
   if(!CU||!sb)return;
-  $('cvl').innerHTML=`<div class="em"><div class="ei">⏳</div>${t('ld')}</div>`;
+  $('cvl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
   try{
     const {data}=await sb.from('conversations')
       .select('*, u1:users!conversations_user1_id_fkey(id,display_name,avatar_letter,online), u2:users!conversations_user2_id_fkey(id,display_name,avatar_letter,online)')
       .or(`user1_id.eq.${CU.id},user2_id.eq.${CU.id}`).order('created_at',{ascending:false});
     allCv=data||[];renderCvs(allCv);
-  }catch(e){$('cvl').innerHTML=`<div class="em"><div class="ei">💬</div>${t('nv')}<br>${t('st')}</div>`;}
+  }catch(e){$('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️ pour commencer</div>';}
 }
 function renderCvs(list){
   const el=$('cvl');
-  if(!list||!list.length){el.innerHTML=`<div class="em"><div class="ei">💬</div>${t('nv')}<br>${t('st')}</div>`;return;}
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️ pour commencer</div>';return;}
   el.innerHTML=list.map(c=>{
     const ct=c.user1_id===CU.id?c.u2:c.u1;if(!ct)return'';
     const l=ct.avatar_letter||ct.display_name[0].toUpperCase();
-    return`<div class="ci" onclick="openCv('${c.id}','${ct.id}')">${mkAv(l,44,ct.online)}<div class="cii"><div class="ct"><span class="cn">${ct.display_name}</span><span class="ctm">${c.last_time||''}</span></div><div class="clm">${c.last_message||t('st')}</div></div></div>`;
+    return`<div class="ci" onclick="openCv('${c.id}','${ct.id}')">${mkAv(l,44,ct.online)}<div class="cii"><div class="ct"><span class="cn">${ct.display_name}</span><span class="ctm">${c.last_time||''}</span></div><div class="clm">${c.last_message||'Démarrer la conversation'}</div></div></div>`;
   }).join('');
 }
 function filterCvs(){const q=$('cvs').value.toLowerCase();if(!q){renderCvs(allCv);return;}renderCvs(allCv.filter(c=>{const ct=c.user1_id===CU.id?c.u2:c.u1;return ct&&ct.display_name.toLowerCase().includes(q);}));}
@@ -600,60 +696,47 @@ async function openCv(cvId,ctId){
   const l=ct.avatar_letter||ct.display_name[0].toUpperCase();
   $('cvav').innerHTML=mkAv(l,40,ct.online);
   $('cvnm').textContent=ct.display_name;
-  $('cvst').textContent=ct.online?t('on'):t('of');
+  $('cvst').textContent=ct.online?'En ligne':'Hors ligne';
   $('cvst').style.color=ct.online?'#43A047':'#8892A4';
-  $('mti').placeholder=t('wm');
   await loadMsgs(cvId);
-  SCREENS.forEach(s=>hide(s));show('conv');curScr='conv';ph();
+  SCREENS.forEach(s=>hide(s));show('conv');ph();
   if(rtSub)sb.removeChannel(rtSub);
   rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>appendMsg(p.new)).subscribe();
 }
-
 async function loadMsgs(cvId){
   const {data}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
-  renderMsgs(data||[],'msgs');
+  renderMsgs(data||[]);
 }
-
-function renderMsgs(msgs,cont){
-  let h=`<div class="ds"><span>${t('td')}</span></div>`;
+function renderMsgs(msgs){
+  let h='<div class="ds"><span>Aujourd\'hui</span></div>';
   msgs.forEach((m,i)=>{
-    if(m.deleted){h+=`<div class="mr ${m.sender_id===CU.id?'me':'th'}"><div class="bl ${m.sender_id===CU.id?'me':'th'}" style="opacity:.5;font-style:italic"><div class="blt" style="font-size:13px">🗑 ${t('md')}</div></div></div>`;return;}
+    if(m.deleted){h+=`<div class="mr ${m.sender_id===CU.id?'me':'th'}"><div class="bl ${m.sender_id===CU.id?'me':'th'}" style="opacity:.5;font-style:italic"><div class="blt" style="font-size:13px">🗑 Message supprimé</div></div></div>`;return;}
     const me=m.sender_id===CU.id,ps=i>0&&msgs[i-1].sender_id===m.sender_id&&!msgs[i-1].deleted;
     const l=me?(CU.avatar_letter||CU.display_name[0]):(aCt?aCt.avatar_letter||aCt.display_name[0]:'?');
     h+=`<div class="mr ${me?'me':'th'}${ps?' cl':''}" id="mr${m.id}">
       ${!me?`<div class="mav" style="opacity:${ps?0:1}">${mkAv(l,28,false)}</div>`:''}
-      <div class="bl ${me?'me':'th'}" data-id="${m.id}" ontouchstart="sLP(this,'${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()">
+      <div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()">
         <div class="blt">${m.text}</div>
         <div class="bm">${m.time||''}${me?' ✓':''}</div>
       </div>
     </div>`;
   });
-  $(cont).innerHTML=h;scB(cont);
+  $('msgs').innerHTML=h;scB('msgs');
 }
-
 function appendMsg(m){
   if(!m||m.deleted)return;
   const me=m.sender_id===CU.id;
   const l=me?(CU.avatar_letter||CU.display_name[0]):(aCt?aCt.avatar_letter||aCt.display_name[0]:'?');
   const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;d.id=`mr${m.id}`;
-  d.innerHTML=`${!me?`<div class="mav">${mkAv(l,28,false)}</div>`:''}<div class="bl ${me?'me':'th'}" ontouchstart="sLP(this,'${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()"><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
+  d.innerHTML=`${!me?`<div class="mav">${mkAv(l,28,false)}</div>`:''}<div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()"><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
   $('msgs').appendChild(d);scB('msgs');
 }
 function scB(id){setTimeout(()=>{const e=$(id);if(e)e.scrollTop=e.scrollHeight},60)}
-
 let lpT=null;
-function sLP(el,id,me){lpT=setTimeout(()=>{if(me)showMsgOpts(el,id)},600);}
+function sLP(id,me){lpT=setTimeout(()=>{if(me)showDelMsg(id)},600);}
 function cLP(){clearTimeout(lpT);}
-function showMsgOpts(el,id){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><button class="mb mr2" onclick="delMsg('${id}')">${t('dl')} — ${t('dm').replace('?','')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
-async function delMsg(id){
-  cm();if(!confirm(t('dm')))return;
-  if(sb)await sb.from('messages').update({deleted:true,text:''}).eq('id',id);
-  const row=$('mr'+id);
-  if(row){const b=row.querySelector('.bl');if(b){b.style.opacity='.5';b.style.fontStyle='italic';b.querySelector('.blt').textContent='🗑 '+t('md');b.querySelector('.bm').textContent='';}}
-}
-
+function showDelMsg(id){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><button class="mb mr2" onclick="delMsg('${id}')">🗑 Supprimer ce message</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
+async function delMsg(id){cm();if(sb)await sb.from('messages').update({deleted:true,text:''}).eq('id',id);const row=$('mr'+id);if(row){const b=row.querySelector('.bl');if(b){b.style.opacity='.5';b.style.fontStyle='italic';b.querySelector('.blt').textContent='🗑 Message supprimé';b.querySelector('.bm').textContent='';}}toast('Message supprimé');}
 async function sendMsg(){
   const inp=$('mti'),text=inp.value.trim();if(!text||!aC||!sb)return;
   inp.value='';ar(inp);uS();
@@ -661,36 +744,21 @@ async function sendMsg(){
   await sb.from('messages').insert({conversation_id:aC.id,sender_id:CU.id,text,time,deleted:false});
   await sb.from('conversations').update({last_message:text,last_time:time}).eq('id',aC.id);
 }
-function uS(){const v=$('mti').value.trim();$('snd').textContent=v?'➤':'🎤';$('snd').className='sbt '+(v?'on':'off');}
+function uS(){const v=$('mti').value.trim();$('snd').textContent=v?'➤':'🗣️';$('snd').className='sbt '+(v?'on':'off');}
 
-// ── CONV MENU ─────────────────────────────────────────────────────────────
-function showCvMenu(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div>
-    <button class="mb mp" onclick="cm();showCvSettings()">${t('pr2')}</button>
-    <button class="mb mp" onclick="cm();toast(t('no5'))">${t('mc')}</button>
-    <button class="mb mr2" onclick="cm();clearCv()">${t('cc')}</button>
-    <button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
-function showCvSettings(){
- document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('pr2')}</div>
-    <div style="text-align:center;padding:8px 0 16px">${mkAv(aCt?.avatar_letter||'?',64,aCt?.online)}<div style="font-size:16px;font-weight:700;color:#1A1A2E;margin-top:8px">${aCt?.display_name||''}</div><div style="font-size:12px;color:${aCt?.online?'#43A047':'#8892A4'}">${aCt?.online?t('on'):t('of')}</div><div style="font-size:12px;color:#8892A4;margin-top:4px">${aCt?.phone?'+'+aCt.phone:''}</div></div>
-    <button class="mb mp" onclick="cm();toast(t('no5')+'...')">${t('mc')}</button>
-    <button class="mb mr2" onclick="cm();clearCv()">${t('cc')}</button>
-    <button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
-async function clearCv(){if(!confirm(t('dc')))return;if(sb&&aC)await sb.from('messages').delete().eq('conversation_id',aC.id);$('msgs').innerHTML=`<div class="ds"><span>${t('td')}</span></div>`;toast(t('cv2'));}
+function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Voir le profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer la conversation</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showCvInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Profil</div><div style="text-align:center;padding:8px 0 16px">${mkAv(aCt?.avatar_letter||'?',64,aCt?.online)}<div style="font-size:16px;font-weight:700;color:#1A1A2E;margin-top:10px">${aCt?.display_name||''}</div><div style="font-size:13px;color:${aCt?.online?'#43A047':'#8892A4'};margin-top:4px">${aCt?.online?'En ligne':'Hors ligne'}</div><div style="font-size:12px;color:#8892A4;margin-top:4px">${aCt?.phone?'+'+aCt.phone:''}</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+async function clearCv(){if(!confirm('Effacer tous les messages ?'))return;if(sb&&aC)await sb.from('messages').delete().eq('conversation_id',aC.id);$('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div>';toast('Conversation effacée');}
 
-function showNewChat(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('nm')}</div><input class="mi2" id="nci" placeholder="${t('pn')}" type="tel"><button class="mb mp" onclick="startChat()">${t('sr')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button><div class="er" id="nce"></div></div></div>`);
-}
+function showNewChat(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Nouveau message</div><input class="mi2" id="nci" placeholder="Numéro de téléphone" type="tel"><button class="mb mp" onclick="startChat()">Rechercher</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="nce"></div></div></div>`);}
 async function startChat(){
   if(!sb)return;
   const phone=$('nci').value.replace(/\D/g,'');
-  if(phone.length<6){$('nce').textContent=t('ip');return;}
-  if(phone===CU.phone){$('nce').textContent=t('on2');return;}
-  $('nce').textContent=t('se2');
+  if(phone.length<6){$('nce').textContent='Numéro invalide';return;}
+  $('nce').textContent='Recherche...';
   const {data:ct}=await sb.from('users').select('*').eq('phone',phone).maybeSingle();
-  if(!ct){$('nce').textContent=t('nf');return;}
+  if(!ct){$('nce').textContent='Utilisateur introuvable sur Echo';return;}
+  if(ct.id===CU.id){$('nce').textContent='C\'est votre propre numéro';return;}
   let {data:ex}=await sb.from('conversations').select('*').or(`and(user1_id.eq.${CU.id},user2_id.eq.${ct.id}),and(user1_id.eq.${ct.id},user2_id.eq.${CU.id})`).maybeSingle();
   if(!ex){const {data:nc}=await sb.from('conversations').insert({user1_id:CU.id,user2_id:ct.id}).select().single();ex=nc;}
   cm();openCv(ex.id,ct.id);
@@ -699,165 +767,93 @@ async function startChat(){
 // ── GROUPES ───────────────────────────────────────────────────────────────
 async function loadGrps(){
   if(!sb)return;
-  $('grl').innerHTML=`<div class="em"><div class="ei">⏳</div>${t('ld')}</div>`;
+  $('grl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
   const {data}=await sb.from('groups').select('*').order('created_at',{ascending:false});
   allGr=data||[];renderGrps(allGr);
 }
 function renderGrps(list){
   const el=$('grl');
-  if(!list||!list.length){el.innerHTML=`<div class="em"><div class="ei">👥</div>${t('ng2')}<br>${t('cg2')}</div>`;return;}
-  el.innerHTML=list.map(g=>`<div class="gi" onclick="openGrp('${g.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(g.avatar_letter||'G')}">${g.avatar_letter||'G'}</div><div class="gii"><div class="gn">${g.name}</div><div class="gm">${g.member_count||1} ${t('mb')} · ${g.last_message||''}</div></div></div>`).join('');
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier groupe</div>';return;}
+  el.innerHTML=list.map(g=>`<div class="gi" onclick="openGrp('${g.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(g.avatar_letter||'G')}">${g.avatar_letter||'G'}</div><div class="gii"><div class="gn">${g.name}</div><div class="gm">${g.member_count||1} membres · ${g.last_message||''}</div></div></div>`).join('');
 }
 function filterGrps(){const q=$('grs').value.toLowerCase();renderGrps(!q?allGr:allGr.filter(g=>g.name.toLowerCase().includes(q)));}
-
-function showNewGrp(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('ng')}</div><input class="mi2" id="gni" placeholder="${t('gn')}"><input class="mi2" id="gdi" placeholder="${t('cd')}"><button class="mb mp" onclick="createGrp()">${t('cg')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button><div class="er" id="gne"></div></div></div>`);
-}
+function showNewGrp(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Nouveau groupe</div><input class="mi2" id="gni" placeholder="Nom du groupe"><input class="mi2" id="gdi" placeholder="Description (optionnel)"><button class="mb mp" onclick="createGrp()">Créer le groupe</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="gne"></div></div></div>`);}
 async function createGrp(){
-  const name=$('gni')?.value.trim();if(!name){$('gne').textContent='!';return;}
-  if(!sb)return;
+  const name=$('gni')?.value.trim();if(!name){$('gne').textContent='Entrez un nom';return;}
   const {data}=await sb.from('groups').insert({name,avatar_letter:name[0].toUpperCase(),created_by:CU.id,member_count:1,last_message:''}).select().single();
-  if(data){
-    await sb.from('group_members').insert({group_id:data.id,user_id:CU.id,phone:CU.phone,display_name:CU.display_name,avatar_letter:CU.avatar_letter||CU.display_name[0].toUpperCase()});
-    allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast(t('gc'));
-  }
+  if(data){await sb.from('group_members').insert({group_id:data.id,user_id:CU.id,phone:CU.phone,display_name:CU.display_name,avatar_letter:CU.avatar_letter||CU.display_name[0].toUpperCase()});allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✅');}
 }
-
 async function openGrp(id){
   aGr=allGr.find(g=>g.id===id)||{id,name:'Groupe',avatar_letter:'G',member_count:1,created_by:''};
-  const l=aGr.avatar_letter||'G';
-  $('gav').innerHTML=mkAv(l,40,false);
-  $('gnm').textContent=aGr.name;
-  $('gmt').textContent=`${aGr.member_count||1} ${t('mb')}`;
-  $('gti').placeholder=t('wg');
-  // Charger messages du groupe
+  $('gav').innerHTML=mkAv(aGr.avatar_letter||'G',40,false);
+  $('gnm').textContent=aGr.name;$('gmt').textContent=`${aGr.member_count||1} membres`;
+  $('gti').placeholder='Écrire dans le groupe...';
   const {data:gmsgs}=await sb.from('group_messages').select('*').eq('group_id',id).order('created_at',{ascending:true});
-  let h=`<div class="ds"><span>${t('td')}</span></div>`;
-  (gmsgs||[]).forEach(m=>{
-    const me=m.sender_id===CU.id;
-    h+=`<div class="mr ${me?'me':'th'}"><div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div></div>`;
-  });
+  let h='<div class="ds"><span>Aujourd\'hui</span></div>';
+  (gmsgs||[]).forEach(m=>{const me=m.sender_id===CU.id;h+=`<div class="mr ${me?'me':'th'}"><div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div></div>`;});
   $('gms').innerHTML=h;scB('gms');
-  SCREENS.forEach(s=>hide(s));show('gcnv');curScr='gcnv';ph();
-  // Realtime groupe
+  SCREENS.forEach(s=>hide(s));show('gcnv');ph();
   if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel('grp-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{
-    const m=p.new,me=m.sender_id===CU.id;
-    const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;
-    d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
-    $('gms').appendChild(d);scB('gms');
-  }).subscribe();
+  rtSub=sb.channel('grp-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{const m=p.new,me=m.sender_id===CU.id;const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;$('gms').appendChild(d);scB('gms');}).subscribe();
 }
-
-function uG(){const v=$('gti').value.trim();$('gsb').textContent=v?'➤':'🎤';$('gsb').className='sbt '+(v?'on':'off');}
+function uG(){const v=$('gti').value.trim();$('gsb').textContent=v?'➤':'🗣️';$('gsb').className='sbt '+(v?'on':'off');}
 async function sendGrp(){
-  const inp=$('gti'),text=inp.value.trim();if(!text)return;
-  inp.value='';ar(inp);uG();
-  const time=nt();
-  if(sb&&aGr){
-    await sb.from('group_messages').insert({group_id:aGr.id,sender_id:CU.id,sender_name:CU.display_name,sender_letter:CU.avatar_letter||CU.display_name[0].toUpperCase(),text,time});
-    await sb.from('groups').update({last_message:text}).eq('id',aGr.id);
-  }
+  const inp=$('gti'),text=inp.value.trim();if(!text)return;inp.value='';ar(inp);uG();
+  if(sb&&aGr){await sb.from('group_messages').insert({group_id:aGr.id,sender_id:CU.id,sender_name:CU.display_name,sender_letter:CU.avatar_letter||CU.display_name[0].toUpperCase(),text,time:nt()});await sb.from('groups').update({last_message:text}).eq('id',aGr.id);}
 }
-
 async function showGrpInfo(){
   const isOwner=aGr?.created_by===CU?.id;
-  // Charger membres
-  let membersHtml='';
-  if(sb&&aGr){
-    const {data:mbs}=await sb.from('group_members').select('*').eq('group_id',aGr.id);
-    if(mbs&&mbs.length){
-      membersHtml=`<div class="pct">${t('mi')}</div>`+(mbs.map(m=>`<div class="mi"><div class="av" style="width:38px;height:38px;font-size:15px;background:${avc(m.avatar_letter||'U')}">${m.avatar_letter||'U'}</div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#1A1A2E">${m.display_name||'?'}</div><div style="font-size:12px;color:#8892A4">${m.phone?'+'+m.phone:''}</div></div></div>`).join(''));
-    }
+  let mHtml='';
+  if(sb&&aGr){const {data:mbs}=await sb.from('group_members').select('*').eq('group_id',aGr.id);if(mbs&&mbs.length){mHtml='<div style="font-size:11px;font-weight:700;color:#00897B;text-transform:uppercase;padding:14px 16px 6px">Membres</div>'+(mbs.map(m=>`<div class="mi"><div class="av" style="width:36px;height:36px;font-size:14px;background:${avc(m.avatar_letter||'U')}">${m.avatar_letter||'U'}</div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#1A1A2E">${m.display_name||'?'}</div><div style="font-size:12px;color:#8892A4">${m.phone?'+'+m.phone:''}</div></div></div>`).join(''));}}
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Paramètres du groupe</div><div style="text-align:center;margin-bottom:12px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aGr?.avatar_letter||'G')};margin:0 auto 8px">${aGr?.avatar_letter||'G'}</div><div style="font-size:16px;font-weight:700;color:#1A1A2E">${aGr?.name||''}</div><div style="font-size:12px;color:#8892A4">${aGr?.member_count||1} membres</div></div>${mHtml}<button class="mb mp" style="margin-top:12px" onclick="cm();showInvite()">👥 Inviter des membres</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button>${isOwner?`<button class="mb mr2" onclick="cm();delGrp()">🗑 Supprimer le groupe</button>`:''}<button class="mb mr2" onclick="cm();goTab('groups')">🚪 Quitter le groupe</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
   }
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('gs')}</div>
-    <div style="text-align:center;margin-bottom:12px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aGr?.avatar_letter||'G')};margin:0 auto 8px">${aGr?.avatar_letter||'G'}</div><div style="font-size:16px;font-weight:700;color:#1A1A2E">${aGr?.name||''}</div><div style="font-size:12px;color:#8892A4">${aGr?.member_count||1} ${t('mb')}</div></div>
-    ${membersHtml}
-    <button class="mb mp" style="margin-top:12px" onclick="cm();showInvite()">${t('im')}</button>
-    <button class="mb mp" onclick="cm();toast(t('no5'))">${t('mc')}</button>
-    ${isOwner?`<button class="mb mr2" onclick="cm();delGrp()">${t('dg')}</button>`:''}
-    <button class="mb mr2" onclick="cm();goTab('groups')">${t('lg')}</button>
-    <button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
-
-function showInvite(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('im')}</div><input class="mi2" id="ivi" placeholder="${t('pn')}" type="tel"><button class="mb mp" onclick="sendInvite()">${t('im')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button><div class="er" id="ive"></div></div></div>`);
-}
+function showInvite(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Inviter des membres</div><input class="mi2" id="ivi" placeholder="Numéro de téléphone" type="tel"><button class="mb mp" onclick="sendInvite()">Inviter</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="ive"></div></div></div>`);}
 async function sendInvite(){
-  const ph=$('ivi')?.value.replace(/\D/g,'');if(!ph||ph.length<6){$('ive').textContent=t('ip');return;}
-  $('ive').textContent=t('se2');
+  const ph=$('ivi')?.value.replace(/\D/g,'');if(!ph||ph.length<6){$('ive').textContent='Numéro invalide';return;}
   const {data:user}=await sb.from('users').select('*').eq('phone',ph).maybeSingle();
-  if(!user){$('ive').textContent=t('nf');return;}
+  if(!user){$('ive').textContent='Utilisateur introuvable sur Echo';return;}
   await sb.from('group_members').upsert({group_id:aGr.id,user_id:user.id,phone:user.phone,display_name:user.display_name,avatar_letter:user.avatar_letter||user.display_name[0].toUpperCase()},{onConflict:'group_id,user_id'});
   const newCnt=(aGr.member_count||1)+1;
   await sb.from('groups').update({member_count:newCnt}).eq('id',aGr.id);
-  aGr.member_count=newCnt;$('gmt').textContent=newCnt+' '+t('mb');
-  cm();toast(t('is'));
+  aGr.member_count=newCnt;$('gmt').textContent=newCnt+' membres';
+  cm();toast('Invitation envoyée ✅');
 }
-async function delGrp(){
-  if(!confirm(t('dg2')))return;
-  if(sb&&aGr){await sb.from('groups').delete().eq('id',aGr.id);}
-  allGr=allGr.filter(g=>g.id!==aGr?.id);goTab('groups');toast(t('gd'));
-}
+async function delGrp(){if(!confirm('Supprimer ce groupe ?'))return;if(sb&&aGr)await sb.from('groups').delete().eq('id',aGr.id);allGr=allGr.filter(g=>g.id!==aGr?.id);goTab('groups');toast('Groupe supprimé');}
 
-// ── CANAUX (PERSISTANTS) ──────────────────────────────────────────────────
+// ── CANAUX ────────────────────────────────────────────────────────────────
 async function loadChans(){
   if(!sb){allCh=[];renderChans(allCh);return;}
   const {data}=await sb.from('channels').select('*').order('created_at',{ascending:false});
-  // Fusionner avec canaux par défaut
-  const def=[{id:'echo-off',name:'Echo Officiel',avatar_letter:'E',subscriber_count:1200,last_message:'Echo Beta est en ligne !',created_by:null},{id:'actu-afr',name:'Actualités Afrique',avatar_letter:'A',subscriber_count:8400,last_message:'Dernières nouvelles du continent',created_by:null}];
+  const def=[{id:'echo-off',name:'Echo Officiel',avatar_letter:'E',subscriber_count:1200,last_message:'Echo Beta est en ligne !'},{id:'actu-afr',name:'Actualités Afrique',avatar_letter:'A',subscriber_count:8400,last_message:'Dernières nouvelles du continent'}];
   const dbIds=(data||[]).map(c=>c.id);
   allCh=[...def.filter(d=>!dbIds.includes(d.id)),...(data||[])];
   renderChans(allCh);
 }
-
 function renderChans(list){
   const el=$('chl');
-  if(!list||!list.length){el.innerHTML=`<div class="em"><div class="ei">📢</div>${t('nc2')}</div>`;return;}
-  el.innerHTML=list.map(c=>`<div class="gi" onclick="openChan('${c.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(c.avatar_letter||'C')}">${c.avatar_letter||'C'}</div><div class="gii"><div class="gn">${c.name}</div><div class="gm">${typeof c.subscriber_count==='number'?c.subscriber_count.toLocaleString():c.subscriber_count||'0'} ${t('su')} · ${c.last_message||''}</div></div></div>`).join('');
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📢</div>Aucun canal</div>';return;}
+  el.innerHTML=list.map(c=>`<div class="gi" onclick="openChan('${c.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(c.avatar_letter||'C')}">${c.avatar_letter||'C'}</div><div class="gii"><div class="gn">${c.name}</div><div class="gm">${typeof c.subscriber_count==='number'?c.subscriber_count.toLocaleString():c.subscriber_count||'0'} abonnés · ${c.last_message||''}</div></div></div>`).join('');
 }
 function filterChans(){const q=$('chs').value.toLowerCase();renderChans(!q?allCh:allCh.filter(c=>c.name.toLowerCase().includes(q)));}
-
-function showNewChan(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('nc')}</div><input class="mi2" id="cni" placeholder="${t('cn')}"><input class="mi2" id="cdi" placeholder="${t('cd')}"><button class="mb mp" onclick="createChan()">${t('cg')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button><div class="er" id="cne"></div></div></div>`);
-}
+function showNewChan(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Nouveau canal</div><input class="mi2" id="cni" placeholder="Nom du canal"><input class="mi2" id="cdi" placeholder="Description"><button class="mb mp" onclick="createChan()">Créer</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="cne"></div></div></div>`);}
 async function createChan(){
-  const name=$('cni')?.value.trim();if(!name){$('cne').textContent='!';return;}
-  if(!sb){$('cne').textContent=t('ce');return;}
+  const name=$('cni')?.value.trim();if(!name){$('cne').textContent='Entrez un nom';return;}
   const {data,error}=await sb.from('channels').insert({name,avatar_letter:name[0].toUpperCase(),created_by:CU.id,subscriber_count:1,last_message:'',description:$('cdi')?.value.trim()||''}).select().single();
   if(error){$('cne').textContent='Erreur: '+error.message;return;}
   allCh.unshift(data);cm();renderChans(allCh);openChan(data.id);
 }
-
 function openChan(id){
   aChan=allCh.find(c=>c.id===id)||{id,name:'Canal',avatar_letter:'C',subscriber_count:0};
-  const l=aChan.avatar_letter||'C';
-  $('cav').innerHTML=mkAv(l,40,false);
+  $('cav').innerHTML=mkAv(aChan.avatar_letter||'C',40,false);
   $('cnm').textContent=aChan.name;
-  $('cmt').textContent=(typeof aChan.subscriber_count==='number'?aChan.subscriber_count.toLocaleString():aChan.subscriber_count||'0')+' '+t('su');
-  $('cti').placeholder=t('wc');
-  $('cms').innerHTML=`<div class="ds"><span>${t('td')}</span></div><div class="em" style="margin-top:20px"><div class="ei">📢</div>${t('wi')} ${aChan.name}</div>`;
-  SCREENS.forEach(s=>hide(s));show('ccnv');curScr='ccnv';ph();
+  $('cmt').textContent=(typeof aChan.subscriber_count==='number'?aChan.subscriber_count.toLocaleString():aChan.subscriber_count||'0')+' abonnés';
+  $('cti').placeholder='Écrire dans le canal...';
+  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📢</div>Bienvenue dans '+aChan.name+'</div>';
+  SCREENS.forEach(s=>hide(s));show('ccnv');ph();
 }
-
-function uC(){const v=$('cti').value.trim();$('csb').textContent=v?'➤':'🎤';$('csb').className='sbt '+(v?'on':'off');}
-async function sendChan(){
-  const inp=$('cti'),text=inp.value.trim();if(!text)return;
-  inp.value='';ar(inp);uC();
-  const d=document.createElement('div');d.className='mr me';
-  d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${nt()} ✓</div></div>`;
-  $('cms').appendChild(d);scB('cms');
-  if(sb&&aChan&&aChan.created_by)await sb.from('channels').update({last_message:text}).eq('id',aChan.id);
-}
-
-function showChanInfo(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('cs3')}</div>
-    <div style="text-align:center;margin-bottom:14px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aChan?.avatar_letter||'C')};margin:0 auto 8px">${aChan?.avatar_letter||'C'}</div><div style="font-size:16px;font-weight:700;color:#1A1A2E">${aChan?.name||''}</div><div style="font-size:12px;color:#8892A4">${aChan?.subscriber_count||0} ${t('su')}</div></div>
-    <button class="mb mp" onclick="cm();toast(t('sb3'))">${t('sb2')}</button>
-    <button class="mb mp" onclick="cm();showShare()">${t('sc2')}</button>
-    <button class="mb mr2" onclick="cm();goTab('channels')">${t('lc')}</button>
-    <button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
+function uC(){const v=$('cti').value.trim();$('csb').textContent=v?'➤':'🗣️';$('csb').className='sbt '+(v?'on':'off');}
+function sendChan(){const inp=$('cti'),text=inp.value.trim();if(!text)return;inp.value='';ar(inp);uC();const d=document.createElement('div');d.className='mr me';d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${nt()} ✓</div></div>`;$('cms').appendChild(d);scB('cms');if(sb&&aChan&&aChan.created_by)sb.from('channels').update({last_message:text}).eq('id',aChan.id);}
+function showChanInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aChan?.name||''}</div><div style="text-align:center;margin-bottom:14px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aChan?.avatar_letter||'C')};margin:0 auto 8px">${aChan?.avatar_letter||'C'}</div><div style="font-size:12px;color:#8892A4">${aChan?.subscriber_count||0} abonnés</div></div><button class="mb mp" onclick="cm();toast('Abonné !')">🔔 S\'abonner</button><button class="mb mp" onclick="cm();showShare()">📤 Partager le canal</button><button class="mb mr2" onclick="cm();goTab('channels')">🚪 Quitter le canal</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 
 // ── PROFIL ────────────────────────────────────────────────────────────────
 function loadProfile(){
@@ -867,56 +863,52 @@ function loadProfile(){
   if(CU.photo){av.innerHTML=`<img src="${CU.photo}" alt="">`;}else{av.textContent=l;av.style.background=avc(l);}
   $('pnm').textContent=CU.display_name;
   $('pph').textContent=CU.phone?'+'+CU.phone:'';
-  ['fr','en','ha','fo','ig'].forEach(l=>{const b=$('b'+l);if(b)b.classList.toggle('ac',lang===l)});
-  applyLang();
+  ['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===lang)});
 }
-function changePhoto(){$('phi2').click();}
-function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{CU.photo=ev.target.result;localStorage.setItem('echo_user',JSON.stringify(CU));loadProfile();toast(t('fo'));};r.readAsDataURL(f);}
-
-function showEdit(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('ep2')}</div><input class="mi2" id="eni" value="${CU.display_name}" placeholder="${t('fn')}"><input class="mi2" id="ebi" placeholder="${t('bi')}"><button class="mb mp" onclick="saveProf()">${t('sv')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);
-}
+function changePhoto(){$('phi3').click();}
+function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{CU.photo=ev.target.result;localStorage.setItem('echo_user',JSON.stringify(CU));loadProfile();toast('Photo mise à jour ✅');};r.readAsDataURL(f);}
+function setLang(l){lang=l;localStorage.setItem('echo_lang',l);['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===l)});toast(l==='fr'?'Français':l==='en'?'English':l==='ha'?'Hausa':l==='fo'?'Fongbe':'Igbo');}
+function showEdit(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Modifier le profil</div><input class="mi2" id="eni" value="${CU.display_name}" placeholder="Nom complet"><input class="mi2" id="ebi" placeholder="Bio"><button class="mb mp" onclick="saveProf()">Sauvegarder</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
 async function saveProf(){
   const name=$('eni')?.value.trim();if(!name)return;
   if(sb)await sb.from('users').update({display_name:name,avatar_letter:name[0].toUpperCase()}).eq('id',CU.id);
   CU.display_name=name;CU.avatar_letter=name[0].toUpperCase();
-  localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast(t('pu'));
+  localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour ✅');
 }
-
-function togNotif(){const tg=$('ntg');tg.classList.toggle('on');$('ntv').textContent=tg.classList.contains('on')?t('no2'):t('no3');toast(tg.classList.contains('on')?t('no4'):t('no5'));}
-
-function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('ab')}</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">${t('eb')}</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">${t('sl')}</div></div><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);}
-function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('sp')} ❤️</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('❤️ Merci !')">💚 ${t('dn')}</button><button class="mb mp" onclick="cm();showShare()">📤 ${t('sh')}</button><button class="mb ms" onclick="cm()">${t('la2')}</button></div></div>`);}
-function showShare(){const url='https://echo-gk.vercel.app';if(navigator.share){navigator.share({title:'Echo',text:t('sl'),url}).catch(()=>{});}else{document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('sh')}</div><div style="background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:14px;font-size:14px;color:#00897B;text-align:center;margin-bottom:12px;word-break:break-all">${url}</div><button class="mb mp" onclick="navigator.clipboard.writeText('${url}').then(()=>{toast(t('lc2'));cm()})">📋 ${t('lc2')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);}}
+function togNotif(){const tg=$('ntg');tg.classList.toggle('on');$('ntv').textContent=tg.classList.contains('on')?'Activées':'Désactivées';toast(tg.classList.contains('on')?'Notifications activées':'Notifications désactivées');}
+function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><svg width="80" height="80" viewBox="0 0 200 200"><defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4A90E2"/><stop offset="100%" style="stop-color:#7B4FD8"/></linearGradient></defs><rect width="200" height="200" rx="46" fill="url(#lg1)"/><rect x="28" y="26" width="144" height="118" rx="30" fill="white"/><path d="M 72 144 Q 68 170 90 162 Q 82 152 86 144 Z" fill="white"/><text x="100" y="102" text-anchor="middle" font-family="Arial" font-size="38" font-weight="800" fill="#5B4FD8">Echo</text></svg><div style="font-size:20px;font-weight:800;color:#1A1A2E;margin-top:10px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par KPONOU Studio</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo ❤️</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci ❤️')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">📤 Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
+function showShare(){const url='https://echo-gk.vercel.app';if(navigator.share){navigator.share({title:'Echo',text:'Speak. Be heard.',url}).catch(()=>{});}else{document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Partager Echo</div><div style="background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:14px;font-size:14px;color:#00897B;text-align:center;margin-bottom:12px">${url}</div><button class="mb mp" onclick="navigator.clipboard.writeText('${url}').then(()=>{toast('Lien copié !');cm()})">📋 Copier le lien</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}}
 
 // ── APPEL ─────────────────────────────────────────────────────────────────
 function startCall(type){
   const l=aCt?.avatar_letter||aCt?.display_name[0]||'?';
   $('calav').style.background=avc(l);$('calav').textContent=l;
   $('calnm').textContent=aCt?.display_name||'';
-  $('calst').textContent=(type==='video'?t('vi'):t('ad'))+' — '+t('cs2');
+  $('calst').textContent=(type==='video'?'Appel vidéo':'Appel audio')+' — Appels bientôt disponibles';
   $('caltm').textContent='00:00';muted=false;spk=false;cSec=0;
   $('mutb').textContent='🔇';$('mutb').className='cbtn act';
   $('spkb').textContent='🔊';$('spkb').className='cbtn act';
-  SCREENS.forEach(s=>hide(s));show('csc');curScr='csc';ph();
-  setTimeout(()=>{$('calst').textContent=type==='video'?t('cv'):t('cp');cTmr=setInterval(()=>{cSec++;const m=Math.floor(cSec/60),s=cSec%60;$('caltm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')},1000)},3000);
+  SCREENS.forEach(s=>hide(s));show('csc');ph();
+  setTimeout(()=>{$('calst').textContent=type==='video'?'Appel vidéo en cours...':'Appel audio en cours...';cTmr=setInterval(()=>{cSec++;const m=Math.floor(cSec/60),s=cSec%60;$('caltm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')},1000)},3000);
 }
 function endCall(){clearInterval(cTmr);cSec=0;hide('csc');show('conv');}
-function togMute(){muted=!muted;$('mutb').textContent=muted?'🔈':'🔇';$('mutb').className='cbtn '+(muted?'off2':'act');toast(muted?t('mu'):t('mu2'));}
-function togSpk(){spk=!spk;$('spkb').textContent=spk?'📢':'🔊';$('spkb').className='cbtn '+(spk?'off2':'act');toast(spk?t('sk'):t('sk2'));}
+function togMute(){muted=!muted;$('mutb').textContent=muted?'🔈':'🔇';$('mutb').className='cbtn '+(muted?'off2':'act');toast(muted?'Micro coupé':'Micro actif');}
+function togSpk(){spk=!spk;$('spkb').textContent=spk?'📢':'🔊';$('spkb').className='cbtn '+(spk?'off2':'act');toast(spk?'Haut-parleur actif':'Haut-parleur coupé');}
 
 async function doLogout(){
-  if(!confirm(t('dl2')))return;
+  if(!confirm('Se déconnecter de Echo ?'))return;
   if(CU&&sb)await sb.from('users').update({online:false}).eq('id',CU.id);
-  localStorage.removeItem('echo_user');CU=null;lgStep='phone';
-  SCREENS.forEach(s=>hide(s));show('login');
-  $('phi').value='';hide('sp2');hide('sp3');show('sp1');
-  $('lbtn').className='lbtn off';$('lbtn').textContent=t('ct');
+  localStorage.removeItem('echo_user');localStorage.removeItem('echo_tab');CU=null;
+  SCREENS.forEach(s=>hide(s));show('login');backToChoice();
 }
 
 // ── ATTACH / EMOJI ────────────────────────────────────────────────────────
-function showAttach(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${t('at')}</div><button class="mb mp" onclick="cm();toast(t('ph')+' — bientôt')">📷 ${t('ph')}</button><button class="mb mp" onclick="cm();toast(t('do')+' — bientôt')">📄 ${t('do')}</button><button class="mb mp" onclick="cm();toast(t('vm')+' — bientôt')">🎵 ${t('vm')}</button><button class="mb ms" onclick="cm()">${t('cl')}</button></div></div>`);}
-function showEmoji(target){const E=['😀','😃','😄','😁','😆','😅','😂','🤣','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','😐','😑','😶‍🌫️','😶‍🌬️','😶','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😮‍💨','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤠','🤡','🥳','🥸','😵‍💫','🤢','🤮','🤧','😷','🤒','🤕','🫠','🫡','🫢','🫣','🫥','🫤','👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','👊','✊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','🫶','🫱','🫲','🫳','🫴','❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟','☮️','✝️','☪️','🕉️','☸️','✡️','🔯','🕎','☯️','☦️','🛐','⛎','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓','⛩️','🕋','🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐽','🐸','🐵','🙈','🙉','🙊','🐔','🐧','🐦','🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦟','🦗','🕷️','🕸️','🦂','🐢','🐍','🦎','🦖','🦕','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊','🐅','🐆','🦓','🦍','🦧','🐘','🦛','🦏','🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🦙','🐐','🦌','🐕','🐩','🦮','🐕‍🦺','🐈','🐓','🦃','🦚','🦜','🦢','🦩','🕊️','🐇','🦝','🦨','🦡','🦦','🦥','🐁','🐀','🐿️','🦔','🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🫑','🌽','🥕','🫒','🧄','🧅','🥔','🍠','🥐','🥯','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🦴','🌭','🍔','🍟','🍕','🫓','🥪','🥙','🧆','🌮','🌯','🫔','🥗','🥘','🫕','🥫','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🦪','🍤','🍙','🍚','🍘','🍥','🥠','🥮','🍢','🍧','🍦','🍨','🍩','🍪','🎂','🍰','🧁','🥧','🍫','🍬','🍭','🍮','🍯','🍼','🥛','☕','🫖','🍵','🍶','🍾','🍷','🍸','🍹','🍺','🍻','🥂','🥃','🧃','🥤','🧋','🧉','⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🥏','🎱','🪀','🏓','🏸','🏒','🏑','🥍','🏏','🪃','🥅','⛳','🪁','🏹','🎣','🤿','🥊','🥋','🎽','🛹','🛷','⛸️','🥌','🎿','⛷️','🏂','🪂','🏋️','🤼','🤸','⛹️','🤺','🤾','🏌️','🏇','🧘','🏄','🏊','🤽','🚣','🧗','🚵','🚴','🏆','🥇','🥈','🥉','🏅','🎖️','🏵️','🎗️','🎫','🎟️','🎪','🤹','🎭','🩰','🎨','🎬','🎤','🎧','🎼','🎵','🎶','🪕','🎹','🥁','🪘','🎷','🎺','🪗','🎸','🪄','🧵','🪡','🧶','🪢','👓','🕶️','🥽','🥼','🦺','👔','👕','👖','🧣','🧤','🧥','🧦','👗','👘','🥻','🩱','👙','👚','👛','👜','👝','🛍️','🎒','🩴','👞','👟','🥾','🥿','👠','👡','🩰','👢','👑','👒','🎩','🎓','🧢','🪖','⛑️','📿','💄','💍','💎','🌍','🌎','🌏','🗺️','🗻','🏔️','⛰️','🌋','🗾','🧭','🏕️','🏖️','🏜️','🏝️','🏞️','🏟️','🏛️','🏗️','🧱','🪨','🪵','🛖','🏘️','🏚️','🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🕌','🛕','🕍','⛩️','🕋','⛲','⛺','🌁','🌃','🏙️','🌄','🌅','🌆','🌇','🌉','♨️','🎠','🎡','🎢','🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚝','🚞','🚋','🚌','🚍','🚎','🚐','🚑','🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🛻','🚚','🚛','🚜','🏎️','🏍️','🛵','🦽','🦼','🛺','🚲','🛴','🚨','🚥','🚦','🛑','🚧','⚓','⛵','🛶','🚤','🛳️','⛴️','🛥️','🚢','✈️','🛩️','🛫','🛬','💺','🚁','🚟','🚠','🚡','🛰️','🚀','🛸','🛎️','🧳','⌛','⏳','⌚','⏰','⏱️','⏲️','🕰️','🌡️','⛱️','🎈','🎏','🎐','🎑','🧧','🎀','🎁','🎖️','🏆','🏅','🥇','🥈','🥉','#️⃣','*️⃣','0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟','🔠','🔡','🔢','🔣','🔤','🅰️','🅱️','🆎','🅾️','🅿️','🚫','❌','⭕','✅','☑️','✔️','➰','➿','〽️','✳️','✴️','❇️','©️','®️','™️','ℹ️','⭐','🔵','🔴','🟠','🟡','🟢','🟣','🟤','⚫','⚪','🟥','🟧','🟨','🟩','🟦','🟪','🟫','⬛','⬜','◼️','◻️','◾','◽','▪️','▫️','🔶','🔷','🔸','🔹','🔺','🔻','💠','🔘','🔲','🔳','🟤','🟠','🟡','🟢','🟦','🟣','🇦🇫','🇦🇱','🇩🇿','🇦🇸','🇦🇩','🇦🇴','🇦🇮','🇦🇶','🇦🇬','🇦🇷','🇦🇲','🇦🇼','🇦🇺','🇦🇹','🇦🇿','🇧🇸','🇧🇭','🇧🇩','🇧','🇧🇾','🇧🇪','🇧🇿','🇧🇯','🇧🇲','🇧🇹','🇧🇴','🇧🇦','🇧🇼','🇧🇷','🇧🇳','🇧🇬','🇧🇫','🇧🇮','🇰🇭','🇨🇲','🇨🇦','🇨🇻','🇰🇾','🇨🇫','🇹🇩','🇨🇱','🇨🇳','🇨🇴','🇰🇲','🇨🇬','🇨🇩','🇨🇰','🇨🇷','🇨🇮','🇭🇷','🇨🇺','🇨🇾','🇨🇿','🇩🇰','🇩🇯','🇩🇲','🇩🇴','🇪🇨','🇪🇬','🇸🇻','🇬🇶','🇪🇷','🇪','🇸🇿','🇪🇹','🇫🇰','🇫🇴','🇫🇯','🇫🇮','🇫🇷','🇵🇫','🇬🇦','🇬🇲','🇬🇪','🇩🇪','🇬🇭','🇬🇮','🇬🇷','🇬🇱','🇬🇩','🇬🇺','🇬🇹','🇬','🇬🇳','🇬🇼','🇬🇾','🇭🇹','🇭🇳','🇭🇰','🇭🇺','🇮🇸','🇮🇳','🇮🇩','🇮🇷','🇮🇶','🇮🇪','🇮🇲','🇮🇱','🇮🇹','🇯🇲','🇯🇵','🇯🇪','🇯🇴','🇰🇿','🇰🇪','🇰🇮','🇰🇵','🇰🇷','🇰🇼','🇰🇬','🇱🇦','🇱🇻','🇱🇧','🇱🇸','🇱🇷','🇱🇾','🇱🇮','🇱🇹','🇱🇺','🇲🇴','🇲🇰','🇲🇬','🇲🇼','🇲🇾','🇲🇻','🇲🇱','🇲🇹','🇲🇭','🇲🇷','🇲🇺','🇾🇹','🇲🇽','🇫🇲','🇲🇩','🇲🇨','🇲🇳','🇲🇪','🇲🇸','🇲🇦','🇲🇿','🇲','🇳🇦','🇳🇷','🇳🇵','🇳🇱','🇳🇨','🇳🇿','🇳🇮','🇳🇪','🇳🇬','🇳🇺','🇳🇫','🇲🇵','🇳🇴','🇴🇲','🇵🇰','🇵🇼','🇵🇸','🇵🇦','🇵🇬','🇵🇾','🇵🇪','🇵🇭','🇵🇳','🇵🇱','🇵🇹','🇵🇷','🇶🇦','🇷🇴','🇷🇺','🇷🇼','🇼🇸','🇸🇲','🇸🇹','🇸🇦','🇸🇳','🇷🇸','🇸🇨','🇸🇱','🇸🇬','🇸🇰','🇸🇮','🇸🇧','🇸🇴','🇿🇦','🇬🇸','🇪🇸','🇱🇰','🇸🇩','🇸🇷','🇸🇪','🇨🇭','🇸🇾','🇹🇼','🇹🇯','🇹🇿','🇹🇭','🇹🇱','🇹🇬','🇹🇴','🇹','🇹🇳','🇹🇷','🇹🇲','🇹🇨','🇹🇻','🇺🇬','🇺🇦','🇦🇪','🇬🇧','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🏴󠁧󠁢󠁳󠁣󠁴󠁿','🏴󠁧󠁢󠁷󠁬󠁳󠁿','🇺🇸','🇻🇮','🇺🇾','🇺🇿','🇻🇺','🇻🇦','🇻🇪','🇻🇳','🇼🇫','🇪🇭','🇾🇪','🇿🇲','🇿🇼','🏳️','🏴','🏳️‍🌈','🏳️‍⚧️','🏴‍☠️'];document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:8px 0">${E.map(e=>`<button style="font-size:26px;background:none;border:none" onclick="addE('${e}','${target}')">${e}</button>`).join('')}</div><button class="mb ms" style="margin-top:8px" onclick="cm()">${t('cl')}</button></div></div>`);}
+function showAttach(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Joindre un fichier</div><button class="mb mp" onclick="cm();toast('Bientôt disponible')">📷 Photo / Vidéo</button><button class="mb mp" onclick="cm();toast('Bientôt disponible')">📄 Document</button><button class="mb mp" onclick="cm();toast('Bientôt disponible')">🎵 Message vocal</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
+
+function showEmoji(target){
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md" style="padding-bottom:30px"><div class="mh"></div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;padding:4px 0;max-height:300px;overflow-y:auto">${EMOJIS.map(e=>`<button style="font-size:24px;background:none;border:none;padding:4px;line-height:1" onclick="addE('${e}','${target}')">${e}</button>`).join('')}</div><button class="mb ms" style="margin-top:10px" onclick="cm()">Fermer</button></div></div>`);
+}
 function addE(e,target){const el=$(target);if(el){el.value+=' '+e;ar(el);}if(target==='mti')uS();else if(target==='gti')uG();else if(target==='cti')uC();cm();}
 </script>
 </body>
