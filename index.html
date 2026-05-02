@@ -19,8 +19,9 @@ textarea{resize:none}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes ptr{0%{transform:translateY(-40px);opacity:0}100%{transform:translateY(0);opacity:1}}
 
-/* SPLASH */
+/* SPLASH — version verte originale */
 #splash{background:linear-gradient(160deg,#26A69A,#004D40);align-items:center;justify-content:center;gap:32px;z-index:10}
 .sr{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ring{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.35);animation:ring 1.8s ease-out infinite}
@@ -29,58 +30,51 @@ textarea{resize:none}
 .sn{font-size:40px;font-weight:900;color:#fff;letter-spacing:5px;text-align:center}
 .ss{font-size:15px;color:rgba(255,255,255,.9);margin-top:10px;text-align:center;font-style:italic}
 
-/* LOGIN */
+/* LOGIN — compact, tient sur l'écran */
 #login{background:#F5FFFE;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.lw{display:flex;flex-direction:column;min-height:100%;padding:40px 22px 34px;align-items:center}
-/* Logo SVG Echo */
-.echo-logo{width:110px;height:110px;margin-bottom:16px;flex-shrink:0}
-.ln{font-size:28px;font-weight:900;color:#1A1A2E;letter-spacing:1px;margin-bottom:4px}
-.lsl{font-size:13px;color:#00897B;font-weight:600;margin-bottom:30px}
-/* Choix initial */
-.lc{width:100%;display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
-.lbig{width:100%;padding:18px 20px;border-radius:20px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:14px;text-align:left;transition:all .2s;border:2px solid transparent}
-.lbig.new{background:linear-gradient(135deg,#26A69A,#004D40);color:#fff;box-shadow:0 6px 22px rgba(0,137,123,.28)}
-.lbig.ret{background:#fff;color:#1A1A2E;border-color:#B2DFDB;box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.lbig-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.lbig.new .lbig-icon{background:rgba(255,255,255,.2)}
-.lbig.ret .lbig-icon{background:#E0F2F1}
-.lbig-txt{}
-.lbig-main{font-size:16px;font-weight:700}
-.lbig-sub{font-size:12px;opacity:.8;margin-top:2px;font-weight:400}
+.lw{display:flex;flex-direction:column;align-items:center;padding:36px 20px 30px;min-height:100%}
+.echo-ico{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#26A69A,#004D40);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;box-shadow:0 6px 20px rgba(0,137,123,.28);flex-shrink:0}
+.ln{font-size:24px;font-weight:900;color:#1A1A2E;letter-spacing:1px}
+.lsl{font-size:12px;color:#00897B;font-weight:600;margin-bottom:22px}
 
-/* Formulaires */
-.lcard{background:#fff;border-radius:20px;padding:22px;box-shadow:0 3px 16px rgba(0,0,0,.07);width:100%;margin-top:8px}
-.lcard-title{font-size:18px;font-weight:800;color:#1A1A2E;margin-bottom:5px}
-.lcard-sub{font-size:13px;color:#8892A4;margin-bottom:18px;line-height:1.5}
-.pr{display:flex;align-items:center;gap:10px;background:#F0FFFE;border-radius:14px;padding:12px 14px;border:1.5px solid #B2DFDB;margin-bottom:12px}
-.cb{display:flex;align-items:center;gap:5px;background:#E0F2F1;border-radius:10px;padding:6px 10px;font-size:13px;font-weight:700;color:#00897B;cursor:pointer;border:none;flex-shrink:0;white-space:nowrap}
-.pi{flex:1;border:none;background:transparent;font-size:15px;color:#1A1A2E}
-.li2{width:100%;background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:13px 15px;font-size:15px;color:#1A1A2E;margin-bottom:12px}
+/* Boutons choix connexion/inscription */
+.lch{width:100%;display:flex;flex-direction:column;gap:10px}
+.lbig{width:100%;padding:15px 16px;border-radius:18px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:12px;text-align:left;transition:all .2s;border:2px solid transparent}
+.lbig.new{background:linear-gradient(135deg,#26A69A,#004D40);color:#fff;box-shadow:0 5px 18px rgba(0,137,123,.25)}
+.lbig.ret{background:#fff;color:#1A1A2E;border-color:#B2DFDB;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.lbig-ico{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.lbig.new .lbig-ico{background:rgba(255,255,255,.2)}
+.lbig.ret .lbig-ico{background:#E0F2F1}
+.lbig-main{font-size:15px;font-weight:700}
+.lbig-sub{font-size:11px;opacity:.75;margin-top:1px;font-weight:400}
 
-/* Choix SMS / Email */
-.vch{display:flex;gap:10px;margin-bottom:16px}
-.vchb{flex:1;padding:14px 10px;border-radius:14px;font-size:13px;font-weight:700;border:2px solid #B2DFDB;color:#8892A4;background:#fff;text-align:center;transition:all .2s;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+/* Formulaire compact */
+.lcard{background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.07);width:100%;margin-top:10px}
+.lct{font-size:16px;font-weight:800;color:#1A1A2E;margin-bottom:4px}
+.lcs{font-size:12px;color:#8892A4;margin-bottom:14px;line-height:1.4}
+.pr{display:flex;align-items:center;gap:8px;background:#F0FFFE;border-radius:13px;padding:11px 13px;border:1.5px solid #B2DFDB;margin-bottom:10px}
+.cb{display:flex;align-items:center;gap:4px;background:#E0F2F1;border-radius:9px;padding:5px 9px;font-size:12px;font-weight:700;color:#00897B;cursor:pointer;border:none;flex-shrink:0;white-space:nowrap}
+.pi{flex:1;border:none;background:transparent;font-size:14px;color:#1A1A2E}
+.li2{width:100%;background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:13px;padding:12px 14px;font-size:14px;color:#1A1A2E;margin-bottom:10px}
+.vch{display:flex;gap:10px;margin-bottom:14px}
+.vchb{flex:1;padding:12px 8px;border-radius:13px;font-size:12px;font-weight:700;border:2px solid #B2DFDB;color:#8892A4;background:#fff;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .2s}
 .vchb.sel{border-color:#00897B;color:#00897B;background:#F0FFFE}
-.vchb .vchi{font-size:24px}
-
-/* Code affiché */
-.otp-display{background:linear-gradient(135deg,#26A69A,#004D40);border-radius:16px;padding:18px;margin-bottom:14px;text-align:center}
-.otd-lbl{font-size:11px;color:rgba(255,255,255,.8);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.otd-code{font-size:36px;font-weight:900;color:#fff;letter-spacing:10px;font-family:'Courier New',monospace}
-.otd-hint{font-size:11px;color:rgba(255,255,255,.7);margin-top:8px}
-.or{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
-.ob{width:42px;height:52px;text-align:center;font-size:20px;font-weight:700;border:2px solid #B2DFDB;border-radius:12px;color:#1A1A2E;background:#F0FFFE;transition:border .2s}
+.vchb .vi{font-size:22px}
+.otpd{background:linear-gradient(135deg,#26A69A,#004D40);border-radius:14px;padding:14px;margin-bottom:12px;text-align:center}
+.otdl{font-size:10px;color:rgba(255,255,255,.8);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.otdc{font-size:32px;font-weight:900;color:#fff;letter-spacing:8px;font-family:'Courier New',monospace}
+.otdh{font-size:10px;color:rgba(255,255,255,.7);margin-top:6px}
+.or{display:flex;gap:7px;justify-content:center;margin-bottom:12px}
+.ob{width:40px;height:50px;text-align:center;font-size:19px;font-weight:700;border:2px solid #B2DFDB;border-radius:11px;color:#1A1A2E;background:#F0FFFE;transition:border .2s}
 .ob.f{border-color:#00897B}
-
-.lbtn{width:100%;padding:15px;border-radius:16px;font-size:16px;font-weight:700;transition:all .2s;margin-top:4px}
-.lbtn.on{background:linear-gradient(135deg,#26A69A,#004D40);color:#fff;box-shadow:0 6px 22px rgba(0,137,123,.28)}
+.lbtn{width:100%;padding:14px;border-radius:15px;font-size:15px;font-weight:700;transition:all .2s;margin-top:4px}
+.lbtn.on{background:linear-gradient(135deg,#26A69A,#004D40);color:#fff;box-shadow:0 5px 18px rgba(0,137,123,.25)}
 .lbtn.off{background:#E0F2F1;color:#aaa}
-.lback{background:none;color:#00897B;font-size:13px;font-weight:600;margin-top:12px;width:100%;text-align:center;padding:8px}
-.er{color:#c62828;font-size:13px;text-align:center;margin-top:5px;min-height:16px}
-.it{color:#00897B;font-size:12px;text-align:center;margin-top:4px}
+.lbk{background:none;color:#00897B;font-size:12px;font-weight:600;margin-top:10px;width:100%;text-align:center;padding:6px}
+.er{color:#c62828;font-size:12px;text-align:center;margin-top:4px;min-height:15px}
 
 /* HEADER */
-ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);flex-shrink:0}
+.ph{background:#fff;padding:46px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);flex-shrink:0}
 .ht{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
 .htl{font-size:20px;font-weight:800;color:#1A1A2E;display:flex;align-items:center;gap:10px}
 .beta{font-size:11px;background:#E0F2F1;color:#00897B;border-radius:20px;padding:2px 10px;font-weight:700}
@@ -88,16 +82,27 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 .ib{background:#F0FFFE;border-radius:12px;width:38px;height:38px;font-size:17px;display:flex;align-items:center;justify-content:center}
 .sb{display:flex;align-items:center;gap:10px;background:#F0FFFE;border-radius:14px;padding:10px 15px;border:1.5px solid #B2DFDB}
 .sb input{flex:1;border:none;background:transparent;font-size:14px;color:#1A1A2E}
+
+/* BOTTOM NAV */
 .bn{background:#fff;display:flex;justify-content:space-around;padding:10px 0 24px;box-shadow:0 -2px 14px rgba(0,0,0,.06);flex-shrink:0}
 .nb{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 10px}
 .nb .ni{font-size:22px}.nb .nl{font-size:10px}
 .nb .nd{width:18px;height:3px;border-radius:2px;background:#00897B;margin-top:1px}
-.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;position:relative}
+
+/* AVATAR */
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;position:relative;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .av .dot{position:absolute;bottom:1px;right:1px;width:11px;height:11px;border-radius:50%;background:#43A047;border:2px solid #fff}
+
+/* STORIES */
 .sts{background:#fff;padding:12px 18px 10px;border-bottom:1px solid #E0F2F1;display:flex;gap:16px;overflow-x:auto;flex-shrink:0;-webkit-overflow-scrolling:touch}
 .st{text-align:center;flex-shrink:0;cursor:pointer}
-.sta{width:54px;height:54px;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;position:relative}
+.sta{width:54px;height:54px;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;position:relative;overflow:hidden}
 .stn{font-size:11px;color:#8892A4;max-width:54px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* CONV LIST + pull-to-refresh */
+.ptr-wrap{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
+.ptr-ind{height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#F5FFFE;transition:height .2s;color:#00897B;font-size:13px;font-weight:600;gap:8px}
 .cl2{flex:1;overflow-y:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
 .ci{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:13px 15px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;animation:fadeIn .2s}
 .ci:active{opacity:.8}
@@ -106,6 +111,8 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 .cn{font-weight:700;color:#1A1A2E;font-size:15px}
 .ctm{font-size:12px;color:#8892A4}
 .clm{font-size:13px;color:#8892A4;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* CONVERSATIONS */
 #conv,#gcnv,#ccnv{background:#F5FFFE}
 .ch{background:#fff;padding:46px 14px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.06);flex-shrink:0}
 .bk{color:#00897B;font-size:26px;padding:0 6px;line-height:1}
@@ -128,6 +135,8 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 .sbt{width:46px;height:46px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:19px;transition:all .2s;flex-shrink:0}
 .sbt.on{background:linear-gradient(135deg,#26A69A,#004D40);box-shadow:0 4px 14px rgba(0,137,123,.35)}
 .sbt.off{background:#F0FFFE}
+
+/* GROUPS / CHANNELS */
 .gl{flex:1;overflow-y:auto;padding:10px 12px;-webkit-overflow-scrolling:touch}
 .gi{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:13px 15px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer}
 .gi:active{opacity:.8}
@@ -135,6 +144,8 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 .gn{font-weight:700;color:#1A1A2E;font-size:15px;margin-bottom:3px}
 .gm{font-size:12px;color:#8892A4;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .fab{position:absolute;bottom:90px;right:20px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#26A69A,#004D40);border:none;font-size:26px;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,137,123,.38);cursor:pointer;z-index:50}
+
+/* PROFILE */
 .ps{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .pt{background:linear-gradient(160deg,#26A69A,#004D40);padding:56px 0 28px;text-align:center;flex-shrink:0}
 .paw{position:relative;width:84px;margin:0 auto 12px;cursor:pointer}
@@ -162,6 +173,8 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 .lop.ac{background:#00897B;color:#fff;border-color:#00897B}
 .mi{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #F5FFFE}
 .mi:last-child{border-bottom:none}
+
+/* CALL */
 #csc{background:linear-gradient(160deg,#26A69A,#004D40);align-items:center;justify-content:space-between;padding:80px 0 60px;z-index:100}
 .cav{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:900;color:#fff;margin:0 auto 16px;border:3px solid rgba(255,255,255,.35)}
 .cnm{font-size:24px;font-weight:800;color:#fff;text-align:center}
@@ -171,6 +184,8 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 .cbtn.end{background:#fff;color:#c62828}
 .cbtn.act{background:rgba(255,255,255,.18);color:#fff}
 .cbtn.off2{background:rgba(255,255,255,.5);color:#004D40}
+
+/* MODAL */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
 .md{background:#fff;border-radius:24px 24px 0 0;padding:20px 20px 40px;width:100%;max-width:430px;animation:slideUp .25s;max-height:84vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .mh{width:40px;height:4px;background:#ddd;border-radius:2px;margin:0 auto 16px}
@@ -191,120 +206,86 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 <body>
 <div id="app">
 
-<!-- SPLASH --
+<!-- SPLASH : version verte avec ondulations -->
 <div class="screen" id="splash">
   <div class="sr"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="sc">E</div></div>
   <div><div class="sn">Echo</div><div class="ss">Speak. Be heard.</div></div>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN — compact -->
 <div class="screen hidden" id="login">
   <div class="lw">
-    <!-- Logo SVG Echo -->
-    <svg class="echo-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#4A90E2"/>
-          <stop offset="100%" style="stop-color:#7B4FD8"/>
-        </linearGradient>
-        <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#6BB5FF;stop-opacity:.3"/>
-          <stop offset="100%" style="stop-color:#9D7BFF;stop-opacity:.3"/>
-        </linearGradient>
-      </defs>
-      <rect width="200" height="200" rx="46" fill="url(#bg1)"/>
-      <rect x="12" y="12" width="176" height="176" rx="38" fill="url(#bg2)"/>
-      <rect x="28" y="26" width="144" height="118" rx="30" fill="white"/>
-      <path d="M 72 144 Q 68 170 90 162 Q 82 152 86 144 Z" fill="white"/>
-      <text x="100" y="102" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="800" fill="#5B4FD8" letter-spacing="-1">Echo</text>
-    </svg>
+    <div class="echo-ico">E</div>
     <div class="ln">Echo</div>
     <div class="lsl">Speak. Be heard.</div>
 
-    <!-- Choix initial (affiché par défaut) -->
-    <div class="lc" id="l-choice">
-      <button class="lbig new" onclick="showRegister()">
-        <div class="lbig-icon">✨</div>
-        <div class="lbig-txt">
-          <div class="lbig-main">Je suis nouveau</div>
-          <div class="lbig-sub">Créer un compte gratuitement</div>
-        </div>
+    <!-- Choix -->
+    <div class="lch" id="l-ch">
+      <button class="lbig new" onclick="showReg()">
+        <div class="lbig-ico">✨</div>
+        <div><div class="lbig-main">Je suis nouveau</div><div class="lbig-sub">Créer un compte gratuit</div></div>
       </button>
-      <button class="lbig ret" onclick="showLogin()">
-        <div class="lbig-icon" style="background:#E0F2F1">🔑</div>
-        <div class="lbig-txt">
-          <div class="lbig-main">J'ai déjà un compte</div>
-          <div class="lbig-sub">Se connecter avec mon numéro</div>
-        </div>
+      <button class="lbig ret" onclick="showConn()">
+        <div class="lbig-ico">🔑</div>
+        <div><div class="lbig-main">J'ai déjà un compte</div><div class="lbig-sub">Se connecter</div></div>
       </button>
     </div>
 
-    <!-- CONNEXION (anciens membres) -->
-    <div class="lcard hidden" id="l-login">
-      <div class="lcard-title">Connexion</div>
-      <div class="lcard-sub">Entrez votre numéro enregistré sur Echo</div>
+    <!-- CONNEXION -->
+    <div class="lcard hidden" id="l-conn">
+      <div class="lct">Connexion</div>
+      <div class="lcs">Entrez votre numéro enregistré</div>
       <div class="pr">
-        <button class="cb" id="ctb-l" onclick="showCtry('l')">🇧🇯 +229</button>
-        <input class="pi" type="tel" id="phi-l" placeholder="XX XX XX XX">
+        <button class="cb" id="ctb-c" onclick="showCtry('c')">🇧🇯 +229</button>
+        <input class="pi" type="tel" id="ph-c" placeholder="01 XX XX XX XX">
       </div>
-      <div class="er" id="le"></div>
-      <button class="lbtn off" id="lbtn-l" onclick="doLogin()">Se connecter</button>
-      <button class="lback" onclick="backToChoice()">← Retour</button>
+      <div class="er" id="ce"></div>
+      <button class="lbtn off" id="btn-c" onclick="doLogin()">Se connecter</button>
+      <button class="lbk" onclick="back()">← Retour</button>
     </div>
 
-    <!-- INSCRIPTION étape 1 : infos -->
-    <div class="lcard hidden" id="l-reg1">
-      <div class="lcard-title">Créer un compte</div>
-      <div class="lcard-sub">Entrez vos informations pour rejoindre Echo</div>
+    <!-- INSCRIPTION étape 1 -->
+    <div class="lcard hidden" id="l-r1">
+      <div class="lct">Nouveau compte</div>
+      <div class="lcs">Informations de base</div>
       <div class="pr">
         <button class="cb" id="ctb-r" onclick="showCtry('r')">🇧🇯 +229</button>
-        <input class="pi" type="tel" id="phi-r" placeholder="XX XX XX XX">
+        <input class="pi" type="tel" id="ph-r" placeholder="01 XX XX XX XX">
       </div>
-      <input class="li2" type="text" id="nmi" placeholder="Votre nom complet">
-      <div class="er" id="re1"></div>
-      <button class="lbtn off" id="lbtn-r" onclick="goToVch()">Continuer →</button>
-      <button class="lback" onclick="backToChoice()">← Retour</button>
+      <input class="li2" type="text" id="nm-r" placeholder="Votre nom complet">
+      <div class="er" id="re"></div>
+      <button class="lbtn off" id="btn-r" onclick="goVch()">Continuer →</button>
+      <button class="lbk" onclick="back()">← Retour</button>
     </div>
 
-    <!-- INSCRIPTION étape 2 : choix SMS ou Email -->
+    <!-- INSCRIPTION étape 2 : choix SMS/Email -->
     <div class="lcard hidden" id="l-vch">
-      <div class="lcard-title">Vérification</div>
-      <div class="lcard-sub">Comment voulez-vous recevoir votre code ?</div>
+      <div class="lct">Vérification</div>
+      <div class="lcs">Comment recevoir votre code ?</div>
       <div class="vch">
-        <button class="vchb sel" id="vch-sms" onclick="selVch('sms')">
-          <div class="vchi">📱</div>
-          <div>SMS</div>
-          <div style="font-size:11px;opacity:.7">Recommandé</div>
-        </button>
-        <button class="vchb" id="vch-email" onclick="selVch('email')">
-          <div class="vchi">📧</div>
-          <div>Email</div>
-          <div style="font-size:11px;opacity:.7">Via Gmail etc.</div>
-        </button>
+        <button class="vchb sel" id="v-sms" onclick="selV('sms')"><div class="vi">📱</div><div>SMS</div><div style="font-size:10px;opacity:.7">Recommandé</div></button>
+        <button class="vchb" id="v-email" onclick="selV('email')"><div class="vi">📧</div><div>Email</div><div style="font-size:10px;opacity:.7">Gmail etc.</div></button>
       </div>
-      <div id="vch-email-inp" class="hidden">
-        <input class="li2" type="email" id="emi" placeholder="votre@email.com">
-      </div>
+      <div id="email-inp" class="hidden"><input class="li2" type="email" id="em-r" placeholder="votre@email.com"></div>
       <div class="er" id="ve"></div>
       <button class="lbtn on" onclick="sendOtp()">Envoyer le code</button>
-      <button class="lback" onclick="showRegister()">← Retour</button>
+      <button class="lbk" onclick="showReg()">← Retour</button>
     </div>
 
     <!-- INSCRIPTION étape 3 : saisie code -->
     <div class="lcard hidden" id="l-otp">
-      <div class="lcard-title">Entrez le code</div>
-      <div class="lcard-sub" id="otp-sub">Entrez le code affiché ci-dessous</div>
-      <div class="otp-display">
-        <div class="otd-lbl">🔐 Code de vérification (Beta)</div>
-        <div class="otd-code" id="otp-show">------</div>
-        <div class="otd-hint">Recopiez ce code dans les cases ci-dessous</div>
+      <div class="lct">Code de vérification</div>
+      <div class="lcs" id="otp-sub">Recopiez le code ci-dessous</div>
+      <div class="otpd">
+        <div class="otdl">🔐 Votre code (Beta)</div>
+        <div class="otdc" id="otp-show">------</div>
+        <div class="otdh">Entrez ce code dans les cases</div>
       </div>
       <div class="or" id="otr"></div>
       <div class="er" id="oe"></div>
-      <button class="lbtn on" onclick="doVerify()">Vérifier et entrer ✓</button>
-      <button class="lback" onclick="showVch()">← Retour</button>
+      <button class="lbtn on" onclick="doVerify()">Vérifier ✓</button>
+      <button class="lbk" onclick="goVchBack()">← Retour</button>
     </div>
-
   </div>
 </div>
 
@@ -315,7 +296,10 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
     <div class="sb"><span>🔍</span><input type="text" id="cvs" oninput="filterCvs()" placeholder="Rechercher..."></div>
   </div>
   <div class="sts" id="sts"></div>
-  <div class="cl2" id="cvl"></div>
+  <div class="ptr-wrap" id="ptr-wrap">
+    <div class="ptr-ind" id="ptr-ind">🔄 Actualisation...</div>
+    <div class="cl2" id="cvl"></div>
+  </div>
   <div class="bn" id="bn1"></div>
 </div>
 
@@ -323,7 +307,7 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 <div class="screen hidden" id="groups">
   <div class="ph">
     <div class="ht"><div class="htl">Groupes</div><button class="ib" onclick="showNewGrp()">➕</button></div>
-    <div class="sb"><span>🔍</span><input type="text" id="grs" oninput="filterGrps()" placeholder="Rechercher un groupe..."></div>
+    <div class="sb"><span>🔍</span><input type="text" id="grs" oninput="filterGrps()" placeholder="Rechercher..."></div>
   </div>
   <div class="gl" id="grl"></div>
   <button class="fab" onclick="showNewGrp()">➕</button>
@@ -341,7 +325,7 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
   <div class="mg" id="gms"></div>
   <div class="ib2">
     <button style="font-size:20px;color:#8892A4" onclick="showAttach()">📎</button>
-    <div class="iw"><textarea id="gti" rows="1" oninput="ar(this);uG()"></textarea><button style="font-size:18px" onclick="showEmoji('gti')">😊</button></div>
+    <div class="iw"><textarea id="gti" rows="1" oninput="ar(this);uG()" placeholder="Écrire dans le groupe..."></textarea><button style="font-size:18px" onclick="showEmoji('gti')">😊</button></div>
     <button class="sbt off" id="gsb" onclick="sendGrp()">🗣️</button>
   </div>
 </div>
@@ -350,7 +334,7 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
 <div class="screen hidden" id="channels">
   <div class="ph">
     <div class="ht"><div class="htl">Canaux</div><button class="ib" onclick="showNewChan()">➕</button></div>
-    <div class="sb"><span>🔍</span><input type="text" id="chs" oninput="filterChans()" placeholder="Rechercher un canal..."></div>
+    <div class="sb"><span>🔍</span><input type="text" id="chs" oninput="filterChans()" placeholder="Rechercher..."></div>
   </div>
   <div class="gl" id="chl"></div>
   <button class="fab" onclick="showNewChan()">➕</button>
@@ -367,7 +351,7 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
   </div>
   <div class="mg" id="cms"></div>
   <div class="ib2">
-    <div class="iw"><textarea id="cti" rows="1" oninput="ar(this);uC()"></textarea><button style="font-size:18px" onclick="showEmoji('cti')">😊</button></div>
+    <div class="iw"><textarea id="cti" rows="1" oninput="ar(this);uC()" placeholder="Écrire dans le canal..."></textarea><button style="font-size:18px" onclick="showEmoji('cti')">😊</button></div>
     <button class="sbt off" id="csb" onclick="sendChan()">🗣️</button>
   </div>
 </div>
@@ -378,7 +362,7 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
     <div class="pt">
       <div class="paw" onclick="changePhoto()"><div class="pa" id="pav" style="background:#00897B">G</div><div class="pae">📷</div></div>
       <div class="pn" id="pnm">---</div><div class="pp" id="pph"></div>
-      <button class="peb" onclick="showEdit()">✏️ Modifier le profil</button>
+      <button class="peb" onclick="showEdit()">✏️ Modifier</button>
     </div>
     <div class="pc">
       <div class="pct">Langue</div>
@@ -397,10 +381,11 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
     </div>
     <div class="pc">
       <div class="pct">À propos</div>
-      <div class="pw" onclick="showVer()"><div class="pwi">ℹ️</div><div class="pwf"><div class="pwl">Version</div><div class="pwv">Echo Beta 1.0 — 2026</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="showVer()"><div class="pwi">ℹ️</div><div class="pwf"><div class="pwl">Version</div><div class="pwv">Echo Beta 1.0</div></div><div class="pwa">›</div></div>
       <div class="pw" onclick="showSup()"><div class="pwi">❤️</div><div class="pwf"><div class="pwl">Soutenir Echo</div></div><div class="pwa">›</div></div>
       <div class="pw" onclick="showShare()"><div class="pwi">📤</div><div class="pwf"><div class="pwl">Partager Echo</div></div><div class="pwa">›</div></div>
       <div class="pw" onclick="doLogout()"><div class="pwi">🚪</div><div class="pwf"><div class="pwl" style="color:#c62828;font-weight:600">Se déconnecter</div></div></div>
+      <div class="pw" onclick="deleteAccount()"><div class="pwi">🗑️</div><div class="pwf"><div class="pwl" style="color:#c62828">Supprimer mon compte</div><div class="pwv">Action irréversible</div></div></div>
     </div>
     <div style="height:30px"></div>
   </div>
@@ -422,7 +407,7 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
   <div class="mg" id="msgs"></div>
   <div class="ib2">
     <button style="font-size:20px;color:#8892A4" onclick="showAttach()">📎</button>
-    <div class="iw"><textarea id="mti" rows="1" oninput="ar(this);uS()"></textarea><button style="font-size:18px" onclick="showEmoji('mti')">😊</button></div>
+    <div class="iw"><textarea id="mti" rows="1" oninput="ar(this);uS()" placeholder="Écrire un message..."></textarea><button style="font-size:18px" onclick="showEmoji('mti')">😊</button></div>
     <button class="sbt off" id="snd" onclick="sendMsg()">🗣️</button>
   </div>
 </div>
@@ -442,30 +427,14 @@ ph{background:#fff;padding:48px 18px 13px;box-shadow:0 2px 12px rgba(0,0,0,.05);
   </div>
 </div>
 
-<input type="file" id="phi3" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+<input type="file" id="fi" accept="image/*" style="display:none" onchange="handlePhoto(event)">
 </div>
 
 <script>
 const SU='https://rivrluyqjrwcjopmgkqn.supabase.co';
 const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpdnJsdXlxanJ3Y2pvcG1na3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0OTIyNjIsImV4cCI6MjA5MzA2ODI2Mn0.t99edAvNjOch0AFI3kCbxdaT7QMMJIJMq1hY_yqC5Kk';
 
-// 476 EMOJIS
-const EMOJIS=['😀','😃','😄','😁','😆','😅','😂','🤣','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','😐','😑','😶','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤠','🤡','🥳','🥸','🤢','🤮','🤧','😷','🤒','🤕','🫠','🫡','🫢','🫣','🫥','🫤',
-'👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','👊','✊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','🫶','🫱','🫲','🫳','🫴',
-'❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟',
-'🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐽','🐸','🐵','🙈','🙉','🙊','🐔','🐧','🐦','🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦟','🦗','🕷️','🕸️','🦂','🐢','🐍','🦎','🦖','🦕','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊','🐅','🐆','🦓','🦍','🐘','🦛','🦏','🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🦙','🐐','🦌','🐕','🐩','🦮','🐈','🐓','🦃','🦚','🦜','🦢','🦩','🕊️','🐇','🦝','🦨','🦡','🦦','🦥','🐁','🐀','🐿️','🦔',
-'🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🫑','🌽','🥕','🫒','🧄','🧅','🥔','🍠','🥐','🥯','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🫓','🥪','🥙','🧆','🌮','🌯','🫔','🥗','🥘','🫕','🥫','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🦪','🍤','🍙','🍚','🍘','🍥','🥠','🥮','🍢','🍧','🍦','🍨','🍩','🍪','🎂','🍰','🧁','🥧','🍫','🍬','🍭','🍮','🍯','🍼','🥛','☕','🫖','🍵','🍶','🍾','🍷','🍸','🍹','🍺','🍻','🥂','🥃','🧃','🥤','🧋','🧉',
-'⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🥏','🎱','🪀','🏓','🏸','🏒','🏑','🥍','🏏','🪃','🥅','⛳','🪁','🏹','🎣','🤿','🥊','🥋','🎽','🛹','🛷','⛸️','🥌','🎿','⛷️','🏂','🪂','🏆','🥇','🥈','🥉','🏅','🎖️','🏵️','🎗️','🎫','🎟️',
-'🎵','🎶','🎹','🥁','🪘','🎷','🎺','🪗','🎸','🪕','🎤','🎧','🎼','🎭','🩰','🎨','🎬',
-'🌍','🌎','🌏','🗺️','🗻','🏔️','⛰️','🌋','🧭','🏕️','🏖️','🏜️','🏝️','🏞️','🏟️','🏛️','🏗️','🧱','🛖','🏘️','🏚️','🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🕌','🛕','🕍','⛩️','🕋','⛲','⛺','🌃','🏙️','🌄','🌅','🌆','🌇','🌉',
-'🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚝','🚞','🚋','🚌','🚍','🚎','🚐','🚑','🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🛻','🚚','🚛','🚜','🏎️','🏍️','🛵','🚲','🛴','🚨','🚥','🚦','🛑','🚧','⚓','⛵','🛶','🚤','🛳️','⛴️','🛥️','🚢','✈️','🛩️','🛫','🛬','💺','🚁','🚀','🛸',
-'⌛','⏳','⌚','⏰','⏱️','⏲️','🕰️','🌡️','🎈','🎏','🎐','🎑','🧧','🎀','🎁','🎊','🎉',
-'✅','❌','⭕','☑️','✔️','⭐','🔵','🔴','🟠','🟡','🟢','🟣','🟤','⚫','⚪','🟥','🟧','🟨','🟩','🟦','🟪','🟫','⬛','⬜','🔶','🔷','🔸','🔹','🔺','🔻','💠','🔘','🔲','🔳',
-'🇧🇯','🇳🇬','🇬🇭','🇸🇳','🇨🇮','🇨🇲','🇧🇫','🇹🇬','🇳🇪','🇲🇱','🇲🇦','🇩🇿','🇹🇳','🇪🇬','🇪🇹','🇰🇪','🇹🇿','🇺🇬','🇿🇦','🇨🇩','🇨🇬','🇹🇩','🇬🇦','🇬🇳','🇸🇱','🇱🇷','🇬🇲','🇨🇻','🇲🇷','🇸🇩','🇸🇴','🇩🇯','🇪🇷','🇷🇼','🇧🇮','🇲🇿','🇿🇼','🇿🇲','🇲🇼','🇧🇼','🇳🇦','🇸🇿','🇱🇸','🇲🇬','🇲🇺','🇸🇨','🇰🇲','🇦🇴','🇸🇸',
-'🇫🇷','🇬🇧','🇩🇪','🇪🇸','🇮🇹','🇵🇹','🇧🇪','🇨🇭','🇳🇱','🇸🇪','🇳🇴','🇩🇰','🇫🇮','🇵🇱','🇦🇹','🇬🇷','🇭🇺','🇷🇺','🇺🇦','🇮🇪',
-'🇺🇸','🇨🇦','🇧🇷','🇲🇽','🇨🇴','🇦🇷','🇨🇱','🇵🇪','🇻🇪','🇭🇹',
-'🇨🇳','🇯🇵','🇮🇳','🇵🇰','🇮🇩','🇹🇭','🇻🇳','🇹🇷','🇸🇦','🇦🇪','🇮🇱','🇦🇺','🇳🇿',
-'🏳️','🏴','🏳️‍🌈','🏴‍☠️'];
+const EMOJIS=['😀','😃','😄','😁','😆','😅','😂','🤣','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','😐','😑','😶','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤠','🤡','🥳','🥸','🤢','🤮','🤧','😷','🤒','🤕','🫠','🫡','🫢','🫣','🫥','🫤','👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','👊','✊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','🫶','🫱','🫲','🫳','🫴','❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟','🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🙈','🙉','🙊','🐔','🐧','🐦','🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦟','🦗','🐢','🐍','🦎','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐘','🦛','🦏','🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🦙','🐐','🦌','🐕','🐩','🦮','🐈','🐓','🦃','🦚','🦜','🦢','🦩','🕊️','🐇','🦝','🦨','🦡','🦦','🦥','🐁','🐀','🐿️','🦔','🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🌽','🥕','🧄','🧅','🥔','🍠','🥐','🥯','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🫓','🥪','🥙','🧆','🌮','🌯','🫔','🥗','🥘','🫕','🥫','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🦪','🍤','🍙','🍚','🍘','🍥','🥠','🥮','🍢','🍧','🍦','🍨','🍩','🍪','🎂','🍰','🧁','🥧','🍫','🍬','🍭','🍮','🍯','🍼','🥛','☕','🫖','🍵','🍶','🍾','🍷','🍸','🍹','🍺','🍻','🥂','🥃','🧃','🥤','🧋','🧉','⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🥏','🎱','🪀','🏓','🏸','🏒','🏑','🥍','🏏','🪃','🥅','⛳','🪁','🏹','🎣','🤿','🥊','🥋','🎽','🛹','🛷','⛸️','🥌','🎿','🏆','🥇','🥈','🥉','🏅','🎖️','🏵️','🎗️','🎫','🎟️','🎵','🎶','🎹','🥁','🪘','🎷','🎺','🪗','🎸','🪕','🎤','🎧','🎼','🎭','🩰','🎨','🎬','🌍','🌎','🌏','🗺️','🏔️','⛰️','🌋','🧭','🏕️','🏖️','🏜️','🏝️','🏞️','🏟️','🏛️','🏗️','🧱','🛖','🏘️','🏚️','🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🕌','🛕','🕍','⛩️','🕋','⛲','⛺','🌃','🏙️','🌄','🌅','🌆','🌇','🌉','🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚋','🚌','🚍','🚐','🚑','🚒','🚓','🚕','🚗','🚙','🛻','🚚','🚛','🚜','🏎️','🏍️','🛵','🚲','🛴','🚨','🚥','🚦','🛑','🚧','⚓','⛵','🛶','🚤','🛳️','⛴️','🛥️','🚢','✈️','🛩️','🛫','🛬','💺','🚁','🚀','🛸','⌛','⏳','⌚','⏰','⏱️','⏲️','🕰️','🌡️','🎈','🎏','🎐','🎑','🧧','🎀','🎁','🎊','🎉','✅','❌','⭕','☑️','✔️','⭐','🔵','🔴','🟠','🟡','🟢','🟣','🟤','⚫','⚪','🟥','🟧','🟨','🟩','🟦','🟪','🟫','⬛','⬜','🔶','🔷','🔸','🔹','🔺','🔻','💠','🔘','🔲','🔳','🇧🇯','🇳🇬','🇬🇭','🇸🇳','🇨🇮','🇨🇲','🇧🇫','🇹🇬','🇳🇪','🇲🇱','🇲🇦','🇩🇿','🇹🇳','🇪🇬','🇪🇹','🇰🇪','🇹🇿','🇺🇬','🇿🇦','🇨🇩','🇨🇬','🇹🇩','🇬🇦','🇬🇳','🇸🇱','🇱🇷','🇬🇲','🇨🇻','🇲🇷','🇸🇩','🇸🇴','🇩🇯','🇪🇷','🇷🇼','🇧🇮','🇲🇿','🇿🇼','🇿🇲','🇲🇼','🇧🇼','🇳🇦','🇸🇿','🇱🇸','🇲🇬','🇲🇺','🇸🇨','🇰🇲','🇦🇴','🇸🇸','🇫🇷','🇬🇧','🇩🇪','🇪🇸','🇮🇹','🇵🇹','🇧🇪','🇨🇭','🇳🇱','🇸🇪','🇳🇴','🇩🇰','🇫🇮','🇵🇱','🇦🇹','🇬🇷','🇭🇺','🇷🇺','🇺🇦','🇮🇪','🇺🇸','🇨🇦','🇧🇷','🇲🇽','🇨🇴','🇦🇷','🇨🇱','🇵🇪','🇻🇪','🇭🇹','🇨🇳','🇯🇵','🇮🇳','🇵🇰','🇮🇩','🇹🇭','🇻🇳','🇹🇷','🇸🇦','🇦🇪','🇦🇺','🇳🇿','🏳️','🏴','🏳️‍🌈','🏴‍☠️'];
 
 const AVC=['#00897B','#667EEA','#F6A623','#2E7D32','#6B3FA0','#0288D1'];
 const avc=l=>l?AVC[l.charCodeAt(0)%AVC.length]:'#00897B';
@@ -473,21 +442,23 @@ const nt=()=>{const d=new Date();return d.getHours()+':'+String(d.getMinutes()).
 const $=id=>document.getElementById(id);
 const show=id=>{const e=$(id);if(e)e.classList.remove('hidden')};
 const hide=id=>{const e=$(id);if(e)e.classList.add('hidden')};
-function mkAv(l,sz,on){const lt=l||'?';return`<div class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.38)}px;background:${avc(lt)}">${lt}${on?'<div class="dot"></div>':''}</div>`}
+function mkAv(u,sz,on){
+  // Afficher photo si disponible, sinon lettre
+  const lt=(u&&u.avatar_letter)||'?';
+  const ph=(u&&u.photo)||'';
+  const bg=avc(lt);
+  const inner=ph?`<img src="${ph}" alt="">`:`${lt}${on?'<div class="dot"></div>':''}`;
+  return`<div class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.38)}px;background:${bg}">${inner}</div>`;
+}
 function cm(){document.querySelectorAll('.ov').forEach(e=>e.remove())}
 function toast(m){const t=document.createElement('div');t.className='tos';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
 function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
 
-let CU=null,tab='chats',aC=null,aCt=null,allCv=[],allGr=[],allCh=[],sb=null,rtSub=null,aGr=null,aChan=null,cTmr=null,cSec=0,muted=false,spk=false,country={c:'+229',f:'🇧🇯',n:'Bénin'},ctryFor='',lang=localStorage.getItem('echo_lang')||'fr',genOtp='',vchMethod='sms';
+let CU=null,tab='chats',aC=null,aCt=null,allCv=[],allGr=[],allCh=[],sb=null,rtSub=null,aGr=null,aChan=null,cTmr=null,cSec=0,muted=false,spk=false,ctryCtx='',vchM='sms',genOtp='',country={c:'+229',f:'🇧🇯',n:'Bénin'},lang=localStorage.getItem('echo_lang')||'fr';
+// Longueur min numéro selon pays (Bénin = 10 chiffres désormais)
 const SCREENS=['home','groups','channels','profile','conv','csc','gcnv','ccnv'];
 const TABS=[{id:'chats',l:'Messages',i:'💬',s:'home'},{id:'groups',l:'Groupes',i:'👥',s:'groups'},{id:'channels',l:'Canaux',i:'📢',s:'channels'},{id:'profile',l:'Profil',i:'👤',s:'profile'}];
-
-const CTRS=[
-  {c:'+229',f:'🇧🇯',n:'Bénin'},{c:'+234',f:'🇳🇬',n:'Nigeria'},{c:'+233',f:'🇬🇭',n:'Ghana'},{c:'+221',f:'🇸🇳',n:'Sénégal'},{c:'+225',f:'🇨🇮',n:"Côte d'Ivoire"},{c:'+237',f:'🇨🇲',n:'Cameroun'},{c:'+226',f:'🇧🇫',n:'Burkina Faso'},{c:'+228',f:'🇹🇬',n:'Togo'},{c:'+227',f:'🇳🇪',n:'Niger'},{c:'+223',f:'🇲🇱',n:'Mali'},{c:'+212',f:'🇲🇦',n:'Maroc'},{c:'+213',f:'🇩🇿',n:'Algérie'},{c:'+216',f:'🇹🇳',n:'Tunisie'},{c:'+20',f:'🇪🇬',n:'Égypte'},{c:'+251',f:'🇪🇹',n:'Éthiopie'},{c:'+254',f:'🇰🇪',n:'Kenya'},{c:'+255',f:'🇹🇿',n:'Tanzanie'},{c:'+256',f:'🇺🇬',n:'Ouganda'},{c:'+27',f:'🇿🇦',n:'Afrique du Sud'},{c:'+243',f:'🇨🇩',n:'RD Congo'},{c:'+242',f:'🇨🇬',n:'Congo'},{c:'+235',f:'🇹🇩',n:'Tchad'},{c:'+241',f:'🇬🇦',n:'Gabon'},{c:'+236',f:'🇨🇫',n:'Centrafrique'},{c:'+245',f:'🇬🇼',n:'Guinée-Bissau'},{c:'+224',f:'🇬🇳',n:'Guinée'},{c:'+232',f:'🇸🇱',n:'Sierra Leone'},{c:'+231',f:'🇱🇷',n:'Liberia'},{c:'+220',f:'🇬🇲',n:'Gambie'},{c:'+238',f:'🇨🇻',n:'Cap-Vert'},{c:'+222',f:'🇲🇷',n:'Mauritanie'},{c:'+249',f:'🇸🇩',n:'Soudan'},{c:'+252',f:'🇸🇴',n:'Somalie'},{c:'+253',f:'🇩🇯',n:'Djibouti'},{c:'+291',f:'🇪🇷',n:'Érythrée'},{c:'+250',f:'🇷🇼',n:'Rwanda'},{c:'+257',f:'🇧🇮',n:'Burundi'},{c:'+258',f:'🇲🇿',n:'Mozambique'},{c:'+263',f:'🇿🇼',n:'Zimbabwe'},{c:'+260',f:'🇿🇲',n:'Zambie'},{c:'+265',f:'🇲🇼',n:'Malawi'},{c:'+267',f:'🇧🇼',n:'Botswana'},{c:'+264',f:'🇳🇦',n:'Namibie'},{c:'+268',f:'🇸🇿',n:'Eswatini'},{c:'+266',f:'🇱🇸',n:'Lesotho'},{c:'+261',f:'🇲🇬',n:'Madagascar'},{c:'+230',f:'🇲🇺',n:'Maurice'},{c:'+248',f:'🇸🇨',n:'Seychelles'},{c:'+269',f:'🇰🇲',n:'Comores'},{c:'+244',f:'🇦🇴',n:'Angola'},{c:'+211',f:'🇸🇸',n:'Soudan du Sud'},
-  {c:'+33',f:'🇫🇷',n:'France'},{c:'+44',f:'🇬🇧',n:'UK'},{c:'+49',f:'🇩🇪',n:'Allemagne'},{c:'+34',f:'🇪🇸',n:'Espagne'},{c:'+39',f:'🇮🇹',n:'Italie'},{c:'+351',f:'🇵🇹',n:'Portugal'},{c:'+32',f:'🇧🇪',n:'Belgique'},{c:'+41',f:'🇨🇭',n:'Suisse'},{c:'+31',f:'🇳🇱',n:'Pays-Bas'},{c:'+46',f:'🇸🇪',n:'Suède'},{c:'+47',f:'🇳🇴',n:'Norvège'},{c:'+45',f:'🇩🇰',n:'Danemark'},{c:'+358',f:'🇫🇮',n:'Finlande'},{c:'+48',f:'🇵🇱',n:'Pologne'},{c:'+43',f:'🇦🇹',n:'Autriche'},{c:'+30',f:'🇬🇷',n:'Grèce'},{c:'+36',f:'🇭🇺',n:'Hongrie'},{c:'+7',f:'🇷🇺',n:'Russie'},{c:'+380',f:'🇺🇦',n:'Ukraine'},{c:'+353',f:'🇮🇪',n:'Irlande'},
-  {c:'+1',f:'🇺🇸',n:'USA'},{c:'+1',f:'🇨🇦',n:'Canada'},{c:'+55',f:'🇧🇷',n:'Brésil'},{c:'+52',f:'🇲🇽',n:'Mexique'},{c:'+57',f:'🇨🇴',n:'Colombie'},{c:'+54',f:'🇦🇷',n:'Argentine'},{c:'+56',f:'🇨🇱',n:'Chili'},{c:'+51',f:'🇵🇪',n:'Pérou'},{c:'+58',f:'🇻🇪',n:'Venezuela'},{c:'+509',f:'🇭🇹',n:'Haïti'},
-  {c:'+86',f:'🇨🇳',n:'Chine'},{c:'+81',f:'🇯🇵',n:'Japon'},{c:'+91',f:'🇮🇳',n:'Inde'},{c:'+92',f:'🇵🇰',n:'Pakistan'},{c:'+62',f:'🇮🇩',n:'Indonésie'},{c:'+66',f:'🇹🇭',n:'Thaïlande'},{c:'+84',f:'🇻🇳',n:'Vietnam'},{c:'+90',f:'🇹🇷',n:'Turquie'},{c:'+966',f:'🇸🇦',n:'Arabie Saoudite'},{c:'+971',f:'🇦🇪',n:'Émirats'},{c:'+61',f:'🇦🇺',n:'Australie'},{c:'+64',f:'🇳🇿',n:'Nlle-Zélande'}
-];
+const CTRS=[{c:'+229',f:'🇧🇯',n:'Bénin',min:10},{c:'+234',f:'🇳🇬',n:'Nigeria',min:10},{c:'+233',f:'🇬🇭',n:'Ghana',min:9},{c:'+221',f:'🇸🇳',n:'Sénégal',min:9},{c:'+225',f:'🇨🇮',n:"Côte d'Ivoire",min:10},{c:'+237',f:'🇨🇲',n:'Cameroun',min:9},{c:'+226',f:'🇧🇫',n:'Burkina Faso',min:8},{c:'+228',f:'🇹🇬',n:'Togo',min:8},{c:'+227',f:'🇳🇪',n:'Niger',min:8},{c:'+223',f:'🇲🇱',n:'Mali',min:8},{c:'+212',f:'🇲🇦',n:'Maroc',min:9},{c:'+213',f:'🇩🇿',n:'Algérie',min:9},{c:'+216',f:'🇹🇳',n:'Tunisie',min:8},{c:'+20',f:'🇪🇬',n:'Égypte',min:10},{c:'+251',f:'🇪🇹',n:'Éthiopie',min:9},{c:'+254',f:'🇰🇪',n:'Kenya',min:9},{c:'+255',f:'🇹🇿',n:'Tanzanie',min:9},{c:'+256',f:'🇺🇬',n:'Ouganda',min:9},{c:'+27',f:'🇿🇦',n:'Afrique du Sud',min:9},{c:'+243',f:'🇨🇩',n:'RD Congo',min:9},{c:'+242',f:'🇨🇬',n:'Congo',min:9},{c:'+235',f:'🇹🇩',n:'Tchad',min:8},{c:'+241',f:'🇬🇦',n:'Gabon',min:7},{c:'+236',f:'🇨🇫',n:'Centrafrique',min:8},{c:'+245',f:'🇬🇼',n:'Guinée-Bissau',min:7},{c:'+224',f:'🇬🇳',n:'Guinée',min:9},{c:'+232',f:'🇸🇱',n:'Sierra Leone',min:8},{c:'+231',f:'🇱🇷',n:'Liberia',min:7},{c:'+220',f:'🇬🇲',n:'Gambie',min:7},{c:'+238',f:'🇨🇻',n:'Cap-Vert',min:7},{c:'+222',f:'🇲🇷',n:'Mauritanie',min:8},{c:'+249',f:'🇸🇩',n:'Soudan',min:9},{c:'+252',f:'🇸🇴',n:'Somalie',min:9},{c:'+253',f:'🇩🇯',n:'Djibouti',min:8},{c:'+291',f:'🇪🇷',n:'Érythrée',min:7},{c:'+250',f:'🇷🇼',n:'Rwanda',min:9},{c:'+257',f:'🇧🇮',n:'Burundi',min:8},{c:'+258',f:'🇲🇿',n:'Mozambique',min:9},{c:'+263',f:'🇿🇼',n:'Zimbabwe',min:9},{c:'+260',f:'🇿🇲',n:'Zambie',min:9},{c:'+265',f:'🇲🇼',n:'Malawi',min:9},{c:'+267',f:'🇧🇼',n:'Botswana',min:8},{c:'+264',f:'🇳🇦',n:'Namibie',min:9},{c:'+268',f:'🇸🇿',n:'Eswatini',min:8},{c:'+266',f:'🇱🇸',n:'Lesotho',min:8},{c:'+261',f:'🇲🇬',n:'Madagascar',min:9},{c:'+230',f:'🇲🇺',n:'Maurice',min:8},{c:'+248',f:'🇸🇨',n:'Seychelles',min:7},{c:'+269',f:'🇰🇲',n:'Comores',min:7},{c:'+244',f:'🇦🇴',n:'Angola',min:9},{c:'+211',f:'🇸🇸',n:'Soudan du Sud',min:9},{c:'+33',f:'🇫🇷',n:'France',min:9},{c:'+44',f:'🇬🇧',n:'UK',min:10},{c:'+49',f:'🇩🇪',n:'Allemagne',min:10},{c:'+34',f:'🇪🇸',n:'Espagne',min:9},{c:'+39',f:'🇮🇹',n:'Italie',min:9},{c:'+351',f:'🇵🇹',n:'Portugal',min:9},{c:'+32',f:'🇧🇪',n:'Belgique',min:9},{c:'+41',f:'🇨🇭',n:'Suisse',min:9},{c:'+31',f:'🇳🇱',n:'Pays-Bas',min:9},{c:'+46',f:'🇸🇪',n:'Suède',min:9},{c:'+47',f:'🇳🇴',n:'Norvège',min:8},{c:'+45',f:'🇩🇰',n:'Danemark',min:8},{c:'+358',f:'🇫🇮',n:'Finlande',min:9},{c:'+48',f:'🇵🇱',n:'Pologne',min:9},{c:'+43',f:'🇦🇹',n:'Autriche',min:9},{c:'+30',f:'🇬🇷',n:'Grèce',min:10},{c:'+36',f:'🇭🇺',n:'Hongrie',min:9},{c:'+7',f:'🇷🇺',n:'Russie',min:10},{c:'+380',f:'🇺🇦',n:'Ukraine',min:9},{c:'+353',f:'🇮🇪',n:'Irlande',min:9},{c:'+1',f:'🇺🇸',n:'USA',min:10},{c:'+1',f:'🇨🇦',n:'Canada',min:10},{c:'+55',f:'🇧🇷',n:'Brésil',min:10},{c:'+52',f:'🇲🇽',n:'Mexique',min:10},{c:'+57',f:'🇨🇴',n:'Colombie',min:10},{c:'+54',f:'🇦🇷',n:'Argentine',min:10},{c:'+56',f:'🇨🇱',n:'Chili',min:9},{c:'+51',f:'🇵🇪',n:'Pérou',min:9},{c:'+58',f:'🇻🇪',n:'Venezuela',min:10},{c:'+509',f:'🇭🇹',n:'Haïti',min:8},{c:'+86',f:'🇨🇳',n:'Chine',min:11},{c:'+81',f:'🇯🇵',n:'Japon',min:10},{c:'+91',f:'🇮🇳',n:'Inde',min:10},{c:'+92',f:'🇵🇰',n:'Pakistan',min:10},{c:'+62',f:'🇮🇩',n:'Indonésie',min:9},{c:'+66',f:'🇹🇭',n:'Thaïlande',min:9},{c:'+84',f:'🇻🇳',n:'Vietnam',min:9},{c:'+90',f:'🇹🇷',n:'Turquie',min:10},{c:'+966',f:'🇸🇦',n:'Arabie Saoudite',min:9},{c:'+971',f:'🇦🇪',n:'Émirats',min:9},{c:'+61',f:'🇦🇺',n:'Australie',min:9},{c:'+64',f:'🇳🇿',n:'Nlle-Zélande',min:9}];
 
 // ── SUPABASE ──────────────────────────────────────────────────────────────
 function initSB(){return new Promise(r=>{if(window.supabase){sb=window.supabase.createClient(SU,SK);r();return;}const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';s.onload=()=>{sb=window.supabase.createClient(SU,SK);r()};s.onerror=()=>r();document.head.appendChild(s)});}
@@ -503,6 +474,24 @@ window.addEventListener('popstate',()=>{
 function goBack(){window.history.back();}
 function ph(){history.pushState({},'')}
 
+// ── PULL-TO-REFRESH ───────────────────────────────────────────────────────
+let ptStart=0,ptRefreshing=false;
+function initPTR(){
+  const el=$('cvl');if(!el)return;
+  el.addEventListener('touchstart',e=>{if(el.scrollTop===0)ptStart=e.touches[0].clientY;},{ passive:true });
+  el.addEventListener('touchmove',e=>{
+    if(ptRefreshing)return;
+    const dy=e.touches[0].clientY-ptStart;
+    if(dy>60&&el.scrollTop===0){const ind=$('ptr-ind');if(ind)ind.style.height='36px';}
+  },{ passive:true });
+  el.addEventListener('touchend',e=>{
+    const dy=e.changedTouches[0].clientY-ptStart;
+    if(dy>60&&el.scrollTop===0&&!ptRefreshing){
+      ptRefreshing=true;loadCvs().then(()=>{ptRefreshing=false;const ind=$('ptr-ind');if(ind)ind.style.height='0';});
+    } else {const ind=$('ptr-ind');if(ind)ind.style.height='0';}
+  },{ passive:true });
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────
 window.addEventListener('load',async()=>{
   await initSB();
@@ -510,99 +499,81 @@ window.addEventListener('load',async()=>{
     hide('splash');ph();
     const saved=localStorage.getItem('echo_user');
     if(saved){
-      try{
-        CU=JSON.parse(saved);
-        // Restaurer le dernier onglet visité
-        const lastTab=localStorage.getItem('echo_tab')||'chats';
-        goTab(lastTab);
-      }catch(e){localStorage.removeItem('echo_user');show('login');}
-    } else {
-      show('login');
-    }
+      try{CU=JSON.parse(saved);const lt=localStorage.getItem('echo_tab')||'chats';goTab(lt);}
+      catch(e){localStorage.removeItem('echo_user');show('login');}
+    } else {show('login');}
   },2200);
-  // Inputs connexion
-  $('phi-l').addEventListener('input',()=>$('lbtn-l').className='lbtn '+($('phi-l').value.replace(/\D/g,'').length>=6?'on':'off'));
-  // Inputs inscription
-  ['phi-r','nmi'].forEach(id=>{
-    $(id).addEventListener('input',()=>{
-      const ok=$('phi-r').value.replace(/\D/g,'').length>=6&&$('nmi').value.trim().length>=2;
-      $('lbtn-r').className='lbtn '+(ok?'on':'off');
-    });
-  });
+  // Inputs
+  $('ph-c').addEventListener('input',()=>{const ok=$('ph-c').value.replace(/\D/g,'').length>=(country.min||7);$('btn-c').className='lbtn '+(ok?'on':'off')});
+  ['ph-r','nm-r'].forEach(id=>{$(id)?.addEventListener('input',()=>{const ok=$('ph-r').value.replace(/\D/g,'').length>=(country.min||7)&&$('nm-r').value.trim().length>=2;$('btn-r').className='lbtn '+(ok?'on':'off')});});
   buildOtpBoxes();
 });
 
-// ── NAVIGATION LOGIN ──────────────────────────────────────────────────────
-function backToChoice(){
-  ['l-login','l-reg1','l-vch','l-otp'].forEach(x=>hide(x));
-  show('l-choice');
-}
-function showLogin(){hide('l-choice');show('l-login');$('phi-l').focus();}
-function showRegister(){hide('l-choice');hide('l-vch');hide('l-otp');show('l-reg1');$('phi-r').focus();}
-function showVch(){hide('l-otp');show('l-vch');}
+// ── LOGIN NAV ─────────────────────────────────────────────────────────────
+function back(){['l-conn','l-r1','l-vch','l-otp'].forEach(x=>hide(x));show('l-ch');}
+function showConn(){hide('l-ch');show('l-conn');$('ph-c').focus();}
+function showReg(){hide('l-ch');hide('l-vch');hide('l-otp');show('l-r1');$('ph-r').focus();}
+function goVchBack(){hide('l-otp');show('l-vch');}
 
 // ── CONNEXION ─────────────────────────────────────────────────────────────
 async function doLogin(){
   if(!sb)return;
-  const btn=$('lbtn-l');btn.innerHTML='<div class="sp"></div>';btn.disabled=true;
-  const ph=$('phi-l').value.replace(/\D/g,'');
+  const btn=$('btn-c');btn.innerHTML='<div class="sp"></div>';btn.disabled=true;
+  const ph=$('ph-c').value.replace(/\D/g,'');
   const fullPh=country.c.replace('+','')+ph;
   try{
     const {data}=await sb.from('users').select('*').eq('phone',fullPh).maybeSingle();
-    if(data){CU=data;localStorage.setItem('echo_user',JSON.stringify(data));await sb.from('users').update({online:true}).eq('id',data.id);hide('login');goTab('chats');}
-    else{btn.textContent='Se connecter';btn.disabled=false;btn.className='lbtn on';$('le').textContent='Numéro introuvable. Utilisez ✨ Je suis nouveau.';}
-  }catch(e){btn.textContent='Se connecter';btn.disabled=false;btn.className='lbtn on';$('le').textContent='Erreur de connexion.';}
-  }
-// ── INSCRIPTION ───────────────────────────────────────────────────────────
-async function goToVch(){
-  const ph=$('phi-r').value.replace(/\D/g,'');
-  const name=$('nmi').value.trim();
-  if(ph.length<6||name.length<2){$('re1').textContent='Remplissez tous les champs.';return;}
-  if(!sb){$('re1').textContent='Connexion en cours...';return;}
-  const fullPh=country.c.replace('+','')+ph;
-  const {data:existing}=await sb.from('users').select('id').eq('phone',fullPh).maybeSingle();
-  if(existing){$('re1').textContent='Ce numéro est déjà inscrit. Utilisez 🔑 J\'ai déjà un compte.';return;}
-  $('re1').textContent='';
-  hide('l-reg1');show('l-vch');
+    if(data){
+      CU=data;localStorage.setItem('echo_user',JSON.stringify(data));
+      await sb.from('users').update({online:true}).eq('id',data.id);
+      hide('login');goTab('chats');
+    } else {
+      btn.textContent='Se connecter';btn.disabled=false;btn.className='lbtn on';
+      $('ce').textContent='Numéro introuvable. Utilisez ✨ Je suis nouveau.';
+    }
+  }catch(e){btn.textContent='Se connecter';btn.disabled=false;btn.className='lbtn on';$('ce').textContent='Erreur de connexion.';}
 }
 
-function selVch(m){
-  vchMethod=m;
-  $('vch-sms').classList.toggle('sel',m==='sms');
-  $('vch-email').classList.toggle('sel',m==='email');
-  m==='email'?show('vch-email-inp'):hide('vch-email-inp');
+// ── INSCRIPTION ───────────────────────────────────────────────────────────
+async function goVch(){
+  const ph=$('ph-r').value.replace(/\D/g,'');
+  const name=$('nm-r').value.trim();
+  const min=country.min||7;
+  if(ph.length<min){$('re').textContent=`Numéro trop court (${min} chiffres requis pour ${country.n})`;return;}
+  if(name.length<2){$('re').textContent='Entrez votre nom (min. 2 caractères)';return;}
+  if(!sb){$('re').textContent='Connexion en cours...';return;}
+  const fullPh=country.c.replace('+','')+ph;
+  const {data:ex}=await sb.from('users').select('id').eq('phone',fullPh).maybeSingle();
+  if(ex){$('re').textContent='Ce numéro est déjà inscrit. Utilisez 🔑 J\'ai déjà un compte.';return;}
+  $('re').textContent='';hide('l-r1');show('l-vch');
 }
+
+function selV(m){
+  vchM=m;
+  $('v-sms').classList.toggle('sel',m==='sms');
+  $('v-email').classList.toggle('sel',m==='email');
+  m==='email'?show('email-inp'):hide('email-inp');
+  }
 
 async function sendOtp(){
-  if(vchMethod==='email'){
-    const email=$('emi')?.value.trim();
-    if(!email||!email.includes('@')){$('ve').textContent='Entrez un email valide';return;}
-  }
-  // Générer code
+  if(vchM==='email'){const em=$('em-r')?.value.trim();if(!em||!em.includes('@')){$('ve').textContent='Email invalide';return;}}
   genOtp=String(Math.floor(100000+Math.random()*900000));
-  const ph=$('phi-r').value.replace(/\D/g,'');
-  const name=$('nmi').value.trim();
+  const ph=$('ph-r').value.replace(/\D/g,'');
+  const name=$('nm-r').value.trim();
   const fullPh=country.c.replace('+','')+ph;
-  localStorage.setItem('echo_pending',JSON.stringify({ph:fullPh,name,letter:name[0].toUpperCase(),code:genOtp,exp:Date.now()+600000,method:vchMethod}));
-  // Afficher code
+  localStorage.setItem('echo_pending',JSON.stringify({ph:fullPh,name,letter:name[0].toUpperCase(),code:genOtp,exp:Date.now()+600000}));
   $('otp-show').textContent=genOtp;
-  $('otp-sub').textContent=vchMethod==='sms'?`Code SMS envoyé au ${country.c} ${ph} (Beta : code visible ci-dessus)`:`Code envoyé à ${$('emi')?.value||'votre email'} (Beta : code visible ci-dessus)`;
+  $('otp-sub').textContent=vchM==='sms'?`Code SMS → ${country.c} ${ph} (Beta : visible ci-dessus)`:`Code Email → ${$('em-r')?.value||''} (Beta : visible ci-dessus)`;
   hide('l-vch');show('l-otp');
-  // Essayer envoi email via Supabase si email choisi
-  if(vchMethod==='email'&&sb){try{await sb.auth.signInWithOtp({email:$('emi').value,options:{shouldCreateUser:false}});}catch(e){}}
+  [...Array(6)].forEach((_,i)=>{const b=$('ob'+i);if(b){b.value='';b.classList.remove('f');}});
   $('ob0')?.focus();
 }
 
 function buildOtpBoxes(){
   const row=$('otr');if(!row)return;row.innerHTML='';
   for(let i=0;i<6;i++){
-    const b=document.createElement('input');
-    b.type='text';b.inputMode='numeric';b.maxLength=1;b.className='ob';b.id='ob'+i;
-    b.addEventListener('input',e=>{
-      e.target.value=e.target.value.replace(/\D/,'').slice(-1);
-      e.target.classList.toggle('f',!!e.target.value);
-      if(e.target.value&&i<5)$('ob'+(i+1)).focus();
-    });
+    const b=document.createElement('input');b.type='text';b.inputMode='numeric';b.maxLength=1;b.className='ob';b.id='ob'+i;
+    b.addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/,'').slice(-1);e.target.classList.toggle('f',!!e.target.value);if(e.target.value&&i<5)$('ob'+(i+1)).focus();});
     row.appendChild(b);
   }
 }
@@ -610,46 +581,45 @@ function buildOtpBoxes(){
 async function doVerify(){
   if(!sb)return;
   const entered=[...Array(6)].map((_,i)=>$('ob'+i)?.value||'').join('');
-  const pending=JSON.parse(localStorage.getItem('echo_pending')||'{}');
-  if(entered!==pending.code){$('oe').textContent='Code incorrect. Vérifiez les chiffres affichés.';return;}
-  if(Date.now()>pending.exp){$('oe').textContent='Code expiré. Recommencez.';showVch();return;}
+  const p=JSON.parse(localStorage.getItem('echo_pending')||'{}');
+  if(entered!==p.code){$('oe').textContent='Code incorrect.';return;}
+  if(Date.now()>p.exp){$('oe').textContent='Code expiré. Recommencez.';goVchBack();return;}
   try{
-    const {data,error}=await sb.from('users').insert({phone:pending.ph,display_name:pending.name,avatar_letter:pending.letter,online:true}).select().single();
+    const {data,error}=await sb.from('users').insert({phone:p.ph,display_name:p.name,avatar_letter:p.letter,online:true}).select().single();
     if(error){$('oe').textContent='Erreur: '+error.message;return;}
-    CU=data;localStorage.setItem('echo_user',JSON.stringify(data));
-    localStorage.removeItem('echo_pending');
+    CU=data;localStorage.setItem('echo_user',JSON.stringify(data));localStorage.removeItem('echo_pending');
     hide('login');goTab('chats');toast('Bienvenue sur Echo 🎉');
-  }catch(e){$('oe').textContent='Erreur de connexion.';}
+  }catch(e){$('oe').textContent='Erreur.';}
 }
 
 // ── PAYS ──────────────────────────────────────────────────────────────────
-function showCtry(f){
-  ctryFor=f;
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Choisir un pays</div><input class="mi2" id="ctrs" placeholder="Chercher..." oninput="filterCtry()"><div id="ctrl">${rCtry(CTRS)}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
+function showCtry(ctx){
+  ctryCtx=ctx;
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Choisir un pays</div><input class="mi2" id="ctrs" placeholder="Chercher..." oninput="fCtry()"><div id="ctrl">${rCtry(CTRS)}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
 }
-function rCtry(list){return list.map(c=>`<div class="cit" onclick="pickCtry('${c.c}','${c.f}','${c.n}')"><span style="font-size:22px">${c.f}</span><span style="flex:1;font-size:15px;color:#1A1A2E">${c.n}</span><span style="color:#00897B;font-weight:700">${c.c}</span></div>`).join('');}
-function filterCtry(){const q=$('ctrs').value.toLowerCase();$('ctrl').innerHTML=rCtry(CTRS.filter(c=>c.n.toLowerCase().includes(q)||c.c.includes(q)));}
-function pickCtry(c,f,n){
-  country={c,f,n};
-  const id=ctryFor==='l'?'ctb-l':'ctb-r';
+function rCtry(list){return list.map(c=>`<div class="cit" onclick="pickCtry('${c.c}','${c.f}','${c.n}',${c.min||8})"><span style="font-size:22px">${c.f}</span><span style="flex:1;font-size:15px;color:#1A1A2E">${c.n}</span><span style="color:#00897B;font-weight:700">${c.c}</span></div>`).join('');}
+function fCtry(){const q=$('ctrs').value.toLowerCase();$('ctrl').innerHTML=rCtry(CTRS.filter(c=>c.n.toLowerCase().includes(q)||c.c.includes(q)));}
+function pickCtry(c,f,n,min){
+  country={c,f,n,min};
+  const id=ctryCtx==='c'?'ctb-c':'ctb-r';
   const b=$(id);if(b)b.textContent=f+' '+c;
   cm();
 }
 
-// ── NAVIGATION PRINCIPALE ─────────────────────────────────────────────────
+// ── NAVIGATION ────────────────────────────────────────────────────────────
 function goTab(id){
   cm();SCREENS.forEach(s=>hide(s));tab=id;
-  localStorage.setItem('echo_tab',id); // Sauvegarde pour refresh
+  localStorage.setItem('echo_tab',id);
   const tb=TABS.find(x=>x.id===id);
   if(tb){show(tb.s);buildScreen(id);}
   buildNavs();ph();
-  }
+}
 function buildScreen(id){
-  if(id==='chats'){buildSts();loadCvs();}
+  if(id==='chats'){buildSts();loadCvs();initPTR();}
   else if(id==='groups')loadGrps();
   else if(id==='channels')loadChans();
   else if(id==='profile')loadProfile();
-}
+  }
 function buildNavs(){
   ['bn1','bn2','bn3','bn4'].forEach(id=>{
     const el=$(id);if(!el)return;
@@ -657,14 +627,25 @@ function buildNavs(){
   });
 }
 
-// ── STORIES ───────────────────────────────────────────────────────────────
+// ── STORIES — avec statuts publiés ────────────────────────────────────────
+let statuts=[];
 function buildSts(){
   if(!CU)return;
   const l=CU.avatar_letter||CU.display_name[0].toUpperCase();
-  $('sts').innerHTML=`<div class="st" onclick="showMyStatus()"><div class="sta" style="background:linear-gradient(135deg,#26A69A,#004D40);position:relative">${l}<div style="position:absolute;bottom:0;right:0;width:18px;height:18px;border-radius:50%;background:#00897B;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">+</div></div><div class="stn">Mon statut</div></div>`;
+  const ph=CU.photo?`<img src="${CU.photo}" alt="">`:`${l}<div style="position:absolute;bottom:0;right:0;width:18px;height:18px;border-radius:50%;background:#00897B;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">+</div>`;
+  let html=`<div class="st" onclick="showMyStatus()"><div class="sta" style="background:linear-gradient(135deg,#26A69A,#004D40);position:relative">${ph}</div><div class="stn">Mon statut</div></div>`;
+  statuts.forEach(s=>{html+=`<div class="st" onclick="viewStatus('${s.txt}','${s.name}')"><div class="sta" style="background:linear-gradient(135deg,#26A69A,#004D40);border:2px solid #00897B">${s.letter}</div><div class="stn">${s.name}</div></div>`;});
+  $('sts').innerHTML=html;
 }
-function showMyStatus(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubSts()">📢 Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
-function pubSts(){const v=$('sti')?.value.trim();if(v){cm();toast('Statut publié !')}}
+function showMyStatus(){
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubStatus()"><span style="color:#22C55E;">📢</span> Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);
+}
+function pubStatus(){
+  const v=$('sti')?.value.trim();if(!v)return;
+  statuts.unshift({txt:v,name:CU.display_name,letter:CU.avatar_letter||CU.display_name[0]});
+  cm();buildSts();toast('Statut publié <span style="color:#22C55E;">✔️</span>');
+}
+function viewStatus(txt,name){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${name}</div><div style="text-align:center;font-size:18px;color:#1A1A2E;padding:16px 0;line-height:1.6">${txt}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 
 // ── CONVERSATIONS ─────────────────────────────────────────────────────────
 async function loadCvs(){
@@ -672,18 +653,17 @@ async function loadCvs(){
   $('cvl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
   try{
     const {data}=await sb.from('conversations')
-      .select('*, u1:users!conversations_user1_id_fkey(id,display_name,avatar_letter,online), u2:users!conversations_user2_id_fkey(id,display_name,avatar_letter,online)')
+      .select('*, u1:users!conversations_user1_id_fkey(id,display_name,avatar_letter,online,photo), u2:users!conversations_user2_id_fkey(id,display_name,avatar_letter,online,photo)')
       .or(`user1_id.eq.${CU.id},user2_id.eq.${CU.id}`).order('created_at',{ascending:false});
     allCv=data||[];renderCvs(allCv);
-  }catch(e){$('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️ pour commencer</div>';}
+  }catch(e){$('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️</div>';}
 }
 function renderCvs(list){
   const el=$('cvl');
   if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️ pour commencer</div>';return;}
   el.innerHTML=list.map(c=>{
     const ct=c.user1_id===CU.id?c.u2:c.u1;if(!ct)return'';
-    const l=ct.avatar_letter||ct.display_name[0].toUpperCase();
-    return`<div class="ci" onclick="openCv('${c.id}','${ct.id}')">${mkAv(l,44,ct.online)}<div class="cii"><div class="ct"><span class="cn">${ct.display_name}</span><span class="ctm">${c.last_time||''}</span></div><div class="clm">${c.last_message||'Démarrer la conversation'}</div></div></div>`;
+    return`<div class="ci" onclick="openCv('${c.id}','${ct.id}')">${mkAv(ct,44,ct.online)}<div class="cii"><div class="ct"><span class="cn">${ct.display_name}</span><span class="ctm">${c.last_time||''}</span></div><div class="clm">${c.last_message||'Démarrer la conversation'}</div></div></div>`;
   }).join('');
 }
 function filterCvs(){const q=$('cvs').value.toLowerCase();if(!q){renderCvs(allCv);return;}renderCvs(allCv.filter(c=>{const ct=c.user1_id===CU.id?c.u2:c.u1;return ct&&ct.display_name.toLowerCase().includes(q);}));}
@@ -693,8 +673,7 @@ async function openCv(cvId,ctId){
   const {data:ct}=await sb.from('users').select('*').eq('id',ctId).single();
   if(!ct)return;
   aCt=ct;aC={id:cvId};
-  const l=ct.avatar_letter||ct.display_name[0].toUpperCase();
-  $('cvav').innerHTML=mkAv(l,40,ct.online);
+  $('cvav').innerHTML=mkAv(ct,40,ct.online);
   $('cvnm').textContent=ct.display_name;
   $('cvst').textContent=ct.online?'En ligne':'Hors ligne';
   $('cvst').style.color=ct.online?'#43A047':'#8892A4';
@@ -703,6 +682,7 @@ async function openCv(cvId,ctId){
   if(rtSub)sb.removeChannel(rtSub);
   rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>appendMsg(p.new)).subscribe();
 }
+
 async function loadMsgs(cvId){
   const {data}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
   renderMsgs(data||[]);
@@ -712,9 +692,9 @@ function renderMsgs(msgs){
   msgs.forEach((m,i)=>{
     if(m.deleted){h+=`<div class="mr ${m.sender_id===CU.id?'me':'th'}"><div class="bl ${m.sender_id===CU.id?'me':'th'}" style="opacity:.5;font-style:italic"><div class="blt" style="font-size:13px">🗑 Message supprimé</div></div></div>`;return;}
     const me=m.sender_id===CU.id,ps=i>0&&msgs[i-1].sender_id===m.sender_id&&!msgs[i-1].deleted;
-    const l=me?(CU.avatar_letter||CU.display_name[0]):(aCt?aCt.avatar_letter||aCt.display_name[0]:'?');
+    const u=me?CU:aCt;
     h+=`<div class="mr ${me?'me':'th'}${ps?' cl':''}" id="mr${m.id}">
-      ${!me?`<div class="mav" style="opacity:${ps?0:1}">${mkAv(l,28,false)}</div>`:''}
+      ${!me?`<div class="mav" style="opacity:${ps?0:1}">${mkAv(u,28,false)}</div>`:''}
       <div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()">
         <div class="blt">${m.text}</div>
         <div class="bm">${m.time||''}${me?' ✓':''}</div>
@@ -726,9 +706,9 @@ function renderMsgs(msgs){
 function appendMsg(m){
   if(!m||m.deleted)return;
   const me=m.sender_id===CU.id;
-  const l=me?(CU.avatar_letter||CU.display_name[0]):(aCt?aCt.avatar_letter||aCt.display_name[0]:'?');
+  const u=me?CU:aCt;
   const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;d.id=`mr${m.id}`;
-  d.innerHTML=`${!me?`<div class="mav">${mkAv(l,28,false)}</div>`:''}<div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()"><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
+  d.innerHTML=`${!me?`<div class="mav">${mkAv(u,28,false)}</div>`:''}<div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()"><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
   $('msgs').appendChild(d);scB('msgs');
 }
 function scB(id){setTimeout(()=>{const e=$(id);if(e)e.scrollTop=e.scrollHeight},60)}
@@ -737,6 +717,7 @@ function sLP(id,me){lpT=setTimeout(()=>{if(me)showDelMsg(id)},600);}
 function cLP(){clearTimeout(lpT);}
 function showDelMsg(id){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><button class="mb mr2" onclick="delMsg('${id}')">🗑 Supprimer ce message</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
 async function delMsg(id){cm();if(sb)await sb.from('messages').update({deleted:true,text:''}).eq('id',id);const row=$('mr'+id);if(row){const b=row.querySelector('.bl');if(b){b.style.opacity='.5';b.style.fontStyle='italic';b.querySelector('.blt').textContent='🗑 Message supprimé';b.querySelector('.bm').textContent='';}}toast('Message supprimé');}
+
 async function sendMsg(){
   const inp=$('mti'),text=inp.value.trim();if(!text||!aC||!sb)return;
   inp.value='';ar(inp);uS();
@@ -746,18 +727,18 @@ async function sendMsg(){
 }
 function uS(){const v=$('mti').value.trim();$('snd').textContent=v?'➤':'🗣️';$('snd').className='sbt '+(v?'on':'off');}
 
-function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Voir le profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer la conversation</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
-function showCvInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Profil</div><div style="text-align:center;padding:8px 0 16px">${mkAv(aCt?.avatar_letter||'?',64,aCt?.online)}<div style="font-size:16px;font-weight:700;color:#1A1A2E;margin-top:10px">${aCt?.display_name||''}</div><div style="font-size:13px;color:${aCt?.online?'#43A047':'#8892A4'};margin-top:4px">${aCt?.online?'En ligne':'Hors ligne'}</div><div style="font-size:12px;color:#8892A4;margin-top:4px">${aCt?.phone?'+'+aCt.phone:''}</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🤫 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showCvInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Profil</div><div style="text-align:center;padding:8px 0 16px">${mkAv(aCt,64,aCt?.online)}<div style="font-size:16px;font-weight:700;color:#1A1A2E;margin-top:10px">${aCt?.display_name||''}</div><div style="font-size:13px;color:${aCt?.online?'#43A047':'#8892A4'};margin-top:4px">${aCt?.online?'En ligne':'Hors ligne'}</div><div style="font-size:12px;color:#8892A4;margin-top:4px">${aCt?.phone?'+'+aCt.phone:''}</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 async function clearCv(){if(!confirm('Effacer tous les messages ?'))return;if(sb&&aC)await sb.from('messages').delete().eq('conversation_id',aC.id);$('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div>';toast('Conversation effacée');}
 
 function showNewChat(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Nouveau message</div><input class="mi2" id="nci" placeholder="Numéro de téléphone" type="tel"><button class="mb mp" onclick="startChat()">Rechercher</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="nce"></div></div></div>`);}
 async function startChat(){
   if(!sb)return;
   const phone=$('nci').value.replace(/\D/g,'');
-  if(phone.length<6){$('nce').textContent='Numéro invalide';return;}
+  if(phone.length<7){$('nce').textContent='Numéro invalide';return;}
   $('nce').textContent='Recherche...';
   const {data:ct}=await sb.from('users').select('*').eq('phone',phone).maybeSingle();
-  if(!ct){$('nce').textContent='Utilisateur introuvable sur Echo';return;}
+  if(!ct){$('nce').textContent='Introuvable sur Echo';return;}
   if(ct.id===CU.id){$('nce').textContent='C\'est votre propre numéro';return;}
   let {data:ex}=await sb.from('conversations').select('*').or(`and(user1_id.eq.${CU.id},user2_id.eq.${ct.id}),and(user1_id.eq.${ct.id},user2_id.eq.${CU.id})`).maybeSingle();
   if(!ex){const {data:nc}=await sb.from('conversations').insert({user1_id:CU.id,user2_id:ct.id}).select().single();ex=nc;}
@@ -773,50 +754,98 @@ async function loadGrps(){
 }
 function renderGrps(list){
   const el=$('grl');
-  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier groupe</div>';return;}
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';return;}
   el.innerHTML=list.map(g=>`<div class="gi" onclick="openGrp('${g.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(g.avatar_letter||'G')}">${g.avatar_letter||'G'}</div><div class="gii"><div class="gn">${g.name}</div><div class="gm">${g.member_count||1} membres · ${g.last_message||''}</div></div></div>`).join('');
 }
 function filterGrps(){const q=$('grs').value.toLowerCase();renderGrps(!q?allGr:allGr.filter(g=>g.name.toLowerCase().includes(q)));}
-function showNewGrp(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Nouveau groupe</div><input class="mi2" id="gni" placeholder="Nom du groupe"><input class="mi2" id="gdi" placeholder="Description (optionnel)"><button class="mb mp" onclick="createGrp()">Créer le groupe</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="gne"></div></div></div>`);}
+function showNewGrp(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Nouveau groupe</div><input class="mi2" id="gni" placeholder="Nom du groupe"><input class="mi2" id="gdi" placeholder="Description (optionnel)"><button class="mb mp" onclick="createGrp()">Créer</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="gne"></div></div></div>`);}
 async function createGrp(){
-  const name=$('gni')?.value.trim();if(!name){$('gne').textContent='Entrez un nom';return;}
-  const {data}=await sb.from('groups').insert({name,avatar_letter:name[0].toUpperCase(),created_by:CU.id,member_count:1,last_message:''}).select().single();
-  if(data){await sb.from('group_members').insert({group_id:data.id,user_id:CU.id,phone:CU.phone,display_name:CU.display_name,avatar_letter:CU.avatar_letter||CU.display_name[0].toUpperCase()});allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✅');}
-}
+  const name=$('gni')?.value.trim();if(!name||!sb){$('gne').textContent='Entrez un nom';return;}
+  const {data,error}=await sb.from('groups').insert({name,avatar_letter:name[0].toUpperCase(),created_by:CU.id,member_count:1,last_message:''}).select().single();
+  if(error||!data){$('gne').textContent='Erreur: '+(error?.message||'');return;}
+  await sb.from('group_members').insert({group_id:data.id,user_id:CU.id,phone:CU.phone,display_name:CU.display_name,avatar_letter:CU.avatar_letter||CU.display_name[0].toUpperCase()});
+  allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✔️');
+  }
+
 async function openGrp(id){
   aGr=allGr.find(g=>g.id===id)||{id,name:'Groupe',avatar_letter:'G',member_count:1,created_by:''};
-  $('gav').innerHTML=mkAv(aGr.avatar_letter||'G',40,false);
-  $('gnm').textContent=aGr.name;$('gmt').textContent=`${aGr.member_count||1} membres`;
-  $('gti').placeholder='Écrire dans le groupe...';
-  const {data:gmsgs}=await sb.from('group_messages').select('*').eq('group_id',id).order('created_at',{ascending:true});
-  let h='<div class="ds"><span>Aujourd\'hui</span></div>';
-  (gmsgs||[]).forEach(m=>{const me=m.sender_id===CU.id;h+=`<div class="mr ${me?'me':'th'}"><div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div></div>`;});
-  $('gms').innerHTML=h;scB('gms');
+  $('gav').innerHTML=mkAv({avatar_letter:aGr.avatar_letter||'G'},40,false);
+  $('gnm').textContent=aGr.name;
+  $('gmt').textContent=`${aGr.member_count||1} membres`;
+  // Charger messages groupe
+  if(sb){
+    const {data:gmsgs}=await sb.from('group_messages').select('*').eq('group_id',id).order('created_at',{ascending:true});
+    let h='<div class="ds"><span>Aujourd\'hui</span></div>';
+    (gmsgs||[]).forEach(m=>{
+      const me=m.sender_id===CU.id;
+      h+=`<div class="mr ${me?'me':'th'}"><div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div></div>`;
+    });
+    $('gms').innerHTML=h;scB('gms');
+    // Realtime
+    if(rtSub)sb.removeChannel(rtSub);
+    rtSub=sb.channel('grp-'+id)
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{
+        const m=p.new,me=m.sender_id===CU.id;
+        const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;
+        d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
+        $('gms').appendChild(d);scB('gms');
+      }).subscribe();
+  }
   SCREENS.forEach(s=>hide(s));show('gcnv');ph();
-  if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel('grp-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{const m=p.new,me=m.sender_id===CU.id;const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;$('gms').appendChild(d);scB('gms');}).subscribe();
 }
+
 function uG(){const v=$('gti').value.trim();$('gsb').textContent=v?'➤':'🗣️';$('gsb').className='sbt '+(v?'on':'off');}
+
 async function sendGrp(){
-  const inp=$('gti'),text=inp.value.trim();if(!text)return;inp.value='';ar(inp);uG();
-  if(sb&&aGr){await sb.from('group_messages').insert({group_id:aGr.id,sender_id:CU.id,sender_name:CU.display_name,sender_letter:CU.avatar_letter||CU.display_name[0].toUpperCase(),text,time:nt()});await sb.from('groups').update({last_message:text}).eq('id',aGr.id);}
+  const inp=$('gti');
+  if(!inp)return;
+  const text=inp.value.trim();
+  if(!text){toast('Écrivez un message');return;}
+  if(!aGr||!aGr.id){toast('Erreur: groupe non chargé');return;}
+  if(!sb){toast('Connexion en cours...');return;}
+  inp.value='';ar(inp);uG();
+  const time=nt();
+  const senderName=CU.display_name;
+  const senderLetter=CU.avatar_letter||CU.display_name[0].toUpperCase();
+  // Afficher immédiatement (optimistic UI)
+  const d=document.createElement('div');d.className='mr me';
+  d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${time} ✓</div></div>`;
+  $('gms').appendChild(d);scB('gms');
+  // Envoyer en base
+  const {error}=await sb.from('group_messages').insert({group_id:aGr.id,sender_id:CU.id,sender_name:senderName,sender_letter:senderLetter,text,time});
+  if(error){toast('Erreur envoi: '+error.message);return;}
+  await sb.from('groups').update({last_message:text}).eq('id',aGr.id);
 }
+
 async function showGrpInfo(){
   const isOwner=aGr?.created_by===CU?.id;
   let mHtml='';
-  if(sb&&aGr){const {data:mbs}=await sb.from('group_members').select('*').eq('group_id',aGr.id);if(mbs&&mbs.length){mHtml='<div style="font-size:11px;font-weight:700;color:#00897B;text-transform:uppercase;padding:14px 16px 6px">Membres</div>'+(mbs.map(m=>`<div class="mi"><div class="av" style="width:36px;height:36px;font-size:14px;background:${avc(m.avatar_letter||'U')}">${m.avatar_letter||'U'}</div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#1A1A2E">${m.display_name||'?'}</div><div style="font-size:12px;color:#8892A4">${m.phone?'+'+m.phone:''}</div></div></div>`).join(''));}}
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Paramètres du groupe</div><div style="text-align:center;margin-bottom:12px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aGr?.avatar_letter||'G')};margin:0 auto 8px">${aGr?.avatar_letter||'G'}</div><div style="font-size:16px;font-weight:700;color:#1A1A2E">${aGr?.name||''}</div><div style="font-size:12px;color:#8892A4">${aGr?.member_count||1} membres</div></div>${mHtml}<button class="mb mp" style="margin-top:12px" onclick="cm();showInvite()">👥 Inviter des membres</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button>${isOwner?`<button class="mb mr2" onclick="cm();delGrp()">🗑 Supprimer le groupe</button>`:''}<button class="mb mr2" onclick="cm();goTab('groups')">🚪 Quitter le groupe</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
+  if(sb&&aGr){
+    const {data:mbs}=await sb.from('group_members').select('*').eq('group_id',aGr.id);
+    if(mbs&&mbs.length){
+      mHtml='<div style="font-size:11px;font-weight:700;color:#00897B;text-transform:uppercase;padding:14px 16px 6px">Membres</div>'+
+        mbs.map(m=>`<div class="mi"><div class="av" style="width:36px;height:36px;font-size:14px;background:${avc(m.avatar_letter||'U')}">${m.avatar_letter||'U'}</div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#1A1A2E">${m.display_name||'?'}</div><div style="font-size:12px;color:#8892A4">${m.phone?'+'+m.phone:''}</div></div>${isOwner&&m.user_id!==CU.id?`<button onclick="removeMember('${m.user_id}')" style="font-size:18px;color:#c62828;background:none;border:none;padding:4px;cursor:pointer">✕</button>`:''}</div>`).join('');
+    }
   }
-function showInvite(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Inviter des membres</div><input class="mi2" id="ivi" placeholder="Numéro de téléphone" type="tel"><button class="mb mp" onclick="sendInvite()">Inviter</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="ive"></div></div></div>`);}
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Paramètres du groupe</div><div style="text-align:center;margin-bottom:12px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aGr?.avatar_letter||'G')};margin:0 auto 8px">${aGr?.avatar_letter||'G'}</div><div style="font-size:16px;font-weight:700;color:#1A1A2E">${aGr?.name||''}</div><div style="font-size:12px;color:#8892A4">${aGr?.member_count||1} membres</div></div>${mHtml}<button class="mb mp" style="margin-top:12px" onclick="cm();showInvite()">👥 Inviter des membres</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button>${isOwner?`<button class="mb mr2" onclick="cm();delGrp()">🗑 Supprimer le groupe</button>`:''}<button class="mb mr2" onclick="cm();goTab('groups')">🚪 Quitter le groupe</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
+}
+function showInvite(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Inviter</div><input class="mi2" id="ivi" placeholder="Numéro de téléphone" type="tel"><button class="mb mp" onclick="sendInvite()">Inviter</button><button class="mb ms" onclick="cm()">Annuler</button><div class="er" id="ive"></div></div></div>`);}
 async function sendInvite(){
-  const ph=$('ivi')?.value.replace(/\D/g,'');if(!ph||ph.length<6){$('ive').textContent='Numéro invalide';return;}
+  const ph=$('ivi')?.value.replace(/\D/g,'');if(!ph||ph.length<7){$('ive').textContent='Numéro invalide';return;}
   const {data:user}=await sb.from('users').select('*').eq('phone',ph).maybeSingle();
-  if(!user){$('ive').textContent='Utilisateur introuvable sur Echo';return;}
+  if(!user){$('ive').textContent='Introuvable sur Echo';return;}
   await sb.from('group_members').upsert({group_id:aGr.id,user_id:user.id,phone:user.phone,display_name:user.display_name,avatar_letter:user.avatar_letter||user.display_name[0].toUpperCase()},{onConflict:'group_id,user_id'});
   const newCnt=(aGr.member_count||1)+1;
   await sb.from('groups').update({member_count:newCnt}).eq('id',aGr.id);
   aGr.member_count=newCnt;$('gmt').textContent=newCnt+' membres';
-  cm();toast('Invitation envoyée ✅');
+  cm();toast(`Invitation envoyée <span style="color:#22C55E;">✔️</span>`);
+}
+async function removeMember(uid){
+  if(!confirm('Retirer ce membre ?'))return;
+  await sb.from('group_members').delete().eq('group_id',aGr.id).eq('user_id',uid);
+  const newCnt=Math.max(1,(aGr.member_count||1)-1);
+  await sb.from('groups').update({member_count:newCnt}).eq('id',aGr.id);
+  aGr.member_count=newCnt;cm();toast('Membre retiré');
 }
 async function delGrp(){if(!confirm('Supprimer ce groupe ?'))return;if(sb&&aGr)await sb.from('groups').delete().eq('id',aGr.id);allGr=allGr.filter(g=>g.id!==aGr?.id);goTab('groups');toast('Groupe supprimé');}
 
@@ -831,7 +860,7 @@ async function loadChans(){
 }
 function renderChans(list){
   const el=$('chl');
-  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📢</div>Aucun canal</div>';return;}
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📡</div>Aucun canal</div>';return;}
   el.innerHTML=list.map(c=>`<div class="gi" onclick="openChan('${c.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(c.avatar_letter||'C')}">${c.avatar_letter||'C'}</div><div class="gii"><div class="gn">${c.name}</div><div class="gm">${typeof c.subscriber_count==='number'?c.subscriber_count.toLocaleString():c.subscriber_count||'0'} abonnés · ${c.last_message||''}</div></div></div>`).join('');
 }
 function filterChans(){const q=$('chs').value.toLowerCase();renderChans(!q?allCh:allCh.filter(c=>c.name.toLowerCase().includes(q)));}
@@ -844,48 +873,65 @@ async function createChan(){
 }
 function openChan(id){
   aChan=allCh.find(c=>c.id===id)||{id,name:'Canal',avatar_letter:'C',subscriber_count:0};
-  $('cav').innerHTML=mkAv(aChan.avatar_letter||'C',40,false);
+  $('cav').innerHTML=mkAv({avatar_letter:aChan.avatar_letter||'C'},40,false);
   $('cnm').textContent=aChan.name;
   $('cmt').textContent=(typeof aChan.subscriber_count==='number'?aChan.subscriber_count.toLocaleString():aChan.subscriber_count||'0')+' abonnés';
-  $('cti').placeholder='Écrire dans le canal...';
-  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📢</div>Bienvenue dans '+aChan.name+'</div>';
+  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📡</div>Bienvenue dans '+aChan.name+'</div>';
   SCREENS.forEach(s=>hide(s));show('ccnv');ph();
 }
 function uC(){const v=$('cti').value.trim();$('csb').textContent=v?'➤':'🗣️';$('csb').className='sbt '+(v?'on':'off');}
 function sendChan(){const inp=$('cti'),text=inp.value.trim();if(!text)return;inp.value='';ar(inp);uC();const d=document.createElement('div');d.className='mr me';d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${nt()} ✓</div></div>`;$('cms').appendChild(d);scB('cms');if(sb&&aChan&&aChan.created_by)sb.from('channels').update({last_message:text}).eq('id',aChan.id);}
-function showChanInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aChan?.name||''}</div><div style="text-align:center;margin-bottom:14px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aChan?.avatar_letter||'C')};margin:0 auto 8px">${aChan?.avatar_letter||'C'}</div><div style="font-size:12px;color:#8892A4">${aChan?.subscriber_count||0} abonnés</div></div><button class="mb mp" onclick="cm();toast('Abonné !')">🔔 S\'abonner</button><button class="mb mp" onclick="cm();showShare()">📤 Partager le canal</button><button class="mb mr2" onclick="cm();goTab('channels')">🚪 Quitter le canal</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showChanInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aChan?.name||''}</div><div style="text-align:center;margin-bottom:14px"><div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aChan?.avatar_letter||'C')};margin:0 auto 8px">${aChan?.avatar_letter||'C'}</div><div style="font-size:12px;color:#8892A4">${aChan?.subscriber_count||0} abonnés</div></div><button class="mb mp" onclick="cm();toast('Abonné !')">🔔 S\'abonner</button><button class="mb mp" onclick="cm();showShare()">📤 Partager</button><button class="mb mr2" onclick="cm();goTab('channels')">🚪 Quitter</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 
 // ── PROFIL ────────────────────────────────────────────────────────────────
 function loadProfile(){
   if(!CU)return;
-  const l=CU.avatar_letter||CU.display_name[0].toUpperCase();
   const av=$('pav');
-  if(CU.photo){av.innerHTML=`<img src="${CU.photo}" alt="">`;}else{av.textContent=l;av.style.background=avc(l);}
+  if(CU.photo){av.innerHTML=`<img src="${CU.photo}" alt="">`;}
+  else{const l=CU.avatar_letter||CU.display_name[0].toUpperCase();av.textContent=l;av.style.background=avc(l);}
   $('pnm').textContent=CU.display_name;
   $('pph').textContent=CU.phone?'+'+CU.phone:'';
   ['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===lang)});
 }
-function changePhoto(){$('phi3').click();}
-function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{CU.photo=ev.target.result;localStorage.setItem('echo_user',JSON.stringify(CU));loadProfile();toast('Photo mise à jour ✅');};r.readAsDataURL(f);}
+function changePhoto(){$('fi').click();}
+function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{CU.photo=ev.target.result;localStorage.setItem('echo_user',JSON.stringify(CU));// Mettre à jour en base si possible
+if(sb)sb.from('users').update({photo:ev.target.result.substring(0,500)}).eq('id',CU.id);loadProfile();toast(`Profil mis à jour <span style="color:#22C55E;">✔️</span>`);};r.readAsDataURL(f);}
 function setLang(l){lang=l;localStorage.setItem('echo_lang',l);['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===l)});toast(l==='fr'?'Français':l==='en'?'English':l==='ha'?'Hausa':l==='fo'?'Fongbe':'Igbo');}
 function showEdit(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Modifier le profil</div><input class="mi2" id="eni" value="${CU.display_name}" placeholder="Nom complet"><input class="mi2" id="ebi" placeholder="Bio"><button class="mb mp" onclick="saveProf()">Sauvegarder</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
 async function saveProf(){
   const name=$('eni')?.value.trim();if(!name)return;
   if(sb)await sb.from('users').update({display_name:name,avatar_letter:name[0].toUpperCase()}).eq('id',CU.id);
   CU.display_name=name;CU.avatar_letter=name[0].toUpperCase();
-  localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour ✅');
+  localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour <span style="color:#22C55E;">✔️</span>`);
 }
 function togNotif(){const tg=$('ntg');tg.classList.toggle('on');$('ntv').textContent=tg.classList.contains('on')?'Activées':'Désactivées';toast(tg.classList.contains('on')?'Notifications activées':'Notifications désactivées');}
-function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><svg width="80" height="80" viewBox="0 0 200 200"><defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4A90E2"/><stop offset="100%" style="stop-color:#7B4FD8"/></linearGradient></defs><rect width="200" height="200" rx="46" fill="url(#lg1)"/><rect x="28" y="26" width="144" height="118" rx="30" fill="white"/><path d="M 72 144 Q 68 170 90 162 Q 82 152 86 144 Z" fill="white"/><text x="100" y="102" text-anchor="middle" font-family="Arial" font-size="38" font-weight="800" fill="#5B4FD8">Echo</text></svg><div style="font-size:20px;font-weight:800;color:#1A1A2E;margin-top:10px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par KPONOU Studio</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
-function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo ❤️</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci ❤️')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">📤 Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
+function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par KPONOU Studio</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo 🌾</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci 🫂')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">✈️ Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
 function showShare(){const url='https://echo-gk.vercel.app';if(navigator.share){navigator.share({title:'Echo',text:'Speak. Be heard.',url}).catch(()=>{});}else{document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Partager Echo</div><div style="background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:14px;font-size:14px;color:#00897B;text-align:center;margin-bottom:12px">${url}</div><button class="mb mp" onclick="navigator.clipboard.writeText('${url}').then(()=>{toast('Lien copié !');cm()})">📋 Copier le lien</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}}
+
+// ── SUPPRIMER COMPTE ──────────────────────────────────────────────────────
+async function deleteAccount(){
+  if(!confirm('🚨 Supprimer votre compte Echo ?\n\nCette action est IRRÉVERSIBLE.\nTous vos messages et données seront supprimés.'))return;
+  const conf=prompt('Tapez DELETE pour confirmer :');
+  if(conf!=='DELETE'){toast('Action annulée');return;}
+  try{
+    if(sb&&CU){
+      await sb.from('messages').delete().eq('sender_id',CU.id);
+      await sb.from('group_members').delete().eq('user_id',CU.id);
+      await sb.from('users').delete().eq('id',CU.id);
+    }
+    localStorage.removeItem('echo_user');localStorage.removeItem('echo_tab');CU=null;
+    SCREENS.forEach(s=>hide(s));show('login');back();
+    toast('Compte supprimé');
+  }catch(e){toast('Erreur lors de la suppression');}
+}
 
 // ── APPEL ─────────────────────────────────────────────────────────────────
 function startCall(type){
   const l=aCt?.avatar_letter||aCt?.display_name[0]||'?';
   $('calav').style.background=avc(l);$('calav').textContent=l;
   $('calnm').textContent=aCt?.display_name||'';
-  $('calst').textContent=(type==='video'?'Appel vidéo':'Appel audio')+' — Appels bientôt disponibles';
+  $('calst').textContent=(type==='video'?'Appel vidéo':'Appel audio')+' — Bientôt disponible';
   $('caltm').textContent='00:00';muted=false;spk=false;cSec=0;
   $('mutb').textContent='🔇';$('mutb').className='cbtn act';
   $('spkb').textContent='🔊';$('spkb').className='cbtn act';
@@ -900,15 +946,12 @@ async function doLogout(){
   if(!confirm('Se déconnecter de Echo ?'))return;
   if(CU&&sb)await sb.from('users').update({online:false}).eq('id',CU.id);
   localStorage.removeItem('echo_user');localStorage.removeItem('echo_tab');CU=null;
-  SCREENS.forEach(s=>hide(s));show('login');backToChoice();
+  SCREENS.forEach(s=>hide(s));show('login');back();
 }
 
 // ── ATTACH / EMOJI ────────────────────────────────────────────────────────
 function showAttach(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Joindre un fichier</div><button class="mb mp" onclick="cm();toast('Bientôt disponible')">📷 Photo / Vidéo</button><button class="mb mp" onclick="cm();toast('Bientôt disponible')">📄 Document</button><button class="mb mp" onclick="cm();toast('Bientôt disponible')">🎵 Message vocal</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
-
-function showEmoji(target){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md" style="padding-bottom:30px"><div class="mh"></div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;padding:4px 0;max-height:300px;overflow-y:auto">${EMOJIS.map(e=>`<button style="font-size:24px;background:none;border:none;padding:4px;line-height:1" onclick="addE('${e}','${target}')">${e}</button>`).join('')}</div><button class="mb ms" style="margin-top:10px" onclick="cm()">Fermer</button></div></div>`);
-}
+function showEmoji(target){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md" style="padding-bottom:30px"><div class="mh"></div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;padding:4px 0;max-height:280px;overflow-y:auto">${EMOJIS.map(e=>`<button style="font-size:24px;background:none;border:none;padding:3px;line-height:1" onclick="addE('${e}','${target}')">${e}</button>`).join('')}</div><button class="mb ms" style="margin-top:10px" onclick="cm()">Fermer</button></div></div>`);}
 function addE(e,target){const el=$(target);if(el){el.value+=' '+e;ar(el);}if(target==='mti')uS();else if(target==='gti')uG();else if(target==='cti')uC();cm();}
 </script>
 </body>
