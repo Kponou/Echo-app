@@ -596,7 +596,7 @@ async function doVerify(){
 function showCtry(ctx){
   ctryCtx=ctx;
   document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Choisir un pays</div><input class="mi2" id="ctrs" placeholder="Chercher..." oninput="fCtry()"><div id="ctrl">${rCtry(CTRS)}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
-}
+  }
 function rCtry(list){return list.map(c=>`<div class="cit" onclick="pickCtry('${c.c}','${c.f}','${c.n}',${c.min||8})"><span style="font-size:22px">${c.f}</span><span style="flex:1;font-size:15px;color:#1A1A2E">${c.n}</span><span style="color:#00897B;font-weight:700">${c.c}</span></div>`).join('');}
 function fCtry(){const q=$('ctrs').value.toLowerCase();$('ctrl').innerHTML=rCtry(CTRS.filter(c=>c.n.toLowerCase().includes(q)||c.c.includes(q)));}
 function pickCtry(c,f,n,min){
@@ -680,13 +680,16 @@ async function openCv(cvId,ctId){
   await loadMsgs(cvId);
   SCREENS.forEach(s=>hide(s));show('conv');ph();
   if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>appendMsg(p.new)).subscribe();
+  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>{
+    if(p.new.sender_id===CU.id)return; // Déjà affiché en optimistic UI
+    appendMsg(p.new);
+  }).subscribe();
 }
 
 async function loadMsgs(cvId){
   const {data}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
   renderMsgs(data||[]);
-}
+  }
 function renderMsgs(msgs){
   let h='<div class="ds"><span>Aujourd\'hui</span></div>';
   msgs.forEach((m,i)=>{
@@ -722,6 +725,10 @@ async function sendMsg(){
   const inp=$('mti'),text=inp.value.trim();if(!text||!aC||!sb)return;
   inp.value='';ar(inp);uS();
   const time=nt();
+  // Affichage immédiat (optimistic UI)
+  const d=document.createElement('div');d.className='mr me';
+  d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${time} ✓</div></div>`;
+  $('msgs').appendChild(d);scB('msgs');
   await sb.from('messages').insert({conversation_id:aC.id,sender_id:CU.id,text,time,deleted:false});
   await sb.from('conversations').update({last_message:text,last_time:time}).eq('id',aC.id);
 }
@@ -747,10 +754,13 @@ async function startChat(){
 
 // ── GROUPES ───────────────────────────────────────────────────────────────
 async function loadGrps(){
-  if(!sb)return;
+  if(!sb||!CU){allGr=[];renderGrps(allGr);return;}
   $('grl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
-  const {data}=await sb.from('groups').select('*').order('created_at',{ascending:false});
-  allGr=data||[];renderGrps(allGr);
+  try{
+    const {data}=await sb.from('group_members').select('groups(*)').eq('user_id',CU.id);
+    allGr=(data||[]).map(m=>m.groups).filter(Boolean).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+    renderGrps(allGr);
+  }catch(e){$('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';}
 }
 function renderGrps(list){
   const el=$('grl');
@@ -785,9 +795,11 @@ async function openGrp(id){
     if(rtSub)sb.removeChannel(rtSub);
     rtSub=sb.channel('grp-'+id)
       .on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{
-        const m=p.new,me=m.sender_id===CU.id;
-        const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;
-        d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
+        const m=p.new;
+        if(m.sender_id===CU.id)return; // Déjà affiché en optimistic UI
+        const me=false;
+        const d=document.createElement('div');d.className='mr th';
+        d.innerHTML=`<div class="bl th"><div style="font-size:10px;color:#00897B;margin-bottom:3px">${m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}</div></div>`;
         $('gms').appendChild(d);scB('gms');
       }).subscribe();
   }
@@ -815,7 +827,7 @@ async function sendGrp(){
   const {error}=await sb.from('group_messages').insert({group_id:aGr.id,sender_id:CU.id,sender_name:senderName,sender_letter:senderLetter,text,time});
   if(error){toast('Erreur envoi: '+error.message);return;}
   await sb.from('groups').update({last_message:text}).eq('id',aGr.id);
-}
+  }
 
 async function showGrpInfo(){
   const isOwner=aGr?.created_by===CU?.id;
@@ -902,8 +914,8 @@ async function saveProf(){
   const name=$('eni')?.value.trim();if(!name)return;
   if(sb)await sb.from('users').update({display_name:name,avatar_letter:name[0].toUpperCase()}).eq('id',CU.id);
   CU.display_name=name;CU.avatar_letter=name[0].toUpperCase();
-  localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour <span style="color:#22C55E;">✔️</span>`);
-}
+  localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour ✅');
+    }
 function togNotif(){const tg=$('ntg');tg.classList.toggle('on');$('ntv').textContent=tg.classList.contains('on')?'Activées':'Désactivées';toast(tg.classList.contains('on')?'Notifications activées':'Notifications désactivées');}
 function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par KPONOU Studio</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo 🌾</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci 🫂')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">✈️ Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
