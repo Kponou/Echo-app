@@ -553,7 +553,7 @@ function selV(m){
   $('v-sms').classList.toggle('sel',m==='sms');
   $('v-email').classList.toggle('sel',m==='email');
   m==='email'?show('email-inp'):hide('email-inp');
-  }
+}
 
 async function sendOtp(){
   if(vchM==='email'){const em=$('em-r')?.value.trim();if(!em||!em.includes('@')){$('ve').textContent='Email invalide';return;}}
@@ -596,7 +596,7 @@ async function doVerify(){
 function showCtry(ctx){
   ctryCtx=ctx;
   document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Choisir un pays</div><input class="mi2" id="ctrs" placeholder="Chercher..." oninput="fCtry()"><div id="ctrl">${rCtry(CTRS)}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);
-  }
+}
 function rCtry(list){return list.map(c=>`<div class="cit" onclick="pickCtry('${c.c}','${c.f}','${c.n}',${c.min||8})"><span style="font-size:22px">${c.f}</span><span style="flex:1;font-size:15px;color:#1A1A2E">${c.n}</span><span style="color:#00897B;font-weight:700">${c.c}</span></div>`).join('');}
 function fCtry(){const q=$('ctrs').value.toLowerCase();$('ctrl').innerHTML=rCtry(CTRS.filter(c=>c.n.toLowerCase().includes(q)||c.c.includes(q)));}
 function pickCtry(c,f,n,min){
@@ -619,7 +619,7 @@ function buildScreen(id){
   else if(id==='groups')loadGrps();
   else if(id==='channels')loadChans();
   else if(id==='profile')loadProfile();
-  }
+}
 function buildNavs(){
   ['bn1','bn2','bn3','bn4'].forEach(id=>{
     const el=$(id);if(!el)return;
@@ -638,12 +638,12 @@ function buildSts(){
   $('sts').innerHTML=html;
 }
 function showMyStatus(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubStatus()"><span style="color:#22C55E;">📢</span> Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubStatus()">📢 Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);
 }
 function pubStatus(){
   const v=$('sti')?.value.trim();if(!v)return;
   statuts.unshift({txt:v,name:CU.display_name,letter:CU.avatar_letter||CU.display_name[0]});
-  cm();buildSts();toast('Statut publié <span style="color:#22C55E;">✔️</span>');
+  cm();buildSts();toast('Statut publié ✅');
 }
 function viewStatus(txt,name){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${name}</div><div style="text-align:center;font-size:18px;color:#1A1A2E;padding:16px 0;line-height:1.6">${txt}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 
@@ -680,16 +680,13 @@ async function openCv(cvId,ctId){
   await loadMsgs(cvId);
   SCREENS.forEach(s=>hide(s));show('conv');ph();
   if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>{
-    if(p.new.sender_id===CU.id)return; // Déjà affiché en optimistic UI
-    appendMsg(p.new);
-  }).subscribe();
+  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>appendMsg(p.new)).subscribe();
 }
 
 async function loadMsgs(cvId){
   const {data}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
   renderMsgs(data||[]);
-  }
+}
 function renderMsgs(msgs){
   let h='<div class="ds"><span>Aujourd\'hui</span></div>';
   msgs.forEach((m,i)=>{
@@ -725,16 +722,12 @@ async function sendMsg(){
   const inp=$('mti'),text=inp.value.trim();if(!text||!aC||!sb)return;
   inp.value='';ar(inp);uS();
   const time=nt();
-  // Affichage immédiat (optimistic UI)
-  const d=document.createElement('div');d.className='mr me';
-  d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${time} ✓</div></div>`;
-  $('msgs').appendChild(d);scB('msgs');
   await sb.from('messages').insert({conversation_id:aC.id,sender_id:CU.id,text,time,deleted:false});
   await sb.from('conversations').update({last_message:text,last_time:time}).eq('id',aC.id);
 }
 function uS(){const v=$('mti').value.trim();$('snd').textContent=v?'➤':'🗣️';$('snd').className='sbt '+(v?'on':'off');}
 
-function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🤫 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 function showCvInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Profil</div><div style="text-align:center;padding:8px 0 16px">${mkAv(aCt,64,aCt?.online)}<div style="font-size:16px;font-weight:700;color:#1A1A2E;margin-top:10px">${aCt?.display_name||''}</div><div style="font-size:13px;color:${aCt?.online?'#43A047':'#8892A4'};margin-top:4px">${aCt?.online?'En ligne':'Hors ligne'}</div><div style="font-size:12px;color:#8892A4;margin-top:4px">${aCt?.phone?'+'+aCt.phone:''}</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 async function clearCv(){if(!confirm('Effacer tous les messages ?'))return;if(sb&&aC)await sb.from('messages').delete().eq('conversation_id',aC.id);$('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div>';toast('Conversation effacée');}
 
@@ -754,13 +747,10 @@ async function startChat(){
 
 // ── GROUPES ───────────────────────────────────────────────────────────────
 async function loadGrps(){
-  if(!sb||!CU){allGr=[];renderGrps(allGr);return;}
+  if(!sb)return;
   $('grl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
-  try{
-    const {data}=await sb.from('group_members').select('groups(*)').eq('user_id',CU.id);
-    allGr=(data||[]).map(m=>m.groups).filter(Boolean).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-    renderGrps(allGr);
-  }catch(e){$('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';}
+  const {data}=await sb.from('groups').select('*').order('created_at',{ascending:false});
+  allGr=data||[];renderGrps(allGr);
 }
 function renderGrps(list){
   const el=$('grl');
@@ -774,8 +764,8 @@ async function createGrp(){
   const {data,error}=await sb.from('groups').insert({name,avatar_letter:name[0].toUpperCase(),created_by:CU.id,member_count:1,last_message:''}).select().single();
   if(error||!data){$('gne').textContent='Erreur: '+(error?.message||'');return;}
   await sb.from('group_members').insert({group_id:data.id,user_id:CU.id,phone:CU.phone,display_name:CU.display_name,avatar_letter:CU.avatar_letter||CU.display_name[0].toUpperCase()});
-  allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✔️');
-  }
+  allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✅');
+}
 
 async function openGrp(id){
   aGr=allGr.find(g=>g.id===id)||{id,name:'Groupe',avatar_letter:'G',member_count:1,created_by:''};
@@ -795,11 +785,9 @@ async function openGrp(id){
     if(rtSub)sb.removeChannel(rtSub);
     rtSub=sb.channel('grp-'+id)
       .on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{
-        const m=p.new;
-        if(m.sender_id===CU.id)return; // Déjà affiché en optimistic UI
-        const me=false;
-        const d=document.createElement('div');d.className='mr th';
-        d.innerHTML=`<div class="bl th"><div style="font-size:10px;color:#00897B;margin-bottom:3px">${m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}</div></div>`;
+        const m=p.new,me=m.sender_id===CU.id;
+        const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;
+        d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
         $('gms').appendChild(d);scB('gms');
       }).subscribe();
   }
@@ -827,7 +815,7 @@ async function sendGrp(){
   const {error}=await sb.from('group_messages').insert({group_id:aGr.id,sender_id:CU.id,sender_name:senderName,sender_letter:senderLetter,text,time});
   if(error){toast('Erreur envoi: '+error.message);return;}
   await sb.from('groups').update({last_message:text}).eq('id',aGr.id);
-  }
+}
 
 async function showGrpInfo(){
   const isOwner=aGr?.created_by===CU?.id;
@@ -850,7 +838,7 @@ async function sendInvite(){
   const newCnt=(aGr.member_count||1)+1;
   await sb.from('groups').update({member_count:newCnt}).eq('id',aGr.id);
   aGr.member_count=newCnt;$('gmt').textContent=newCnt+' membres';
-  cm();toast(`Invitation envoyée <span style="color:#22C55E;">✔️</span>`);
+  cm();toast('Invitation envoyée ✅');
 }
 async function removeMember(uid){
   if(!confirm('Retirer ce membre ?'))return;
@@ -872,7 +860,7 @@ async function loadChans(){
 }
 function renderChans(list){
   const el=$('chl');
-  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📡</div>Aucun canal</div>';return;}
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📢</div>Aucun canal</div>';return;}
   el.innerHTML=list.map(c=>`<div class="gi" onclick="openChan('${c.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(c.avatar_letter||'C')}">${c.avatar_letter||'C'}</div><div class="gii"><div class="gn">${c.name}</div><div class="gm">${typeof c.subscriber_count==='number'?c.subscriber_count.toLocaleString():c.subscriber_count||'0'} abonnés · ${c.last_message||''}</div></div></div>`).join('');
 }
 function filterChans(){const q=$('chs').value.toLowerCase();renderChans(!q?allCh:allCh.filter(c=>c.name.toLowerCase().includes(q)));}
@@ -888,7 +876,7 @@ function openChan(id){
   $('cav').innerHTML=mkAv({avatar_letter:aChan.avatar_letter||'C'},40,false);
   $('cnm').textContent=aChan.name;
   $('cmt').textContent=(typeof aChan.subscriber_count==='number'?aChan.subscriber_count.toLocaleString():aChan.subscriber_count||'0')+' abonnés';
-  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📡</div>Bienvenue dans '+aChan.name+'</div>';
+  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📢</div>Bienvenue dans '+aChan.name+'</div>';
   SCREENS.forEach(s=>hide(s));show('ccnv');ph();
 }
 function uC(){const v=$('cti').value.trim();$('csb').textContent=v?'➤':'🗣️';$('csb').className='sbt '+(v?'on':'off');}
@@ -907,7 +895,7 @@ function loadProfile(){
 }
 function changePhoto(){$('fi').click();}
 function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{CU.photo=ev.target.result;localStorage.setItem('echo_user',JSON.stringify(CU));// Mettre à jour en base si possible
-if(sb)sb.from('users').update({photo:ev.target.result.substring(0,500)}).eq('id',CU.id);loadProfile();toast(`Profil mis à jour <span style="color:#22C55E;">✔️</span>`);};r.readAsDataURL(f);}
+if(sb)sb.from('users').update({photo:ev.target.result.substring(0,500)}).eq('id',CU.id);loadProfile();toast('Photo mise à jour ✅');};r.readAsDataURL(f);}
 function setLang(l){lang=l;localStorage.setItem('echo_lang',l);['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===l)});toast(l==='fr'?'Français':l==='en'?'English':l==='ha'?'Hausa':l==='fo'?'Fongbe':'Igbo');}
 function showEdit(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Modifier le profil</div><input class="mi2" id="eni" value="${CU.display_name}" placeholder="Nom complet"><input class="mi2" id="ebi" placeholder="Bio"><button class="mb mp" onclick="saveProf()">Sauvegarder</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
 async function saveProf(){
@@ -915,15 +903,15 @@ async function saveProf(){
   if(sb)await sb.from('users').update({display_name:name,avatar_letter:name[0].toUpperCase()}).eq('id',CU.id);
   CU.display_name=name;CU.avatar_letter=name[0].toUpperCase();
   localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour ✅');
-    }
+}
 function togNotif(){const tg=$('ntg');tg.classList.toggle('on');$('ntv').textContent=tg.classList.contains('on')?'Activées':'Désactivées';toast(tg.classList.contains('on')?'Notifications activées':'Notifications désactivées');}
-function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par GK_Labs</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
-function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo 🌾</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci 🫂')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">✈️ Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
+function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par KPONOU Studio</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo ❤️</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci ❤️')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">📤 Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
 function showShare(){const url='https://echo-gk.vercel.app';if(navigator.share){navigator.share({title:'Echo',text:'Speak. Be heard.',url}).catch(()=>{});}else{document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Partager Echo</div><div style="background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:14px;font-size:14px;color:#00897B;text-align:center;margin-bottom:12px">${url}</div><button class="mb mp" onclick="navigator.clipboard.writeText('${url}').then(()=>{toast('Lien copié !');cm()})">📋 Copier le lien</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}}
 
 // ── SUPPRIMER COMPTE ──────────────────────────────────────────────────────
 async function deleteAccount(){
-  if(!confirm('🚨 Supprimer votre compte Echo ?\n\nCette action est IRRÉVERSIBLE.\nTous vos messages et données seront supprimés.'))return;
+  if(!confirm('⚠️ Supprimer votre compte Echo ?\n\nCette action est IRRÉVERSIBLE.\nTous vos messages et données seront supprimés.'))return;
   const conf=prompt('Tapez DELETE pour confirmer :');
   if(conf!=='DELETE'){toast('Action annulée');return;}
   try{
