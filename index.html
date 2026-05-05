@@ -8,16 +8,7 @@
 <title>Echo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#F5FFFE;-webkit-text-size-adjust:100%;overscroll-behavior:none}
-#offline-ov{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,#26A69A,#004D40);display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px 30px;text-align:center}
-#offline-ov.show{display:flex}
-.off-ico{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:42px}
-.off-title{font-size:22px;font-weight:800;color:#fff}
-.off-sub{font-size:14px;color:rgba(255,255,255,.8);line-height:1.6;max-width:280px}
-.off-dots{display:flex;gap:8px;align-items:center}
-.off-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.5);animation:offpulse 1.4s ease-in-out infinite}
-.off-dot:nth-child(2){animation-delay:.2s}.off-dot:nth-child(3){animation-delay:.4s}
-@keyframes offpulse{0%,80%,100%{transform:scale(.7);opacity:.5}40%{transform:scale(1);opacity:1}}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#F5FFFE;-webkit-text-size-adjust:100%}
 #app{position:fixed;inset:0;max-width:430px;margin:0 auto;overflow:hidden;background:#F5FFFE}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column}
 .hidden{display:none!important}
@@ -221,14 +212,6 @@ textarea{resize:none}
   <div><div class="sn">Echo</div><div class="ss">Speak. Be heard.</div></div>
 </div>
 
-<!-- OFFLINE OVERLAY -->
-<div id="offline-ov">
-  <div class="off-ico">📡</div>
-  <div class="off-title">Pas de connexion</div>
-  <div class="off-sub">Echo attend votre signal…<br>Reconnexion automatique dès que le réseau revient.</div>
-  <div class="off-dots"><div class="off-dot"></div><div class="off-dot"></div><div class="off-dot"></div></div>
-</div>
-
 <!-- LOGIN — compact -->
 <div class="screen hidden" id="login">
   <div class="lw">
@@ -430,6 +413,129 @@ textarea{resize:none}
 </div>
 
 <!-- CALL -->
+<div class="screen hidden" id="home">
+  <div class="ph">
+    <div class="ht"><div class="htl">Echo <span class="beta">BETA</span></div><div class="hb"><button class="ib" onclick="showNewChat()">✏️</button></div></div>
+    <div class="sb"><span>🔍</span><input type="text" id="cvs" oninput="filterCvs()" placeholder="Rechercher..."></div>
+  </div>
+  <div class="sts" id="sts"></div>
+  <div class="ptr-wrap" id="ptr-wrap">
+    <div class="ptr-ind" id="ptr-ind">🔄 Actualisation...</div>
+    <div class="cl2" id="cvl"></div>
+  </div>
+  <div class="bn" id="bn1"></div>
+</div>
+
+<!-- GROUPS -->
+<div class="screen hidden" id="groups">
+  <div class="ph">
+    <div class="ht"><div class="htl">Groupes</div><button class="ib" onclick="showNewGrp()">➕</button></div>
+    <div class="sb"><span>🔍</span><input type="text" id="grs" oninput="filterGrps()" placeholder="Rechercher..."></div>
+  </div>
+  <div class="gl" id="grl"></div>
+  <button class="fab" onclick="showNewGrp()">➕</button>
+  <div class="bn" id="bn2"></div>
+</div>
+
+<!-- GROUP CONV -->
+<div class="screen hidden" id="gcnv">
+  <div class="ch">
+    <button class="bk" onclick="goBack()">←</button>
+    <div class="av" id="gav" style="width:40px;height:40px;font-size:16px;margin-right:4px"></div>
+    <div class="ci2"><div class="cn2" id="gnm"></div><div class="cs" id="gmt" style="color:#8892A4"></div></div>
+    <div class="ca"><button onclick="showGrpInfo()" style="font-size:22px;color:#8892A4;font-weight:700">⋮</button></div>
+  </div>
+  <div class="mg" id="gms"></div>
+  <div class="ib2">
+    <button style="font-size:20px;color:#8892A4" onclick="showAttach()">📎</button>
+    <div class="iw"><textarea id="gti" rows="1" oninput="ar(this);uG()" placeholder="Écrire dans le groupe..."></textarea><button style="font-size:18px" onclick="showEmoji('gti')">😊</button></div>
+    <button class="sbt off" id="gsb" onclick="sendGrp()">🗣️</button>
+  </div>
+</div>
+
+<!-- CHANNELS -->
+<div class="screen hidden" id="channels">
+  <div class="ph">
+    <div class="ht"><div class="htl">Canaux</div><button class="ib" onclick="showNewChan()">➕</button></div>
+    <div class="sb"><span>🔍</span><input type="text" id="chs" oninput="filterChans()" placeholder="Rechercher..."></div>
+  </div>
+  <div class="gl" id="chl"></div>
+  <button class="fab" onclick="showNewChan()">➕</button>
+  <div class="bn" id="bn3"></div>
+</div>
+
+<!-- CHANNEL CONV -->
+<div class="screen hidden" id="ccnv">
+  <div class="ch">
+    <button class="bk" onclick="goBack()">←</button>
+    <div class="av" id="cav" style="width:40px;height:40px;font-size:16px;margin-right:4px"></div>
+    <div class="ci2"><div class="cn2" id="cnm"></div><div class="cs" id="cmt" style="color:#8892A4"></div></div>
+    <div class="ca"><button onclick="showChanInfo()" style="font-size:22px;color:#8892A4;font-weight:700">⋮</button></div>
+  </div>
+  <div class="mg" id="cms"></div>
+  <div class="ib2">
+    <div class="iw"><textarea id="cti" rows="1" oninput="ar(this);uC()" placeholder="Écrire dans le canal..."></textarea><button style="font-size:18px" onclick="showEmoji('cti')">😊</button></div>
+    <button class="sbt off" id="csb" onclick="sendChan()">🗣️</button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="screen hidden" id="profile">
+  <div class="ps">
+    <div class="pt">
+      <div class="paw" onclick="changePhoto()"><div class="pa" id="pav" style="background:#00897B">G</div><div class="pae">📷</div></div>
+      <div class="pn" id="pnm">---</div><div class="pp" id="pph"></div>
+      <button class="peb" onclick="showEdit()">✏️ Modifier</button>
+    </div>
+    <div class="pc">
+      <div class="pct">Langue</div>
+      <div class="lo">
+        <button class="lop ac" id="bfr" onclick="setLang('fr')">🇫🇷 Français</button>
+        <button class="lop" id="ben" onclick="setLang('en')">🇬🇧 English</button>
+        <button class="lop" id="bha" onclick="setLang('ha')">🇳🇬 Hausa</button>
+        <button class="lop" id="bfo" onclick="setLang('fo')">🇧🇯 Fongbe</button>
+        <button class="lop" id="big" onclick="setLang('ig')">🇳🇬 Igbo</button>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pct">Confidentialité</div>
+      <div class="pw"><div class="pwi">🔒</div><div class="pwf"><div class="pwl">Chiffrement E2E</div><div class="pwv">Actif sur tous les messages</div></div><div class="tgl on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="pw"><div class="pwi">🔔</div><div class="pwf"><div class="pwl">Notifications</div><div class="pwv" id="ntv">Activées</div></div><div class="tgl on" id="ntg" onclick="togNotif()"></div></div>
+    </div>
+    <div class="pc">
+      <div class="pct">À propos</div>
+      <div class="pw" onclick="showVer()"><div class="pwi">ℹ️</div><div class="pwf"><div class="pwl">Version</div><div class="pwv">Echo Beta 1.0</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="showSup()"><div class="pwi">❤️</div><div class="pwf"><div class="pwl">Soutenir Echo</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="showShare()"><div class="pwi">📤</div><div class="pwf"><div class="pwl">Partager Echo</div></div><div class="pwa">›</div></div>
+      <div class="pw" onclick="doLogout()"><div class="pwi">🚪</div><div class="pwf"><div class="pwl" style="color:#c62828;font-weight:600">Se déconnecter</div></div></div>
+      <div class="pw" onclick="deleteAccount()"><div class="pwi">🗑️</div><div class="pwf"><div class="pwl" style="color:#c62828">Supprimer mon compte</div><div class="pwv">Action irréversible</div></div></div>
+    </div>
+    <div style="height:30px"></div>
+  </div>
+  <div class="bn" id="bn4"></div>
+</div>
+
+<!-- CONVERSATION -->
+<div class="screen hidden" id="conv">
+  <div class="ch">
+    <button class="bk" onclick="goBack()">←</button>
+    <div class="av" id="cvav" style="width:40px;height:40px;font-size:16px;margin-right:4px"></div>
+    <div class="ci2"><div class="cn2" id="cvnm"></div><div class="cs" id="cvst"></div></div>
+    <div class="ca">
+      <button onclick="startCall('audio')">📞</button>
+      <button onclick="startCall('video')">📹</button>
+      <button onclick="showCvMenu()" style="font-size:22px;color:#8892A4;font-weight:700">⋮</button>
+    </div>
+  </div>
+  <div class="mg" id="msgs"></div>
+  <div class="ib2">
+    <button style="font-size:20px;color:#8892A4" onclick="showAttach()">📎</button>
+    <div class="iw"><textarea id="mti" rows="1" oninput="ar(this);uS()" placeholder="Écrire un message..."></textarea><button style="font-size:18px" onclick="showEmoji('mti')">😊</button></div>
+    <button class="sbt off" id="snd" onclick="sendMsg()">🗣️</button>
+  </div>
+</div>
+
+<!-- CALL -->
 <div class="screen hidden" id="csc">
   <div style="text-align:center">
     <div class="cav" id="calav"></div>
@@ -483,7 +589,7 @@ function initSB(){return new Promise(r=>{if(window.supabase){sb=window.supabase.
 // ── RETOUR TÉLÉPHONE ──────────────────────────────────────────────────────
 window.addEventListener('popstate',()=>{
   if(document.querySelectorAll('.ov').length){cm();return;}
-  if(!$('conv').classList.contains('hidden')){goTab('chats');loadCvs();return;}
+  if(!$('conv').classList.contains('hidden')){goTab('chats');return;}
   if(!$('gcnv').classList.contains('hidden')){goTab('groups');return;}
   if(!$('ccnv').classList.contains('hidden')){goTab('channels');return;}
   if(!$('csc').classList.contains('hidden')){endCall();return;}
@@ -495,39 +601,22 @@ function ph(){history.pushState({},'')}
 let ptStart=0,ptRefreshing=false;
 function initPTR(){
   const el=$('cvl');if(!el)return;
-  el.addEventListener('touchstart',e=>{if(el.scrollTop===0)ptStart=e.touches[0].clientY;else ptStart=0;},{ passive:true });
+  el.addEventListener('touchstart',e=>{if(el.scrollTop===0)ptStart=e.touches[0].clientY;},{ passive:true });
   el.addEventListener('touchmove',e=>{
-    if(ptRefreshing||ptStart===0)return;
+    if(ptRefreshing)return;
     const dy=e.touches[0].clientY-ptStart;
     if(dy>60&&el.scrollTop===0){const ind=$('ptr-ind');if(ind)ind.style.height='36px';}
   },{ passive:true });
   el.addEventListener('touchend',e=>{
-    if(ptStart===0)return;
     const dy=e.changedTouches[0].clientY-ptStart;
-    ptStart=0;
-    if(dy>60&&!ptRefreshing){
-      ptRefreshing=true;
-      const ind=$('ptr-ind');if(ind)ind.style.height='36px';
-      loadCvs().then(()=>{ptRefreshing=false;const ind=$('ptr-ind');if(ind)ind.style.height='0';});
+    if(dy>60&&el.scrollTop===0&&!ptRefreshing){
+      ptRefreshing=true;loadCvs().then(()=>{ptRefreshing=false;const ind=$('ptr-ind');if(ind)ind.style.height='0';});
     } else {const ind=$('ptr-ind');if(ind)ind.style.height='0';}
   },{ passive:true });
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
-// Gestion connexion réseau
-window.addEventListener('offline',()=>{
-  const ov=$('offline-ov');if(ov)ov.classList.add('show');
-});
-window.addEventListener('online',()=>{
-  const ov=$('offline-ov');if(ov)ov.classList.remove('show');
-  // Reprendre automatiquement
-  if(CU)loadCvs();
-  else{initSB().then(()=>{if(CU)loadCvs();});}
-});
-
 window.addEventListener('load',async()=>{
-  // Vérifier si l'app a déjà été initialisée (évite le splash lors du PTR natif)
-  if(!navigator.onLine){const ov=$('offline-ov');if(ov)ov.classList.add('show');}
   await initSB();
   setTimeout(()=>{
     hide('splash');ph();
@@ -587,7 +676,7 @@ function selV(m){
   $('v-sms').classList.toggle('sel',m==='sms');
   $('v-email').classList.toggle('sel',m==='email');
   m==='email'?show('email-inp'):hide('email-inp');
-  }
+}
 
 async function sendOtp(){
   if(vchM==='email'){const em=$('em-r')?.value.trim();if(!em||!em.includes('@')){$('ve').textContent='Email invalide';return;}}
@@ -618,35 +707,12 @@ async function doVerify(){
   const p=JSON.parse(localStorage.getItem('echo_pending')||'{}');
   if(entered!==p.code){$('oe').textContent='Code incorrect.';return;}
   if(Date.now()>p.exp){$('oe').textContent='Code expiré. Recommencez.';goVchBack();return;}
-  $('oe').textContent='';
   try{
-    let userData=null;
-    try{
-      const {data,error}=await sb.from('users').insert({phone:p.ph,display_name:p.name,avatar_letter:p.letter,online:true}).select().single();
-      if(error){
-        // Doublon : l'utilisateur existe déjà
-        if(error.code==='23505'){
-          const {data:ex}=await sb.from('users').select('*').eq('phone',p.ph).maybeSingle();
-          userData=ex;
-        } else {
-          $('oe').textContent='Erreur: '+error.message;return;
-        }
-      } else {
-        userData=data;
-      }
-    } catch(cloneErr){
-      // DataCloneError Supabase : l'insertion a probablement réussi côté serveur
-      // On attend puis on vérifie
-      await new Promise(r=>setTimeout(r,1200));
-      const {data:ex}=await sb.from('users').select('*').eq('phone',p.ph).maybeSingle();
-      userData=ex;
-    }
-    if(!userData){$('oe').textContent='Erreur de création. Réessayez.';return;}
-    CU=userData;
-    localStorage.setItem('echo_user',JSON.stringify(userData));
-    localStorage.removeItem('echo_pending');
+    const {data,error}=await sb.from('users').insert({phone:p.ph,display_name:p.name,avatar_letter:p.letter,online:true}).select().single();
+    if(error){$('oe').textContent='Erreur: '+error.message;return;}
+    CU=data;localStorage.setItem('echo_user',JSON.stringify(data));localStorage.removeItem('echo_pending');
     hide('login');goTab('chats');toast('Bienvenue sur Echo 🎉');
-  }catch(e){$('oe').textContent='Erreur inattendue. Réessayez.';}
+  }catch(e){$('oe').textContent='Erreur.';}
 }
 
 // ── PAYS ──────────────────────────────────────────────────────────────────
@@ -676,13 +742,11 @@ function buildScreen(id){
   else if(id==='groups')loadGrps();
   else if(id==='channels')loadChans();
   else if(id==='profile')loadProfile();
-  }
+}
 function buildNavs(){
-  const L=I18N[lang]||I18N['fr'];
-  const tlabs=L.tabs||['Messages','Groupes','Canaux','Profil'];
   ['bn1','bn2','bn3','bn4'].forEach(id=>{
     const el=$(id);if(!el)return;
-    el.innerHTML=TABS.map((tb,i)=>`<button class="nb" onclick="goTab('${tb.id}')" style="color:${tab===tb.id?'#00897B':'#8892A4'}"><span class="ni">${tb.i}</span><span class="nl" style="font-weight:${tab===tb.id?700:500}">${tlabs[i]||tb.l}</span>${tab===tb.id?'<div class="nd"></div>':''}</button>`).join('');
+    el.innerHTML=TABS.map(tb=>`<button class="nb" onclick="goTab('${tb.id}')" style="color:${tab===tb.id?'#00897B':'#8892A4'}"><span class="ni">${tb.i}</span><span class="nl" style="font-weight:${tab===tb.id?700:500}">${tb.l}</span>${tab===tb.id?'<div class="nd"></div>':''}</button>`).join('');
   });
 }
 
@@ -697,12 +761,12 @@ function buildSts(){
   $('sts').innerHTML=html;
 }
 function showMyStatus(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubStatus()"><span style="color:#22C55E;">📢</span> Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Mon statut</div><input class="mi2" id="sti" placeholder="Écrire un statut..." maxlength="100"><button class="mb mp" onclick="pubStatus()">📢 Publier</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);
 }
 function pubStatus(){
   const v=$('sti')?.value.trim();if(!v)return;
   statuts.unshift({txt:v,name:CU.display_name,letter:CU.avatar_letter||CU.display_name[0]});
-  cm();buildSts();toast('Statut publié <span style="color:#22C55E;">✔️</span>');
+  cm();buildSts();toast('Statut publié ✅');
 }
 function viewStatus(txt,name){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${name}</div><div style="text-align:center;font-size:18px;color:#1A1A2E;padding:16px 0;line-height:1.6">${txt}</div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 
@@ -711,22 +775,10 @@ async function loadCvs(){
   if(!CU||!sb)return;
   $('cvl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
   try{
-    const {data:cvs,error}=await sb.from('conversations')
-      .select('*')
-      .or(`user1_id.eq.${CU.id},user2_id.eq.${CU.id}`)
-      .order('created_at',{ascending:false});
-    if(error)throw error;
-    if(!cvs||!cvs.length){renderCvs([]);return;}
-    // Récupérer les infos des correspondants
-    const otherIds=[...new Set(cvs.map(c=>c.user1_id===CU.id?c.user2_id:c.user1_id))];
-    const {data:users}=await sb.from('users').select('id,display_name,avatar_letter,online,photo').in('id',otherIds);
-    const uMap=Object.fromEntries((users||[]).map(u=>[u.id,u]));
-    allCv=cvs.map(c=>{
-      const ctId=c.user1_id===CU.id?c.user2_id:c.user1_id;
-      const ct=uMap[ctId]||null;
-      return{...c,u1:uMap[c.user1_id]||null,u2:uMap[c.user2_id]||null};
-    });
-    renderCvs(allCv);
+    const {data}=await sb.from('conversations')
+      .select('*, u1:users!conversations_user1_id_fkey(id,display_name,avatar_letter,online,photo), u2:users!conversations_user2_id_fkey(id,display_name,avatar_letter,online,photo)')
+      .or(`user1_id.eq.${CU.id},user2_id.eq.${CU.id}`).order('created_at',{ascending:false});
+    allCv=data||[];renderCvs(allCv);
   }catch(e){$('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️</div>';}
 }
 function renderCvs(list){
@@ -751,10 +803,7 @@ async function openCv(cvId,ctId){
   await loadMsgs(cvId);
   SCREENS.forEach(s=>hide(s));show('conv');ph();
   if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>{
-    if(p.new.sender_id===CU.id)return; // Déjà affiché en optimistic UI
-    appendMsg(p.new);
-  }).subscribe();
+  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>appendMsg(p.new)).subscribe();
 }
 
 async function loadMsgs(cvId){
@@ -796,19 +845,12 @@ async function sendMsg(){
   const inp=$('mti'),text=inp.value.trim();if(!text||!aC||!sb)return;
   inp.value='';ar(inp);uS();
   const time=nt();
-  // Affichage immédiat (optimistic UI)
-  const d=document.createElement('div');d.className='mr me';
-  d.innerHTML=`<div class="bl me"><div class="blt">${text}</div><div class="bm">${time} ✓</div></div>`;
-  $('msgs').appendChild(d);scB('msgs');
-  // Mettre à jour allCv en mémoire pour ne pas perdre la liste
-  const cvIdx=allCv.findIndex(c=>c.id===aC.id);
-  if(cvIdx>-1){allCv[cvIdx].last_message=text;allCv[cvIdx].last_time=time;}
   await sb.from('messages').insert({conversation_id:aC.id,sender_id:CU.id,text,time,deleted:false});
   await sb.from('conversations').update({last_message:text,last_time:time}).eq('id',aC.id);
 }
 function uS(){const v=$('mti').value.trim();$('snd').textContent=v?'➤':'🗣️';$('snd').className='sbt '+(v?'on':'off');}
 
-function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🤫 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showCvMenu(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div><button class="mb mp" onclick="cm();showCvInfo()">👤 Profil</button><button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button><button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 function showCvInfo(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Profil</div><div style="text-align:center;padding:8px 0 16px">${mkAv(aCt,64,aCt?.online)}<div style="font-size:16px;font-weight:700;color:#1A1A2E;margin-top:10px">${aCt?.display_name||''}</div><div style="font-size:13px;color:${aCt?.online?'#43A047':'#8892A4'};margin-top:4px">${aCt?.online?'En ligne':'Hors ligne'}</div><div style="font-size:12px;color:#8892A4;margin-top:4px">${aCt?.phone?'+'+aCt.phone:''}</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
 async function clearCv(){if(!confirm('Effacer tous les messages ?'))return;if(sb&&aC)await sb.from('messages').delete().eq('conversation_id',aC.id);$('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div>';toast('Conversation effacée');}
 
@@ -823,21 +865,15 @@ async function startChat(){
   if(ct.id===CU.id){$('nce').textContent='C\'est votre propre numéro';return;}
   let {data:ex}=await sb.from('conversations').select('*').or(`and(user1_id.eq.${CU.id},user2_id.eq.${ct.id}),and(user1_id.eq.${ct.id},user2_id.eq.${CU.id})`).maybeSingle();
   if(!ex){const {data:nc}=await sb.from('conversations').insert({user1_id:CU.id,user2_id:ct.id}).select().single();ex=nc;}
-  cm();
-  // Recharger la liste des conversations pour qu'elle ne disparaisse pas
-  loadCvs();
-  openCv(ex.id,ct.id);
+  cm();openCv(ex.id,ct.id);
 }
 
 // ── GROUPES ───────────────────────────────────────────────────────────────
 async function loadGrps(){
-  if(!sb||!CU){allGr=[];renderGrps(allGr);return;}
+  if(!sb)return;
   $('grl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
-  try{
-    const {data}=await sb.from('group_members').select('groups(*)').eq('user_id',CU.id);
-    allGr=(data||[]).map(m=>m.groups).filter(Boolean).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-    renderGrps(allGr);
-  }catch(e){$('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';}
+  const {data}=await sb.from('groups').select('*').order('created_at',{ascending:false});
+  allGr=data||[];renderGrps(allGr);
 }
 function renderGrps(list){
   const el=$('grl');
@@ -851,8 +887,8 @@ async function createGrp(){
   const {data,error}=await sb.from('groups').insert({name,avatar_letter:name[0].toUpperCase(),created_by:CU.id,member_count:1,last_message:''}).select().single();
   if(error||!data){$('gne').textContent='Erreur: '+(error?.message||'');return;}
   await sb.from('group_members').insert({group_id:data.id,user_id:CU.id,phone:CU.phone,display_name:CU.display_name,avatar_letter:CU.avatar_letter||CU.display_name[0].toUpperCase()});
-  allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✔️');
-  }
+  allGr.unshift(data);cm();renderGrps(allGr);openGrp(data.id);toast('Groupe créé ✅');
+}
 
 async function openGrp(id){
   aGr=allGr.find(g=>g.id===id)||{id,name:'Groupe',avatar_letter:'G',member_count:1,created_by:''};
@@ -872,11 +908,9 @@ async function openGrp(id){
     if(rtSub)sb.removeChannel(rtSub);
     rtSub=sb.channel('grp-'+id)
       .on('postgres_changes',{event:'INSERT',schema:'public',table:'group_messages',filter:`group_id=eq.${id}`},p=>{
-        const m=p.new;
-        if(m.sender_id===CU.id)return; // Déjà affiché en optimistic UI
-        const me=false;
-        const d=document.createElement('div');d.className='mr th';
-        d.innerHTML=`<div class="bl th"><div style="font-size:10px;color:#00897B;margin-bottom:3px">${m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}</div></div>`;
+        const m=p.new,me=m.sender_id===CU.id;
+        const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;
+        d.innerHTML=`<div class="bl ${me?'me':'th'}"><div style="font-size:10px;color:${me?'rgba(255,255,255,.7)':'#00897B'};margin-bottom:3px">${me?'':m.sender_name||'?'}</div><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
         $('gms').appendChild(d);scB('gms');
       }).subscribe();
   }
@@ -927,7 +961,7 @@ async function sendInvite(){
   const newCnt=(aGr.member_count||1)+1;
   await sb.from('groups').update({member_count:newCnt}).eq('id',aGr.id);
   aGr.member_count=newCnt;$('gmt').textContent=newCnt+' membres';
-  cm();toast(`Invitation envoyée <span style="color:#22C55E;">✔️</span>`);
+  cm();toast('Invitation envoyée ✅');
 }
 async function removeMember(uid){
   if(!confirm('Retirer ce membre ?'))return;
@@ -949,7 +983,7 @@ async function loadChans(){
 }
 function renderChans(list){
   const el=$('chl');
-  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📡</div>Aucun canal</div>';return;}
+  if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">📢</div>Aucun canal</div>';return;}
   el.innerHTML=list.map(c=>`<div class="gi" onclick="openChan('${c.id}')"><div class="av" style="width:48px;height:48px;font-size:19px;background:${avc(c.avatar_letter||'C')}">${c.avatar_letter||'C'}</div><div class="gii"><div class="gn">${c.name}</div><div class="gm">${typeof c.subscriber_count==='number'?c.subscriber_count.toLocaleString():c.subscriber_count||'0'} abonnés · ${c.last_message||''}</div></div></div>`).join('');
 }
 function filterChans(){const q=$('chs').value.toLowerCase();renderChans(!q?allCh:allCh.filter(c=>c.name.toLowerCase().includes(q)));}
@@ -965,7 +999,7 @@ function openChan(id){
   $('cav').innerHTML=mkAv({avatar_letter:aChan.avatar_letter||'C'},40,false);
   $('cnm').textContent=aChan.name;
   $('cmt').textContent=(typeof aChan.subscriber_count==='number'?aChan.subscriber_count.toLocaleString():aChan.subscriber_count||'0')+' abonnés';
-  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📡</div>Bienvenue dans '+aChan.name+'</div>';
+  $('cms').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div class="em" style="margin-top:20px"><div class="ei">📢</div>Bienvenue dans '+aChan.name+'</div>';
   SCREENS.forEach(s=>hide(s));show('ccnv');ph();
 }
 function uC(){const v=$('cti').value.trim();$('csb').textContent=v?'➤':'🗣️';$('csb').className='sbt '+(v?'on':'off');}
@@ -981,129 +1015,11 @@ function loadProfile(){
   $('pnm').textContent=CU.display_name;
   $('pph').textContent=CU.phone?'+'+CU.phone:'';
   ['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===lang)});
-  applyLang();
 }
 function changePhoto(){$('fi').click();}
 function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{CU.photo=ev.target.result;localStorage.setItem('echo_user',JSON.stringify(CU));// Mettre à jour en base si possible
-if(sb)sb.from('users').update({photo:ev.target.result.substring(0,500)}).eq('id',CU.id);loadProfile();toast(`Profil mis à jour <span style="color:#22C55E;">✔️</span>`);};r.readAsDataURL(f);}
-function setLang(l){
-  lang=l;localStorage.setItem('echo_lang',l);
-  ['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===l)});
-  applyLang();
-  toast(l==='fr'?'🇫🇷 Français':l==='en'?'🇬🇧 English':l==='ha'?'🇳🇬 Hausa':l==='fo'?'🇧🇯 Fongbe':'🇳🇬 Igbo');
-}
-
-const I18N={
-  fr:{
-    tabs:['Messages','Groupes','Canaux','Profil'],
-    searchCv:'Rechercher...',searchGr:'Rechercher...',searchCh:'Rechercher...',
-    newMsg:'Nouveau message',newGrp:'Nouveau groupe',newChan:'Nouveau canal',
-    write:'Écrire un message...',writeGrp:'Écrire dans le groupe...',writeChan:'Écrire dans le canal...',
-    today:"Aujourd'hui",online:'En ligne',offline:'Hors ligne',
-    members:'membres',subscribers:'abonnés',
-    langTitle:'Langue',privTitle:'Confidentialité',aboutTitle:'À propos',
-    e2e:'Chiffrement E2E',e2eSub:'Actif sur tous les messages',
-    notif:'Notifications',notifOn:'Activées',notifOff:'Désactivées',
-    version:'Version',support:'Soutenir Echo',share:'Partager Echo',
-    logout:'Se déconnecter',deleteAcc:'Supprimer mon compte',deleteAccSub:'Action irréversible',
-    editProf:'✏️ Modifier',
-  },
-en:{
-    tabs:['Messages','Groups','Channels','Profile'],
-    searchCv:'Search...',searchGr:'Search...',searchCh:'Search...',
-    newMsg:'New message',newGrp:'New group',newChan:'New channel',
-    write:'Write a message...',writeGrp:'Write in the group...',writeChan:'Write in the channel...',
-    today:'Today',online:'Online',offline:'Offline',
-    members:'members',subscribers:'subscribers',
-    langTitle:'Language',privTitle:'Privacy',aboutTitle:'About',
-    e2e:'E2E Encryption',e2eSub:'Active on all messages',
-    notif:'Notifications',notifOn:'Enabled',notifOff:'Disabled',
-    version:'Version',support:'Support Echo',share:'Share Echo',
-    logout:'Log out',deleteAcc:'Delete my account',deleteAccSub:'Irreversible action',
-    editProf:'✏️ Edit',
-  },
-  ha:{
-    tabs:['Saƙonni','Ƙungiyoyi','Tasoshin','Bayanai'],
-    searchCv:'Bincika...',searchGr:'Bincika...',searchCh:'Bincika...',
-    newMsg:'Sabon saƙo',newGrp:'Sabon ƙungiya',newChan:'Sabon tasha',
-    write:'Rubuta saƙo...',writeGrp:"Rubuta a ƙungiya...",writeChan:'Rubuta a tashar...',
-    today:'Yau',online:'A kan layi',offline:'Ba a layi ba',
-    members:'membobi',subscribers:'masu biyo baya',
-    langTitle:'Harshe',privTitle:'Sirri',aboutTitle:'Game da',
-    e2e:'Ɓoye bayanai E2E',e2eSub:'Aiki akan duk saƙonni',
-    notif:'Sanarwa',notifOn:'An kunna',notifOff:'An kashe',
-    version:'Sigar',support:'Tallafawa Echo',share:'Raba Echo',
-    logout:'Fita',deleteAcc:'Share asusun na',deleteAccSub:'Ba za a iya dawo ba',
-    editProf:'✏️ Gyara',
-  },
-fo:{
-    tabs:['Wěwlánúmɛ','Kpékplé lɛ̂','Gbɛ̌ lɛ́ɛ','Nyɛ ɖésúnɔ'],
-    searchCv:'Ba mɛ kpɔ́n...',searchGr:'Ba kplékplé kpɔ́n...',searchCh:'Ba gbɛ̌ kpɔ́n...',
-    newMsg:'Wě yɔyɔ̌',newGrp:'Kpékplé yɔyɔ̌',newChan:'Gbɛ̌ yɔyɔ',
-    write:'Wlǎn ɖó fí...',writeGrp:'Wlǎn ɖó fí...',writeChan:'Wlǎn ɖó fí...',
-    today:'Égbè',online:'Ɖó kan jí',offline:'Kan gúdo',
-    members:'mɛmba',subscribers:'mɛ yí ɖó',
-    langTitle:'Gbè',privTitle:'Susu kpɔ́n',aboutTitle:'Mɔn ɔ wú',
-    e2e:'Nùzéhwlá E2E',e2eSub:'Ðó nǔwíwlán bǐ jí',
-    notif:'Wɛndómɛ',notifOn:'Wɛn ní wá',notifOff:'Wɛn ma wá ó',
-    version:'Nukɔntɔn',support:'Gɔ̌ alɔ nú Echo',share:'Sɛ́ Echo dó mɛ',
-    logout:'Yi',deleteAcc:'Sú akáwun ce',deleteAccSub:'Un sixú lɛ́ wá ǎ',
-    editProf:'✏️ Ɖyɔ́ nǔ ce ɖě',
-  },
-  ig:{
-    tabs:['Ozi','Ìgbò','Ọwa','Profaịlụ'],
-    searchCv:'Chọọ...',searchGr:'Chọọ...',searchCh:'Chọọ...',
-    newMsg:'Ozi ọhụrụ',newGrp:'Ìgbò ọhụrụ',newChan:'Ọwa ọhụrụ',
-    write:'Dee ozi...',writeGrp:'Dee na ìgbò...',writeChan:'Dee na ọwa...',
-    today:'Taa',online:'Ọnụ lainị',offline:'Ọ dịghị lainị',
-    members:'ndị otu',subscribers:'ndị na-eso',
-    langTitle:'Asụsụ',privTitle:'Nzuzo',aboutTitle:'Maka',
-    e2e:'Nchekwa E2E',e2eSub:'Arụọ na ozi niile',
-    notif:'Ọkwa',notifOn:'Emeghere',notifOff:'Mechiri',
-    version:'Ụdị',support:'Nkwado Echo',share:'Kọrọ Echo',
-    logout:'Pụọ',deleteAcc:'Hichapụ akaụntụ m',deleteAccSub:'Enweghi ike laghachi',
-    editProf:'✏️ Dezie',
-  }
-};
-
-function t(k){return (I18N[lang]||I18N['fr'])[k]||(I18N['fr'])[k]||k;}
-
-function applyLang(){
-  const L=I18N[lang]||I18N['fr'];
-  // Tabs (rebuild navs)
-  buildNavs();
-  // Placeholders dynamiques
-  const ids=[['cvs','searchCv'],['grs','searchGr'],['chs','searchCh'],['mti','write'],['gti','writeGrp'],['cti','writeChan']];
-  ids.forEach(([id,k])=>{const el=$(id);if(el)el.placeholder=L[k]||el.placeholder;});
-  // Titres headers
-  const ghome=$('home')?.querySelector('.htl');if(ghome)ghome.innerHTML=`Echo <span class="beta">BETA</span>`;
-  const ggrp=$('groups')?.querySelector('.htl');if(ggrp)ggrp.textContent=lang==='en'?'Groups':lang==='ha'?'Ƙungiyoyi':lang==='fo'?'Gbɛtɔ lɛ':lang==='ig'?'Ìgbò':'Groupes';
-  const gch=$('channels')?.querySelector('.htl');if(gch)gch.textContent=lang==='en'?'Channels':lang==='ha'?'Tasoshin':lang==='fo'?'Ablɔnzán':lang==='ig'?'Ọwa':'Canaux';
-  // Profil section titles
-  document.querySelectorAll('.pct').forEach((el,i)=>{
-    if(i===0)el.textContent=L.langTitle;
-    if(i===1)el.textContent=L.privTitle;
-    if(i===2)el.textContent=L.aboutTitle;
-  });
-  // Profil items
-  const pws=document.querySelectorAll('.pw');
-  pws.forEach(pw=>{
-    const l=pw.querySelector('.pwl');const v=pw.querySelector('.pwv');if(!l)return;
-    const txt=l.textContent.trim();
-    if(txt==='Chiffrement E2E'||txt==='E2E Encryption'||txt==='Nchekwa E2E'||txt.includes('E2E')){l.textContent=L.e2e;if(v)v.textContent=L.e2eSub;}
-    else if(txt==='Notifications'||txt==='Ọkwa'||txt==='Alixlɛnmɛ'||txt==='Sanarwa'){l.textContent=L.notif;const ntv=$('ntv');if(ntv)ntv.textContent=$('ntg')?.classList.contains('on')?L.notifOn:L.notifOff;}
-    else if(txt==='Version'){l.textContent=L.version;}
-    else if(txt.includes('Soutenir')||txt.includes('Support')||txt.includes('Tallafawa')||txt.includes('Dɔ xɔ')||txt.includes('Nkwado')){l.textContent=L.support;}
-    else if(txt.includes('Partager')||txt.includes('Share')||txt.includes('Raba')||txt.includes('Sɛ́n')||txt.includes('Kọrọ')){l.textContent=L.share;}
-    else if(txt.includes('connecter')||txt==='Log out'||txt==='Fita'||txt==='Pụọ'||txt==='Yì'){l.style.color='#c62828';l.fontWeight='600';l.textContent=L.logout;}
-    else if(txt.includes('Supprimer')||txt.includes('Delete')||txt.includes('Share')||txt.includes('Hichapụ')||txt.includes('Sú akáwun')){if(v)v.textContent=L.deleteAccSub;}
-  });
-  // Bouton éditer profil
-  const peb=document.querySelector('.peb');if(peb)peb.textContent=L.editProf;
-  // Online/offline status dans conv ouverte
-  const cvst=$('cvst');
-  if(cvst&&aCt){cvst.textContent=aCt.online?L.online:L.offline;cvst.style.color=aCt.online?'#43A047':'#8892A4';}
-}
+if(sb)sb.from('users').update({photo:ev.target.result.substring(0,500)}).eq('id',CU.id);loadProfile();toast('Photo mise à jour ✅');};r.readAsDataURL(f);}
+function setLang(l){lang=l;localStorage.setItem('echo_lang',l);['fr','en','ha','fo','ig'].forEach(x=>{const b=$('b'+x);if(b)b.classList.toggle('ac',x===l)});toast(l==='fr'?'Français':l==='en'?'English':l==='ha'?'Hausa':l==='fo'?'Fongbe':'Igbo');}
 function showEdit(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Modifier le profil</div><input class="mi2" id="eni" value="${CU.display_name}" placeholder="Nom complet"><input class="mi2" id="ebi" placeholder="Bio"><button class="mb mp" onclick="saveProf()">Sauvegarder</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
 async function saveProf(){
   const name=$('eni')?.value.trim();if(!name)return;
@@ -1112,20 +1028,15 @@ async function saveProf(){
   localStorage.setItem('echo_user',JSON.stringify(CU));cm();loadProfile();toast('Profil mis à jour ✅');
 }
 function togNotif(){const tg=$('ntg');tg.classList.toggle('on');$('ntv').textContent=tg.classList.contains('on')?'Activées':'Désactivées';toast(tg.classList.contains('on')?'Notifications activées':'Notifications désactivées');}
-function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par GK_Labs</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
-function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo 🌾</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci 🫂')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">✈️ Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
+function showVer(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">À propos d'Echo</div><div style="text-align:center;padding:12px 0"><div style="font-size:48px">🌿</div><div style="font-size:22px;font-weight:800;color:#00897B;margin-top:8px">Echo</div><div style="font-size:13px;color:#8892A4;margin:6px 0">Beta 1.0 — 2026</div><div style="font-size:13px;color:#8892A4">Développé par KPONOU Studio</div><div style="font-size:13px;color:#00897B;margin-top:10px;font-style:italic">Speak. Be heard.</div></div><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}
+function showSup(){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Soutenir Echo ❤️</div><div style="text-align:center;font-size:13px;color:#555;padding:8px 0 16px;line-height:1.7">Echo est gratuit pour tous, pour toujours.</div><button class="mb mp" onclick="cm();toast('Merci ❤️')">💚 Faire un don</button><button class="mb mp" onclick="cm();showShare()">📤 Partager Echo</button><button class="mb ms" onclick="cm()">Plus tard</button></div></div>`);}
 function showShare(){const url='https://echo-gk.vercel.app';if(navigator.share){navigator.share({title:'Echo',text:'Speak. Be heard.',url}).catch(()=>{});}else{document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Partager Echo</div><div style="background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:14px;font-size:14px;color:#00897B;text-align:center;margin-bottom:12px">${url}</div><button class="mb mp" onclick="navigator.clipboard.writeText('${url}').then(()=>{toast('Lien copié !');cm()})">📋 Copier le lien</button><button class="mb ms" onclick="cm()">Fermer</button></div></div>`);}}
 
+// ── SUPPRIMER COMPTE ──────────────────────────────────────────────────────
 async function deleteAccount(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt" style="color:#c62828">🚨 Supprimer mon compte</div><div style="text-align:center;font-size:13px;color:#555;margin-bottom:16px;line-height:1.7">Cette action est <strong>irréversible</strong>.<br>Tous vos messages et données seront définitivement supprimés.</div><button class="mb mr2" onclick="cm();_deleteStep2()">🗑 Oui, supprimer mon compte</button><button class="mb ms" onclick="cm()">❌ Non, annuler</button></div></div>`);
-}
-function _deleteStep2(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov"><div class="md"><div class="mh"></div><div class="mt" style="color:#c62828">Confirmation finale</div><div style="font-size:13px;color:#555;margin-bottom:14px;text-align:center;line-height:1.7">Tapez <strong style="color:#c62828">DELETE</strong> pour confirmer</div><input class="mi2" id="del-conf" placeholder="DELETE" style="text-align:center;font-weight:700;letter-spacing:2px"><button class="mb mr2" onclick="_deleteConfirm()">Supprimer définitivement</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);
-}
-async function _deleteConfirm(){
-  const val=$('del-conf')?.value;
-  if(val!=='DELETE'){toast('Tapez exactement DELETE');return;}
-  cm();
+  if(!confirm('⚠️ Supprimer votre compte Echo ?\n\nCette action est IRRÉVERSIBLE.\nTous vos messages et données seront supprimés.'))return;
+  const conf=prompt('Tapez DELETE pour confirmer :');
+  if(conf!=='DELETE'){toast('Action annulée');return;}
   try{
     if(sb&&CU){
       await sb.from('messages').delete().eq('sender_id',CU.id);
@@ -1155,9 +1066,7 @@ function togMute(){muted=!muted;$('mutb').textContent=muted?'🔈':'🔇';$('mut
 function togSpk(){spk=!spk;$('spkb').textContent=spk?'📢':'🔊';$('spkb').className='cbtn '+(spk?'off2':'act');toast(spk?'Haut-parleur actif':'Haut-parleur coupé');}
 
 async function doLogout(){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">Se déconnecter ?</div><div style="text-align:center;font-size:14px;color:#8892A4;margin-bottom:16px">Vous devrez vous reconnecter pour accéder à Echo.</div><button class="mb mp" onclick="cm();_doLogoutConfirm()">✅ Oui, me déconnecter</button><button class="mb ms" onclick="cm()">❌ Non, annuler</button></div></div>`);
-}
-async function _doLogoutConfirm(){
+  if(!confirm('Se déconnecter de Echo ?'))return;
   if(CU&&sb)await sb.from('users').update({online:false}).eq('id',CU.id);
   localStorage.removeItem('echo_user');localStorage.removeItem('echo_tab');CU=null;
   SCREENS.forEach(s=>hide(s));show('login');back();
