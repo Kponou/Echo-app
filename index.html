@@ -8,7 +8,7 @@
 <title>Echo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#F5FFFE;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#F5FFFE;-webkit-text-size-adjust:100%}
 #offline-ov{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,#26A69A,#004D40);display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px 30px;text-align:center}
 #offline-ov.show{display:flex}
 .off-ico{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:42px}
@@ -30,7 +30,7 @@ textarea{resize:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes ptr{0%{transform:translateY(-40px);opacity:0}100%{transform:translateY(0);opacity:1}}
 
-/* SPLASH — version verte originale */
+/* SPLASH â€” version verte originale */
 #splash{background:linear-gradient(160deg,#26A69A,#004D40);align-items:center;justify-content:center;gap:32px;z-index:10}
 .sr{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ring{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.35);animation:ring 1.8s ease-out infinite}
@@ -39,8 +39,8 @@ textarea{resize:none}
 .sn{font-size:40px;font-weight:900;color:#fff;letter-spacing:5px;text-align:center}
 .ss{font-size:15px;color:rgba(255,255,255,.9);margin-top:10px;text-align:center;font-style:italic}
 
-/* LOGIN — compact, tient sur l'écran */
-#login{background:#F5FFFE;overflow-y:auto;-webkit-overflow-scrolling:touch}
+/* LOGIN â€” compact, tient sur l'Ã©cran */
+#login{background:#F5FFFE;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .lw{display:flex;flex-direction:column;align-items:center;padding:36px 20px 30px;min-height:100%}
 .echo-ico{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#26A69A,#004D40);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;box-shadow:0 6px 20px rgba(0,137,123,.28);flex-shrink:0}
 .ln{font-size:24px;font-weight:900;color:#1A1A2E;letter-spacing:1px}
@@ -112,7 +112,7 @@ textarea{resize:none}
 /* CONV LIST + pull-to-refresh */
 .ptr-wrap{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
 .ptr-ind{height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#F5FFFE;transition:height .2s;color:#00897B;font-size:13px;font-weight:600;gap:8px}
-.cl2{flex:1;overflow-y:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.cl2{flex:1;overflow-y:auto;padding:8px 12px;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .ci{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:13px 15px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;animation:fadeIn .2s}
 .ci:active{opacity:.8}
 .cii{flex:1;min-width:0}
@@ -127,7 +127,7 @@ textarea{resize:none}
 .bk{color:#00897B;font-size:26px;padding:0 6px;line-height:1}
 .ci2{flex:1}.cn2{font-weight:700;color:#1A1A2E;font-size:15px}.cs{font-size:12px;font-weight:500}
 .ca{display:flex;gap:12px}.ca button{font-size:20px;padding:4px}
-.mg{flex:1;overflow-y:auto;padding:16px 12px;-webkit-overflow-scrolling:touch}
+.mg{flex:1;overflow-y:auto;padding:16px 12px;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .ds{text-align:center;margin-bottom:14px}
 .ds span{background:rgba(0,137,123,.1);border-radius:20px;padding:4px 16px;font-size:12px;color:#00897B;font-weight:500}
 .mr{display:flex;margin-bottom:10px;align-items:flex-end}
@@ -146,7 +146,7 @@ textarea{resize:none}
 .sbt.off{background:#F0FFFE}
 
 /* GROUPS / CHANNELS */
-.gl{flex:1;overflow-y:auto;padding:10px 12px;-webkit-overflow-scrolling:touch}
+.gl{flex:1;overflow-y:auto;padding:10px 12px;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .gi{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:13px 15px;margin-bottom:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer}
 .gi:active{opacity:.8}
 .gii{flex:1;min-width:0}
@@ -155,7 +155,7 @@ textarea{resize:none}
 .fab{position:absolute;bottom:90px;right:20px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#26A69A,#004D40);border:none;font-size:26px;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,137,123,.38);cursor:pointer;z-index:50}
 
 /* PROFILE */
-.ps{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ps{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .pt{background:linear-gradient(160deg,#26A69A,#004D40);padding:56px 0 28px;text-align:center;flex-shrink:0}
 .paw{position:relative;width:84px;margin:0 auto 12px;cursor:pointer}
 .pa{width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.45);overflow:hidden}
@@ -190,11 +190,11 @@ textarea{resize:none}
 #media-ov.show{display:flex}
 #media-ov img,#media-ov video{max-width:88vw;max-height:78vh;border-radius:16px;object-fit:contain}
 #media-ov .close-btn{position:absolute;top:52px;right:20px;font-size:28px;color:#fff;background:rgba(255,255,255,.15);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-/* STATUTS MÉDIAS */
+/* STATUTS MÃ‰DIAS */
 .st-type-bar{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
 .st-type-btn{flex:1;padding:10px 6px;border-radius:12px;font-size:12px;font-weight:700;border:2px solid #B2DFDB;color:#8892A4;background:#fff;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .2s}
 .st-type-btn.sel{border-color:#00897B;color:#00897B;background:#F0FFFE}
-/* ARRIÈRE-PLAN CHAT */
+/* ARRIÃˆRE-PLAN CHAT */
 .mg{flex:1;overflow-y:auto;padding:16px 12px;-webkit-overflow-scrolling:touch;background-size:cover;background-position:center;background-repeat:no-repeat}
 .cav{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:900;color:#fff;margin:0 auto 16px;border:3px solid rgba(255,255,255,.35)}
 .cnm{font-size:24px;font-weight:800;color:#fff;text-align:center}
@@ -207,7 +207,7 @@ textarea{resize:none}
 
 /* MODAL */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
-.md{background:#fff;border-radius:24px 24px 0 0;padding:20px 20px 40px;width:100%;max-width:430px;animation:slideUp .25s;max-height:84vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.md{background:#fff;border-radius:24px 24px 0 0;padding:20px 20px 40px;width:100%;max-width:430px;animation:slideUp .25s;max-height:84vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .mh{width:40px;height:4px;background:#ddd;border-radius:2px;margin:0 auto 16px}
 .mt{font-size:17px;font-weight:800;color:#1A1A2E;margin-bottom:16px;text-align:center}
 .mi2{width:100%;background:#F0FFFE;border:1.5px solid #B2DFDB;border-radius:14px;padding:13px 15px;font-size:15px;color:#1A1A2E;margin-bottom:12px}
@@ -234,13 +234,13 @@ textarea{resize:none}
 
 <!-- OFFLINE OVERLAY -->
 <div id="offline-ov">
-  <div class="off-ico">📡</div>
+  <div class="off-ico">ðŸ“¡</div>
   <div class="off-title">Pas de connexion</div>
-  <div class="off-sub">Echo attend votre signal…<br>Reconnexion automatique dès que le réseau revient.</div>
+  <div class="off-sub">Echo attend votre signalâ€¦<br>Reconnexion automatique dÃ¨s que le rÃ©seau revient.</div>
   <div class="off-dots"><div class="off-dot"></div><div class="off-dot"></div><div class="off-dot"></div></div>
 </div>
 
-<!-- LOGIN — compact -->
+<!-- LOGIN â€” compact -->
 <div class="screen hidden" id="login">
   <div class="lw">
     <div class="echo-ico">E</div>
@@ -782,23 +782,31 @@ async function loadCvs(){
     if(error)throw error;
     if(!cvs||!cvs.length){renderCvs([]);return;}
     // Récupérer les infos des correspondants
-    const otherIds=[...new Set(cvs.map(c=>c.user1_id===CU.id?c.user2_id:c.user1_id))];
-    const {data:users}=await sb.from('users').select('id,display_name,avatar_letter,online,photo').in('id',otherIds);
-    const uMap=Object.fromEntries((users||[]).map(u=>[u.id,u]));
+    const otherIds=[...new Set(cvs.map(c=>c.user1_id===CU.id?c.user2_id:c.user1_id).filter(Boolean))];
+    let uMap={};
+    if(otherIds.length){
+      const {data:users}=await sb.from('users').select('id,display_name,avatar_letter,online,photo').in('id',otherIds);
+      uMap=Object.fromEntries((users||[]).map(u=>[u.id,u]));
+    }
     allCv=cvs.map(c=>{
       const ctId=c.user1_id===CU.id?c.user2_id:c.user1_id;
-      const ct=uMap[ctId]||null;
-      return{...c,u1:uMap[c.user1_id]||null,u2:uMap[c.user2_id]||null};
+      // Fallback si user non trouvé
+      const fallback={id:ctId,display_name:'Contact',avatar_letter:'?',online:false};
+      return{...c,u1:uMap[c.user1_id]||fallback,u2:uMap[c.user2_id]||fallback};
     });
     renderCvs(allCv);
-  }catch(e){$('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️</div>';}
+  }catch(e){
+    if(allCv.length)renderCvs(allCv);
+    else $('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️</div>';
+  }
 }
 function renderCvs(list){
   const el=$('cvl');
   if(!list||!list.length){el.innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️ pour commencer</div>';return;}
   el.innerHTML=list.map(c=>{
-    const ct=c.user1_id===CU.id?c.u2:c.u1;if(!ct)return'';
-    return`<div class="ci" onclick="openCv('${c.id}','${ct.id}')">${mkAv(ct,44,ct.online)}<div class="cii"><div class="ct"><span class="cn">${ct.display_name}</span><span class="ctm">${c.last_time||''}</span></div><div class="clm">${c.last_message||'Démarrer la conversation'}</div></div></div>`;
+    const ct=c.user1_id===CU.id?c.u2:c.u1;
+    if(!ct||!ct.id)return'';
+    return`<div class="ci" onclick="openCv('${c.id}','${ct.id}')">${mkAv(ct,44,ct.online)}<div class="cii"><div class="ct"><span class="cn">${ct.display_name||'Contact'}</span><span class="ctm">${c.last_time||''}</span></div><div class="clm">${c.last_message||'Démarrer la conversation'}</div></div></div>`;
   }).join('');
 }
 function filterCvs(){const q=$('cvs').value.toLowerCase();if(!q){renderCvs(allCv);return;}renderCvs(allCv.filter(c=>{const ct=c.user1_id===CU.id?c.u2:c.u1;return ct&&ct.display_name.toLowerCase().includes(q);}));}
@@ -899,10 +907,21 @@ async function loadGrps(){
   if(!sb||!CU){allGr=[];renderGrps(allGr);return;}
   $('grl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
   try{
-    const {data}=await sb.from('group_members').select('groups(*)').eq('user_id',CU.id);
-    allGr=(data||[]).map(m=>m.groups).filter(Boolean).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+    // Étape 1 : récupérer les IDs des groupes de l'utilisateur
+    const {data:members,error:e1}=await sb.from('group_members').select('group_id').eq('user_id',CU.id);
+    if(e1||!members||!members.length){renderGrps([]);return;}
+    const groupIds=members.map(m=>m.group_id).filter(Boolean);
+    if(!groupIds.length){renderGrps([]);return;}
+    // Étape 2 : récupérer les données de ces groupes
+    const {data:groups,error:e2}=await sb.from('groups').select('*').in('id',groupIds).order('created_at',{ascending:false});
+    if(e2)throw e2;
+    allGr=groups||[];
     renderGrps(allGr);
-  }catch(e){$('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';}
+  }catch(e){
+    // En cas d'erreur, afficher les groupes en mémoire s'il y en a
+    if(allGr.length)renderGrps(allGr);
+    else $('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';
+  }
 }
 function renderGrps(list){
   const el=$('grl');
@@ -1227,7 +1246,7 @@ en:{
     editProf:'✏️ Gyara',
   },
 fo:{
-    tabs:['Wěwlánnúmɛ','Kpékplé lɛ̂','Gbɛ̌ lɛ́ɛ','Nyɛ ɖésúnɔ'],
+    tabs:['Wěwlánúmɛ','Kpékplé lɛ̂','Gbɛ̌ lɛ́ɛ','Nyɛ ɖésúnɔ'],
     searchCv:'Ba mɛ kpɔ́n...',searchGr:'Ba kplékplé kpɔ́n...',searchCh:'Ba gbɛ̌ kpɔ́n...',
     newMsg:'Wě yɔyɔ̌',newGrp:'Kpékplé yɔyɔ̌',newChan:'Gbɛ̌ yɔyɔ',
     write:'Wlǎn ɖó fí...',writeGrp:'Wlǎn ɖó fí...',writeChan:'Wlǎn ɖó fí...',
