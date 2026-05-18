@@ -504,6 +504,7 @@ window.addEventListener('popstate',()=>{
   if(!$('ccnv').classList.contains('hidden')){goTab('channels');loadChans();return;}
   if(!$('csc').classList.contains('hidden')){endCall();return;}
 });
+
 function goBack(){window.history.back();}
 function ph(){history.pushState({},'')}
 
@@ -791,18 +792,22 @@ async function loadCvs(){
       .order('created_at',{ascending:false});
     if(error)throw error;
     if(!cvs||!cvs.length){renderCvs([]);return;}
-    // Récupérer les infos des correspondants
     const otherIds=[...new Set(cvs.map(c=>c.user1_id===CU.id?c.user2_id:c.user1_id).filter(Boolean))];
     let uMap={};
     if(otherIds.length){
-      const {data:users}=await sb.from('users').select('id,display_name,avatar_letter,online,photo').in('id',otherIds);
-      uMap=Object.fromEntries((users||[]).map(u=>[u.id,u]));
+      const {data:users,error:ue}=await sb.from('users').select('id,display_name,avatar_letter,online,photo,phone').in('id',otherIds);
+      if(!ue)uMap=Object.fromEntries((users||[]).map(u=>[u.id,u]));
     }
     allCv=cvs.map(c=>{
       const ctId=c.user1_id===CU.id?c.user2_id:c.user1_id;
-      // Fallback si user non trouvé
-      const fallback={id:ctId,display_name:'Contact',avatar_letter:'?',online:false};
-      return{...c,u1:uMap[c.user1_id]||fallback,u2:uMap[c.user2_id]||fallback};
+      const found=uMap[ctId];
+      // Si l'utilisateur est trouvé, utiliser ses vraies infos
+      // Sinon utiliser le surnom sauvegardé ou le numéro de téléphone
+      const savedNick=localStorage.getItem('echo_nick_'+ctId);
+      const fallbackName=savedNick||(c.contact_name)||'+'+ctId.substring(0,12)||'Contact';
+      const fallback={id:ctId,display_name:fallbackName,avatar_letter:fallbackName[0]?.toUpperCase()||'?',online:false};
+      const ct=found||fallback;
+      return{...c,u1:c.user1_id===CU.id?CU:(uMap[c.user1_id]||fallback),u2:c.user2_id===CU.id?CU:(uMap[c.user2_id]||fallback)};
     });
     renderCvs(allCv);
   }catch(e){
@@ -834,8 +839,14 @@ async function openCv(cvId,ctId){
 }
 
 async function loadMsgs(cvId){
-  const {data}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
-  renderMsgs(data||[]);
+  $('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div style="text-align:center;color:#8892A4;font-size:13px;margin-top:30px">⏳ Chargement...</div>';
+  try{
+    const {data,error}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
+    if(error)throw error;
+    renderMsgs(data||[]);
+  }catch(e){
+    $('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div style="text-align:center;color:#c62828;font-size:13px;margin-top:30px;padding:0 20px">⚠️ Impossible de charger les messages.<br>Vérifiez votre connexion.</div>';
+  }
 }
 function renderMsgs(msgs){
   let h='<div class="ds"><span>Aujourd\'hui</span></div>';
@@ -1556,7 +1567,7 @@ async function showChanInfo(){
         mbs.map(m=>`<div class="mi"><div class="av" style="width:36px;height:36px;font-size:14px;background:${avc(m.avatar_letter||'U')}">${m.avatar_letter||'U'}</div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#1A1A2E">${m.display_name||'?'}</div></div>${isOwner&&m.user_id!==CU.id?`<button onclick="removeChanMember('${m.user_id}')" style="font-size:13px;color:#c62828;background:#fce4e4;border:none;border-radius:8px;padding:3px 7px;cursor:pointer">✕</button>`:''}</div>`).join('');
     }
   }
-  const chanPhoto=aChan?.photo?`<img src="${aChan.photo}" style="width:56px;height:56px;border-radius:50%;object-fit:cover">`:
+const chanPhoto=aChan?.photo?`<img src="${aChan.photo}" style="width:56px;height:56px;border-radius:50%;object-fit:cover">`:
     `<div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aChan?.avatar_letter||'C')};margin:0 auto">${aChan?.avatar_letter||'C'}</div>`;
   document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aChan?.name||''}</div>
   <div style="text-align:center;margin-bottom:14px">
