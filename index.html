@@ -334,11 +334,11 @@ textarea{resize:none}
 <!-- GROUPS -->
 <div class="screen hidden" id="groups">
   <div class="ph">
-    <div class="ht"><div class="htl">Groupes</div><button class="ib" onclick="showNewGrp()">➕</button></div>
+    <div class="ht"><div class="htl">Groupes</div><button class="ib" onclick="showNewGrp()">✨</button></div>
     <div class="sb"><span>🔍</span><input type="text" id="grs" oninput="filterGrps()" placeholder="Rechercher..."></div>
   </div>
   <div class="gl" id="grl"></div>
-  <button class="fab" onclick="showNewGrp()">➕</button>
+  <button class="fab" onclick="showNewGrp()">✨</button>
   <div class="bn" id="bn2"></div>
 </div>
 
@@ -361,11 +361,11 @@ textarea{resize:none}
 <!-- CHANNELS -->
 <div class="screen hidden" id="channels">
   <div class="ph">
-    <div class="ht"><div class="htl">Canaux</div><button class="ib" onclick="showNewChan()">➕</button></div>
+    <div class="ht"><div class="htl">Canaux</div><button class="ib" onclick="showNewChan()">✨</button></div>
     <div class="sb"><span>🔍</span><input type="text" id="chs" oninput="filterChans()" placeholder="Rechercher..."></div>
   </div>
   <div class="gl" id="chl"></div>
-  <button class="fab" onclick="showNewChan()">➕</button>
+  <button class="fab" onclick="showNewChan()">✨</button>
   <div class="bn" id="bn3"></div>
 </div>
 
@@ -504,7 +504,6 @@ window.addEventListener('popstate',()=>{
   if(!$('ccnv').classList.contains('hidden')){goTab('channels');loadChans();return;}
   if(!$('csc').classList.contains('hidden')){endCall();return;}
 });
-
 function goBack(){window.history.back();}
 function ph(){history.pushState({},'')}
 
@@ -801,11 +800,9 @@ async function loadCvs(){
     allCv=cvs.map(c=>{
       const ctId=c.user1_id===CU.id?c.user2_id:c.user1_id;
       const found=uMap[ctId];
-      // Si l'utilisateur est trouvé, utiliser ses vraies infos
-      // Sinon utiliser le surnom sauvegardé ou le numéro de téléphone
       const savedNick=localStorage.getItem('echo_nick_'+ctId);
-      const fallbackName=savedNick||(c.contact_name)||'+'+ctId.substring(0,12)||'Contact';
-      const fallback={id:ctId,display_name:fallbackName,avatar_letter:fallbackName[0]?.toUpperCase()||'?',online:false};
+      const fallbackName=savedNick||'Utilisateur Echo';
+      const fallback={id:ctId,display_name:fallbackName,avatar_letter:'E',online:false};
       const ct=found||fallback;
       return{...c,u1:c.user1_id===CU.id?CU:(uMap[c.user1_id]||fallback),u2:c.user2_id===CU.id?CU:(uMap[c.user2_id]||fallback)};
     });
@@ -1567,7 +1564,7 @@ async function showChanInfo(){
         mbs.map(m=>`<div class="mi"><div class="av" style="width:36px;height:36px;font-size:14px;background:${avc(m.avatar_letter||'U')}">${m.avatar_letter||'U'}</div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#1A1A2E">${m.display_name||'?'}</div></div>${isOwner&&m.user_id!==CU.id?`<button onclick="removeChanMember('${m.user_id}')" style="font-size:13px;color:#c62828;background:#fce4e4;border:none;border-radius:8px;padding:3px 7px;cursor:pointer">✕</button>`:''}</div>`).join('');
     }
   }
-const chanPhoto=aChan?.photo?`<img src="${aChan.photo}" style="width:56px;height:56px;border-radius:50%;object-fit:cover">`:
+  const chanPhoto=aChan?.photo?`<img src="${aChan.photo}" style="width:56px;height:56px;border-radius:50%;object-fit:cover">`:
     `<div class="av" style="width:56px;height:56px;font-size:22px;background:${avc(aChan?.avatar_letter||'C')};margin:0 auto">${aChan?.avatar_letter||'C'}</div>`;
   document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aChan?.name||''}</div>
   <div style="text-align:center;margin-bottom:14px">
