@@ -670,7 +670,7 @@ async function doVerify(){
     CU=userData;
     localStorage.setItem('echo_user',JSON.stringify(userData));
     localStorage.removeItem('echo_pending');
-    hide('login');goTab('chats');toast('Bienvenue sur Echo 🎉');
+    hide('login');goTab('chats');toast('Bienvenue sur Echo 🌾');
   }catch(e){$('oe').textContent='Erreur inattendue. Réessayez.';}
 }
 
@@ -745,7 +745,7 @@ function selStType(t){
   stType=t;
   ['text','photo','audio','video'].forEach(x=>{const b=$('stt-'+x);if(b)b.classList.toggle('sel',x===t);});
   const z=$('st-inp-zone');if(!z)return;
-  if(t==='text'){z.innerHTML=`<textarea class="mi2" id="sti" placeholder="Écrire un statut..." style="min-height:80px;resize:none"></textarea>`;}
+  if(t==='text'){z.innerHTML=`<textarea class="mi2" id="sti" placeholder="✍️Écrire un statut..." style="min-height:80px;resize:none"></textarea>`;}
   else if(t==='photo'){z.innerHTML=`<div style="text-align:center;padding:10px 0"><input type="file" id="st-file" accept="image/*" style="display:none" onchange="previewStFile(event,'img')"><button class="mb mp" onclick="$('st-file').click()">📷 Choisir une photo</button><div id="st-preview" style="margin-top:8px"></div></div>`;}
   else if(t==='audio'){z.innerHTML=`<div style="text-align:center;padding:10px 0"><input type="file" id="st-file" accept="audio/*" style="display:none" onchange="previewStFile(event,'audio')"><button class="mb mp" onclick="$('st-file').click()">🎤 Choisir un audio</button><div id="st-preview" style="margin-top:8px"></div></div>`;}
   else if(t==='video'){z.innerHTML=`<div style="text-align:center;padding:10px 0"><input type="file" id="st-file" accept="video/*" style="display:none" onchange="previewStFile(event,'video')"><button class="mb mp" onclick="$('st-file').click()">🎬 Choisir une vidéo</button><div id="st-preview" style="margin-top:8px"></div></div>`;}
@@ -881,7 +881,7 @@ function showCvMenu(){
   document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${aCt?.display_name||''}</div>
   <button class="mb mp" onclick="cm();showCvInfo()">👤 Voir le profil</button>
   <button class="mb mp" onclick="cm();showNickname()">✏️ Modifier le nom / Surnom</button>
-  <button class="mb mp" onclick="cm();showBgPicker('conv','${aC?.id||''}')">🖼 Arrière-plan de discussion</button>
+  <button class="mb mp" onclick="cm();showBgPicker('conv','${aC?.id||''}')">🧖🏽 Arrière-plan de discussion</button>
   <button class="mb mp" onclick="cm();searchInConv()">🔍 Rechercher dans la discussion</button>
   <button class="mb mp" onclick="cm();toast('Notifications coupées pour cette conversation')">🔕 Couper les notifications</button>
   <button class="mb mr2" onclick="cm();clearCv()">🗑 Effacer la discussion</button>
@@ -1043,7 +1043,7 @@ function loadBg(screenId,convId){
   else{const el=$(screenId)?.querySelector('.mg');if(el)el.style.backgroundImage='';}
 }
 function showBgPicker(screenId,convId){
-  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">🖼 Arrière-plan</div>
+  document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">🧖🏽 Arrière-plan</div>
   <input type="file" id="bg-fi" accept="image/*" style="display:none" onchange="applyBgFile(event,'${screenId}','${convId||''}')">
   <button class="mb mp" onclick="$('bg-fi').click()">📷 Choisir une image</button>
   <button class="mb ms" onclick="cm();setBg('${screenId}','','${convId||''}');toast('Arrière-plan supprimé')">🗑 Supprimer</button>
@@ -1176,14 +1176,14 @@ en:{
 fo:{
     tabs:['Wěwlánúmɛ','Kpékplé lɛ̂','Gbɛ̌ lɛ́ɛ','Nyɛ ɖésúnɔ'],
     searchCv:'Ba mɛ kpɔ́n...',searchGr:'Ba kplékplé kpɔ́n...',searchCh:'Ba gbɛ̌ kpɔ́n...',
-    newMsg:'Wě yɔyɔ̌',newGrp:'Kpékplé yɔyɔ̌',newChan:'Gbɛ̌ yɔyɔ',
+    newMsg:'Nùwíwlán yɔyɔ̌',newGrp:Gbɛ̌ta yɔyɔ̌',newChan:'Ɖɔnúto yɔyɔ̌',
     write:'Wlǎn ɖó fí...',writeGrp:'Wlǎn ɖó fí...',writeChan:'Wlǎn ɖó fí...',
     today:'Égbè',online:'Ɖó kan jí',offline:'Kan gúdo',
-    members:'mɛmba',subscribers:'mɛ yí ɖó',
+    members:'mɛmba',subscribers:'mɛ yí gó',
     langTitle:'Gbè',privTitle:'Susu kpɔ́n',aboutTitle:'Mɔn ɔ wú',
     e2e:'Nùzéhwlá E2E',e2eSub:'Ðó nǔwíwlán bǐ jí',
-    notif:'Wɛndómɛ',notifOn:'Wɛn ní wá',notifOff:'Wɛn ma wá ó',
-    version:'Nukɔntɔn',support:'Gɔ̌ alɔ nú Echo',share:'Sɛ́ Echo dó mɛ',
+    notif:'Wɛnce',notifOn:'Wɛnce ní wá',notifOff:'Wɛnce ma wá ó',
+    version:'Nukɔntɔn',support:'Gɔ̌ alɔ nú Echo-gbɛ́ta',share:'Sɛ́ Echo dó mɛ',
     logout:'Yi',deleteAcc:'Sú akáwun ce',deleteAccSub:'Un sixú lɛ́ wá ǎ',
     editProf:'✏️ Ɖyɔ́ nǔ ce ɖě',
   },
@@ -1491,7 +1491,7 @@ async function showGrpInfo(){
   ${mHtml}
   ${isOwner?`<button class="mb mp" style="margin-top:12px" onclick="cm();renameGrp()">✏️ Renommer le groupe</button>`:''}
   <button class="mb mp" onclick="cm();showInvite()">👥 Inviter des membres</button>
-  <button class="mb mp" onclick="cm();showBgPicker('gcnv','${aGr?.id||''}')">🖼 Arrière-plan</button>
+  <button class="mb mp" onclick="cm();showBgPicker('gcnv','${aGr?.id||''}')">🧖🏽 Arrière-plan</button>
   <button class="mb mp" onclick="cm();toast('Notifications coupées')">🔕 Couper les notifications</button>
   ${isOwner?`<button class="mb mr2" onclick="cm();closeGrp()">🔒 Fermer le groupe</button><button class="mb mr2" onclick="cm();delGrp()">🗑 Supprimer le groupe</button>`:''} 
   <button class="mb mr2" onclick="cm();leaveGrp()">🚪 Quitter le groupe</button>
