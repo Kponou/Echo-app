@@ -8,7 +8,8 @@
 <title>Echo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#F5FFFE;-webkit-text-size-adjust:100%}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#F5FFFE;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+#app{position:fixed;inset:0;max-width:430px;margin:0 auto;overflow:hidden;background:#F5FFFE;overscroll-behavior:none}
 #offline-ov{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,#26A69A,#004D40);display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px 30px;text-align:center}
 #offline-ov.show{display:flex}
 .off-ico{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:42px}
@@ -710,7 +711,10 @@ function buildNavs(){
   const tlabs=L.tabs||['Messages','Groupes','Canaux','Profil'];
   ['bn1','bn2','bn3','bn4'].forEach(id=>{
     const el=$(id);if(!el)return;
-    el.innerHTML=TABS.map((tb,i)=>`<button class="nb" onclick="goTab('${tb.id}')" style="color:${tab===tb.id?'#00897B':'#8892A4'}"><span class="ni">${tb.i}</span><span class="nl" style="font-weight:${tab===tb.id?700:500}">${tlabs[i]||tb.l}</span>${tab===tb.id?'<div class="nd"></div>':''}</button>`).join('');
+    el.innerHTML=TABS.map((tb,i)=>{
+      const isActive=tab===tb.id;
+      return`<button class="nb" onclick="goTab('${tb.id}')" style="color:${isActive?'#00897B':'#8892A4'};border-top:${isActive?'3px solid #00897B':'3px solid transparent'};padding-top:7px;background:none;border-left:none;border-right:none;border-bottom:none"><span class="ni">${tb.i}</span><span class="nl" style="font-weight:${isActive?700:500}">${tlabs[i]||tb.l}</span></button>`;
+    }).join('');
   });
 }
 
@@ -781,7 +785,117 @@ function viewStatus(idx){
   else if(s.type==='video')content=`<video controls autoplay src="${s.data}" style="max-width:100%;max-height:220px;border-radius:12px"></video>`;
   document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><div class="mt">${s.name}</div>${content}<button class="mb ms" style="margin-top:12px" onclick="cm()">Fermer</button></div></div>`);
 }
+function pubStatus_old_remove(){}
 
+// ── CONVERSATIONS ─────────────────────────────────────────────────────────
+async function loadCvs(){
+  if(!CU||!sb)return;
+  $('cvl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
+  try{
+    // Requête simple sans join FK (plus fiable)
+    const {data:cvs,error}=await sb.from('conversations')
+      .select('*')
+      .or(`user1_id.eq.${CU.id},user2_id.eq.${CU.id}`)
+      .order('created_at',{ascending:false});
+    if(error)throw error;
+    if(!cvs||!cvs.length){renderCvs([]);return;}
+    // Récupérer les infos des correspondants
+    const ids=[...new Set(cvs.map(c=>c.user1_id===CU.id?c.user2_id:c.user1_id).filter(Boolean))];
+    let uMap={};
+    if(ids.length){
+      const {data:us}=await sb.from('users').select('id,display_name,avatar_letter,online,photo,phone').in('id',ids);
+      if(us)uMap=Object.fromEntries(us.map(u=>{
+        // Mettre en cache le vrai nom
+        if(u.display_name)localStorage.setItem('echo_uname_'+u.id,u.display_name);
+        return[u.id,u];
+      }));
+    }
+    allCv=cvs.map(c=>{
+      const ctId=c.user1_id===CU.id?c.user2_id:c.user1_id;
+      const cachedName=localStorage.getItem('echo_nick_'+ctId)||localStorage.getItem('echo_uname_'+ctId);
+      const fb={id:ctId,display_name:cachedName||'Utilisateur Echo',avatar_letter:(cachedName||'E')[0].toUpperCase(),online:false,phone:''};
+      const u1=c.user1_id===CU.id?CU:(uMap[c.user1_id]||{...fb,id:c.user1_id});
+      const u2=c.user2_id===CU.id?CU:(uMap[c.user2_id]||{...fb,id:c.user2_id});
+      return{...c,u1,u2};
+    });
+    renderCvs(allCv);
+  }catch(e){
+    if(allCv.length)renderCvs(allCv);
+    else $('cvl').innerHTML='<div class="em"><div class="ei">💬</div>Aucune conversation<br>Appuyez sur ✏️</div>';
+  }
+}
+
+function filterCvs(){
+  const q=$('cvs')?.value.toLowerCase().trim();
+  if(!q){renderCvs(allCv);return;}
+  renderCvs(allCv.filter(c=>{
+    const ct=c.user1_id===CU.id?c.u2:c.u1;
+    const name=(ct?.display_name||'').toLowerCase();
+    const nick=(localStorage.getItem('echo_nick_'+ct?.id)||'').toLowerCase();
+    const msg=(c.last_message||'').toLowerCase();
+    return name.includes(q)||nick.includes(q)||msg.includes(q);
+  }));
+}
+
+async function openCv(cvId,ctId){
+  if(!sb)return;
+  const {data:ct}=await sb.from('users').select('*').eq('id',ctId).single();
+  if(!ct)return;
+  aCt=ct;aC={id:cvId};
+  // Mettre en cache le vrai nom pour la liste des conversations
+  if(ct.display_name)localStorage.setItem('echo_uname_'+ct.id,ct.display_name);
+  const nick=localStorage.getItem('echo_nick_'+ct.id)||localStorage.getItem('echo_uname_'+ct.id)||ct.display_name;
+  $('cvav').innerHTML=mkAv(ct,40,ct.online);
+  $('cvnm').textContent=nick;
+  const onlineStatus=ct.online===true;
+  $('cvst').textContent=onlineStatus?'En ligne':'Hors ligne';
+  $('cvst').style.color=onlineStatus?'#43A047':'#8892A4';
+  await loadMsgs(cvId);
+  SCREENS.forEach(s=>hide(s));show('conv');ph();
+  loadBg('conv',cvId);
+  if(rtSub)sb.removeChannel(rtSub);
+  rtSub=sb.channel('cv-'+cvId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${cvId}`},p=>{
+    if(p.new.sender_id===CU.id)return; // Déjà affiché en optimistic UI
+    appendMsg(p.new);
+  }).subscribe();
+}
+
+async function loadMsgs(cvId){
+  $('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div style="text-align:center;color:#8892A4;font-size:13px;margin-top:30px">⏳ Chargement...</div>';
+  try{
+    const {data,error}=await sb.from('messages').select('*').eq('conversation_id',cvId).order('created_at',{ascending:true});
+    if(error)throw error;
+    renderMsgs(data||[]);
+  }catch(e){
+    $('msgs').innerHTML='<div class="ds"><span>Aujourd\'hui</span></div><div style="text-align:center;color:#c62828;font-size:13px;margin-top:30px;padding:0 20px">⚠️ Impossible de charger les messages.<br>Vérifiez votre connexion.</div>';
+  }
+}
+function renderMsgs(msgs){
+  let h='<div class="ds"><span>Aujourd\'hui</span></div>';
+  msgs.forEach((m,i)=>{
+    if(m.deleted){h+=`<div class="mr ${m.sender_id===CU.id?'me':'th'}"><div class="bl ${m.sender_id===CU.id?'me':'th'}" style="opacity:.5;font-style:italic"><div class="blt" style="font-size:13px">🗑 Message supprimé</div></div></div>`;return;}
+    const me=m.sender_id===CU.id,ps=i>0&&msgs[i-1].sender_id===m.sender_id&&!msgs[i-1].deleted;
+    const u=me?CU:aCt;
+    h+=`<div class="mr ${me?'me':'th'}${ps?' cl':''}" id="mr${m.id}">
+      ${!me?`<div class="mav" style="opacity:${ps?0:1}">${mkAv(u,28,false)}</div>`:''}
+      <div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()">
+        <div class="blt">${m.text}</div>
+        <div class="bm">${m.time||''}${me?' ✓':''}</div>
+      </div>
+    </div>`;
+  });
+  $('msgs').innerHTML=h;scB('msgs');
+}
+function appendMsg(m){
+  if(!m||m.deleted)return;
+  const me=m.sender_id===CU.id;
+  const u=me?CU:aCt;
+  const d=document.createElement('div');d.className=`mr ${me?'me':'th'}`;d.id=`mr${m.id}`;
+  d.innerHTML=`${!me?`<div class="mav">${mkAv(u,28,false)}</div>`:''}<div class="bl ${me?'me':'th'}" ontouchstart="sLP('${m.id}',${me})" ontouchend="cLP()" ontouchmove="cLP()"><div class="blt">${m.text}</div><div class="bm">${m.time||''}${me?' ✓':''}</div></div>`;
+  $('msgs').appendChild(d);scB('msgs');
+}
+function scB(id){setTimeout(()=>{const e=$(id);if(e)e.scrollTop=e.scrollHeight},60)}
+let lpT=null;
 function sLP(id,me){lpT=setTimeout(()=>{if(me)showDelMsg(id)},600);}
 function cLP(){clearTimeout(lpT);}
 function showDelMsg(id){document.body.insertAdjacentHTML('beforeend',`<div class="ov" onclick="if(event.target===this)cm()"><div class="md"><div class="mh"></div><button class="mb mr2" onclick="delMsg('${id}')">🗑 Supprimer ce message</button><button class="mb ms" onclick="cm()">Annuler</button></div></div>`);}
@@ -869,20 +983,17 @@ async function loadGrps(){
   if(!sb||!CU){allGr=[];renderGrps(allGr);return;}
   $('grl').innerHTML='<div class="em"><div class="ei">⏳</div>Chargement...</div>';
   try{
-    // Étape 1 : récupérer les IDs des groupes de l'utilisateur
     const {data:members,error:e1}=await sb.from('group_members').select('group_id').eq('user_id',CU.id);
     if(e1||!members||!members.length){renderGrps([]);return;}
-    const groupIds=members.map(m=>m.group_id).filter(Boolean);
-    if(!groupIds.length){renderGrps([]);return;}
-    // Étape 2 : récupérer les données de ces groupes
-    const {data:groups,error:e2}=await sb.from('groups').select('*').in('id',groupIds).order('created_at',{ascending:false});
+    const gids=[...new Set(members.map(m=>m.group_id).filter(Boolean))];
+    if(!gids.length){renderGrps([]);return;}
+    const {data:groups,error:e2}=await sb.from('groups').select('*').in('id',gids).order('created_at',{ascending:false});
     if(e2)throw e2;
     allGr=groups||[];
     renderGrps(allGr);
   }catch(e){
-    // En cas d'erreur, afficher les groupes en mémoire s'il y en a
     if(allGr.length)renderGrps(allGr);
-    else $('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier</div>';
+    else $('grl').innerHTML='<div class="em"><div class="ei">👥</div>Aucun groupe<br>Créez le premier ✨</div>';
   }
 }
 function renderGrps(list){
@@ -1125,76 +1236,32 @@ function closeMediaOv(){
 
 // ── PROFIL ────────────────────────────────────────────────────────────────
 const I18N={
-  fr:{
-    tabs:['Messages','Groupes','Canaux','Profil'],
-    searchCv:'Rechercher...',searchGr:'Rechercher...',searchCh:'Rechercher...',
-    newMsg:'Nouveau message',newGrp:'Nouveau groupe',newChan:'Nouveau canal',
-    write:'Écrire un message...',writeGrp:'Écrire dans le groupe...',writeChan:'Écrire dans le canal...',
-    today:"Aujourd'hui",online:'En ligne',offline:'Hors ligne',
-    members:'membres',subscribers:'abonnés',
-    langTitle:'Langue',privTitle:'Confidentialité',aboutTitle:'À propos',
-    e2e:'Chiffrement E2E',e2eSub:'Actif sur tous les messages',
-    notif:'Notifications',notifOn:'Activées',notifOff:'Désactivées',
-    version:'Version',support:'Soutenir Echo',share:'Partager Echo',
-    logout:'Se déconnecter',deleteAcc:'Supprimer mon compte',deleteAccSub:'Action irréversible',
-    editProf:'✏️ Modifier',
-  },
-en:{
-    tabs:['Messages','Groups','Channels','Profile'],
-    searchCv:'Search...',searchGr:'Search...',searchCh:'Search...',
-    newMsg:'New message',newGrp:'New group',newChan:'New channel',
-    write:'Write a message...',writeGrp:'Write in the group...',writeChan:'Write in the channel...',
-    today:'Today',online:'Online',offline:'Offline',
-    members:'members',subscribers:'subscribers',
-    langTitle:'Language',privTitle:'Privacy',aboutTitle:'About',
-    e2e:'E2E Encryption',e2eSub:'Active on all messages',
-    notif:'Notifications',notifOn:'Enabled',notifOff:'Disabled',
-    version:'Version',support:'Support Echo',share:'Share Echo',
-    logout:'Log out',deleteAcc:'Delete my account',deleteAccSub:'Irreversible action',
-    editProf:'✏️ Edit',
-  },
-  ha:{
-    tabs:['Saƙonni','Ƙungiyoyi','Tasoshin','Bayanai'],
-    searchCv:'Bincika...',searchGr:'Bincika...',searchCh:'Bincika...',
-    newMsg:'Sabon saƙo',newGrp:'Sabon ƙungiya',newChan:'Sabon tasha',
-    write:'Rubuta saƙo...',writeGrp:"Rubuta a ƙungiya...",writeChan:'Rubuta a tashar...',
-    today:'Yau',online:'A kan layi',offline:'Ba a layi ba',
-    members:'membobi',subscribers:'masu biyo baya',
-    langTitle:'Harshe',privTitle:'Sirri',aboutTitle:'Game da',
-    e2e:'Ɓoye bayanai E2E',e2eSub:'Aiki akan duk saƙonni',
-    notif:'Sanarwa',notifOn:'An kunna',notifOff:'An kashe',
-    version:'Sigar',support:'Tallafawa Echo',share:'Raba Echo',
-    logout:'Fita',deleteAcc:'Share asusun na',deleteAccSub:'Ba za a iya dawo ba',
-    editProf:'✏️ Gyara',
-  },
-fo:{
-    tabs:['Wěwlánúmɛ','Kpékplé lɛ̂','Gbɛ̌ lɛ́ɛ','Nyɛ ɖésúnɔ'],
-    searchCv:'Ba mɛ kpɔ́n...',searchGr:'Ba kplékplé kpɔ́n...',searchCh:'Ba gbɛ̌ kpɔ́n...',
-    newMsg:'Wě yɔyɔ̌',newGrp:'Kpékplé yɔyɔ̌',newChan:'Gbɛ̌ yɔyɔ',
-    write:'Wlǎn ɖó fí...',writeGrp:'Wlǎn ɖó fí...',writeChan:'Wlǎn ɖó fí...',
-    today:'Égbè',online:'Ɖó kan jí',offline:'Kan gúdo',
-    members:'mɛmba',subscribers:'mɛ yí ɖó',
-    langTitle:'Gbè',privTitle:'Susu kpɔ́n',aboutTitle:'Mɔn ɔ wú',
-    e2e:'Nùzéhwlá E2E',e2eSub:'Ðó nǔwíwlán bǐ jí',
-    notif:'Wɛndómɛ',notifOn:'Wɛn ní wá',notifOff:'Wɛn ma wá ó',
-    version:'Nukɔntɔn',support:'Gɔ̌ alɔ nú Echo',share:'Sɛ́ Echo dó mɛ',
-    logout:'Yi',deleteAcc:'Sú akáwun ce',deleteAccSub:'Un sixú lɛ́ wá ǎ',
-    editProf:'✏️ Ɖyɔ́ nǔ ce ɖě',
-  },
-  ig:{
-    tabs:['Ozi','Ìgbò','Ọwa','Profaịlụ'],
-    searchCv:'Chọọ...',searchGr:'Chọọ...',searchCh:'Chọọ...',
-    newMsg:'Ozi ọhụrụ',newGrp:'Ìgbò ọhụrụ',newChan:'Ọwa ọhụrụ',
-    write:'Dee ozi...',writeGrp:'Dee na ìgbò...',writeChan:'Dee na ọwa...',
-    today:'Taa',online:'Ọnụ lainị',offline:'Ọ dịghị lainị',
-    members:'ndị otu',subscribers:'ndị na-eso',
-    langTitle:'Asụsụ',privTitle:'Nzuzo',aboutTitle:'Maka',
-    e2e:'Nchekwa E2E',e2eSub:'Arụọ na ozi niile',
-    notif:'Ọkwa',notifOn:'Emeghere',notifOff:'Mechiri',
-    version:'Ụdị',support:'Nkwado Echo',share:'Kọrọ Echo',
-    logout:'Pụọ',deleteAcc:'Hichapụ akaụntụ m',deleteAccSub:'Enweghi ike laghachi',
-    editProf:'✏️ Dezie',
-  }
+  fr:{tabs:['Messages','Groupes','Canaux','Profil'],searchCv:'Rechercher...',searchGr:'Rechercher...',searchCh:'Rechercher...',newMsg:'Nouveau message',newGrp:'Nouveau groupe',newChan:'Nouveau canal',write:'Écrire un message...',writeGrp:'Écrire dans le groupe...',writeChan:'Écrire dans le canal...',today:"Aujourd'hui",online:'En ligne',offline:'Hors ligne',members:'membres',subscribers:'abonnés',langTitle:'Langue',privTitle:'Confidentialité',aboutTitle:'À propos',e2e:'Chiffrement E2E',e2eSub:'Actif sur tous les messages',notif:'Notifications',notifOn:'Activées',notifOff:'Désactivées',version:'Version',support:'Soutenir Echo',share:'Partager Echo',logout:'Se déconnecter',deleteAcc:'Supprimer mon compte',deleteAccSub:'Action irréversible',editProf:'✏️ Modifier'},
+  en:{tabs:['Messages','Groups','Channels','Profile'],searchCv:'Search...',searchGr:'Search...',searchCh:'Search...',write:'Write a message...',writeGrp:'Write in the group...',writeChan:'Write in the channel...',today:'Today',online:'Online',offline:'Offline',members:'members',subscribers:'subscribers',langTitle:'Language',privTitle:'Privacy',aboutTitle:'About',e2e:'E2E Encryption',e2eSub:'Active on all messages',notif:'Notifications',notifOn:'Enabled',notifOff:'Disabled',version:'Version',support:'Support Echo',share:'Share Echo',logout:'Log out',deleteAcc:'Delete my account',deleteAccSub:'Irreversible action',editProf:'✏️ Edit'},
+  ha:{tabs:['Saƙonni','Ƙungiyoyi','Tasoshin','Bayanai'],searchCv:'Bincika...',searchGr:'Bincika...',searchCh:'Bincika...',write:'Rubuta saƙo...',writeGrp:'Rubuta a ƙungiya...',writeChan:'Rubuta a tashar...',today:'Yau',online:'A kan layi',offline:'Ba a layi ba',members:'membobi',subscribers:'masu biyo baya',langTitle:'Harshe',privTitle:'Sirri',aboutTitle:'Game da',e2e:'Ɓoye bayanai E2E',e2eSub:'Aiki akan duk saƙonni',notif:'Sanarwa',notifOn:'An kunna',notifOff:'An kashe',version:'Sigar',support:'Tallafawa Echo',share:'Raba Echo',logout:'Fita',deleteAcc:'Share asusun na',deleteAccSub:'Ba za a iya dawo ba',editProf:'✏️ Gyara'},
+  fo:{tabs:['Wěwlánúmɛ','Kpékplé lɛ̂','Gbɛ̌ lɛ́ɛ','Nyɛ ɖésúnɔ'],searchCv:'Ba mɛ kpɔ́n...',searchGr:'Ba kplékplé kpɔ́n...',searchCh:'Ba gbɛ̌ kpɔ́n...',write:'Wlǎn ɖó fí...',writeGrp:'Wlǎn ɖó fí...',writeChan:'Wlǎn ɖó fí...',today:'Égbè',online:'Ɖó kan jí',offline:'Kan gúdo',members:'mɛmba',subscribers:'mɛ yí ɖó',langTitle:'Gbè',privTitle:'Susu kpɔ́n',aboutTitle:'Mɔn ɔ wú',e2e:'Nùzéhwlá E2E',e2eSub:'Ðó nǔwíwlán bǐ jí',notif:'Wɛndómɛ',notifOn:'Wɛn ní wá',notifOff:'Wɛn ma wá ó',version:'Nukɔntɔn',support:'Gɔ̌ alɔ nú Echo',share:'Sɛ́ Echo dó mɛ',logout:'Yi',deleteAcc:'Sú akáwun ce',deleteAccSub:'Un sixú lɛ́ wá ǎ',editProf:'✏️ Ɖyɔ́ nǔ ce ɖě'},
+  ig:{tabs:['Ozi','Ìgbò','Ọwa','Profaịlụ'],searchCv:'Chọọ...',searchGr:'Chọọ...',searchCh:'Chọọ...',write:'Dee ozi...',writeGrp:'Dee na ìgbò...',writeChan:'Dee na ọwa...',today:'Taa',online:'Ọnụ lainị',offline:'Ọ dịghị lainị',members:'ndị otu',subscribers:'ndị na-eso',langTitle:'Asụsụ',privTitle:'Nzuzo',aboutTitle:'Maka',e2e:'Nchekwa E2E',e2eSub:'Arụọ na ozi niile',notif:'Ọkwa',notifOn:'Emeghere',notifOff:'Mechiri',version:'Ụdị',support:'Nkwado Echo',share:'Kọrọ Echo',logout:'Pụọ',deleteAcc:'Hichapụ akaụntụ m',deleteAccSub:'Enweghi ike laghachi',editProf:'✏️ Dezie'},
+  yo:{tabs:['Ifiranṣẹ','Àwọn Ẹgbẹ','Awọn Ikanni','Profaili'],searchCv:'Wa...',searchGr:'Wa...',searchCh:'Wa...',write:'Kọ ifiranṣẹ...',writeGrp:'Kọ nínú ẹgbẹ...',writeChan:'Kọ nínú ikanni...',today:'Loni',online:'Lórí ayélujara',offline:'Kúrò lórí ayélujara',members:'àwọn ọmọ ẹgbẹ',subscribers:'àwọn olùtẹ̀lé',langTitle:'Èdè',privTitle:'Àṣírí',aboutTitle:'Nípa',e2e:'E2E Encryption',e2eSub:'Nípa gbogbo ifiranṣẹ',notif:'Ìwífún',notifOn:'Ṣíwọ',notifOff:'Pa',version:'Ẹya',support:'Ṣe àtìlẹyìn Echo',share:'Pín Echo',logout:'Jáde',deleteAcc:'Pa account mi rẹ',deleteAccSub:'Iṣe tí kò ní yipada',editProf:'✏️ Ṣatúnkọ'},
+  wo:{tabs:['Xabaar','Sag-sag','Ganale','Profil'],searchCv:'Seet...',searchGr:'Seet...',searchCh:'Seet...',write:'Bind xabaar...',writeGrp:'Bind ci sag-sag bi...',writeChan:'Bind ci ganale bi...',today:'Tey',online:'Ci internet',offline:'Amul internet',members:'jëkk',subscribers:'moo takk',langTitle:'Làkk',privTitle:'Sutura',aboutTitle:'Ci kaw',e2e:'E2E Encryption',e2eSub:'Ci xabaar yépp',notif:'Xibaar',notifOn:'Ubbi na',notifOff:'Tëjoon na',version:'Versiyon',support:'Dëgg Echo',share:'Yónnee Echo',logout:'Génn',deleteAcc:'Fàtte kont bi',deleteAccSub:'Dafa mënul jël ca kanam',editProf:'✏️ Soppi'},
+  sw:{tabs:['Ujumbe','Vikundi','Vituo','Wasifu'],searchCv:'Tafuta...',searchGr:'Tafuta...',searchCh:'Tafuta...',write:'Andika ujumbe...',writeGrp:'Andika kwenye kikundi...',writeChan:'Andika kwenye kituo...',today:'Leo',online:'Mtandaoni',offline:'Nje ya mtandao',members:'wanachama',subscribers:'wafuataji',langTitle:'Lugha',privTitle:'Faragha',aboutTitle:'Kuhusu',e2e:'E2E Encryption',e2eSub:'Inafanya kazi kwenye ujumbe wote',notif:'Arifa',notifOn:'Imewezeshwa',notifOff:'Imezimwa',version:'Toleo',support:'Saidia Echo',share:'Shiriki Echo',logout:'Toka',deleteAcc:'Futa akaunti yangu',deleteAccSub:'Haiwezi kurudishwa',editProf:'✏️ Hariri'},
+  ln:{tabs:['Nsango','Bato na bato','Nzela','Profil'],searchCv:'Koluka...',searchGr:'Koluka...',searchCh:'Koluka...',write:'Koma nsango...',writeGrp:'Koma na bato...',writeChan:'Koma na nzela...',today:'Lelo',online:'Na internet',offline:'Kozanga internet',members:'bato',subscribers:'bato ya nzela',langTitle:'Lokota',privTitle:'Bosenga',aboutTitle:'Mpo na nini',e2e:'E2E Encryption',e2eSub:'Ezali na mitindi nyonso',notif:'Lisango',notifOn:'Efungwami',notifOff:'Ebimwami',version:'Ndenge',support:'Sɛka Echo',share:'Pesa Echo',logout:'Kobima',deleteAcc:'Sila compte na ngai',deleteAccSub:'Ekoki kozonga te',editProf:'✏️ Kobongola'},
+  ar:{tabs:['الرسائل','المجموعات','القنوات','الملف الشخصي'],searchCv:'بحث...',searchGr:'بحث...',searchCh:'بحث...',write:'اكتب رسالة...',writeGrp:'اكتب في المجموعة...',writeChan:'اكتب في القناة...',today:'اليوم',online:'متصل',offline:'غير متصل',members:'أعضاء',subscribers:'مشتركون',langTitle:'اللغة',privTitle:'الخصوصية',aboutTitle:'حول',e2e:'تشفير E2E',e2eSub:'نشط على جميع الرسائل',notif:'الإشعارات',notifOn:'مفعّل',notifOff:'معطّل',version:'الإصدار',support:'دعم Echo',share:'شارك Echo',logout:'تسجيل الخروج',deleteAcc:'حذف حسابي',deleteAccSub:'إجراء لا رجوع عنه',editProf:'✏️ تعديل'},
+  bm:{tabs:['Kuma','Kɛlɛya','Wolonkili','Seginw'],searchCv:'Ɲini...',searchGr:'Ɲini...',searchCh:'Ɲini...',write:'Sɛbɛ kumakan...',writeGrp:'Sɛbɛ kɛlɛya la...',writeChan:'Sɛbɛ wolonkili la...',today:'Bi',online:'Ɛntɛrinɛti kan',offline:'Ɛntɛrinɛti tɛ',members:'mɔgɔw',subscribers:'taamasiɲɛw',langTitle:'Kan',privTitle:'Gundo',aboutTitle:'A kɔrɔ',e2e:'E2E Encryption',e2eSub:'Kumakaw bɛɛ la',notif:'Kɔlɔsiw',notifOn:'A bɔra',notifOff:'A kɔrɔla',version:'Veresiyon',support:'Dɛmɛ Echo',share:'Wɛrɛ Echo',logout:'Bɔ',deleteAcc:'N ka compte jɔsi',deleteAccSub:'A tɛ se ka segin',editProf:'✏️ Yɛlɛma'},
+  de:{tabs:['Nachrichten','Gruppen','Kanäle','Profil'],searchCv:'Suchen...',searchGr:'Suchen...',searchCh:'Suchen...',write:'Nachricht schreiben...',writeGrp:'In der Gruppe schreiben...',writeChan:'Im Kanal schreiben...',today:'Heute',online:'Online',offline:'Offline',members:'Mitglieder',subscribers:'Abonnenten',langTitle:'Sprache',privTitle:'Datenschutz',aboutTitle:'Über',e2e:'E2E-Verschlüsselung',e2eSub:'Aktiv bei allen Nachrichten',notif:'Benachrichtigungen',notifOn:'Aktiv',notifOff:'Inaktiv',version:'Version',support:'Echo unterstützen',share:'Echo teilen',logout:'Abmelden',deleteAcc:'Konto löschen',deleteAccSub:'Irreversible Aktion',editProf:'✏️ Bearbeiten'},
+  pt:{tabs:['Mensagens','Grupos','Canais','Perfil'],searchCv:'Pesquisar...',searchGr:'Pesquisar...',searchCh:'Pesquisar...',write:'Escrever mensagem...',writeGrp:'Escrever no grupo...',writeChan:'Escrever no canal...',today:'Hoje',online:'Online',offline:'Offline',members:'membros',subscribers:'assinantes',langTitle:'Idioma',privTitle:'Privacidade',aboutTitle:'Sobre',e2e:'Criptografia E2E',e2eSub:'Ativo em todas as mensagens',notif:'Notificações',notifOn:'Ativadas',notifOff:'Desativadas',version:'Versão',support:'Apoiar Echo',share:'Partilhar Echo',logout:'Sair',deleteAcc:'Eliminar conta',deleteAccSub:'Ação irreversível',editProf:'✏️ Editar'},
+  es:{tabs:['Mensajes','Grupos','Canales','Perfil'],searchCv:'Buscar...',searchGr:'Buscar...',searchCh:'Buscar...',write:'Escribir mensaje...',writeGrp:'Escribir en el grupo...',writeChan:'Escribir en el canal...',today:'Hoy',online:'En línea',offline:'Sin conexión',members:'miembros',subscribers:'suscriptores',langTitle:'Idioma',privTitle:'Privacidad',aboutTitle:'Acerca de',e2e:'Cifrado E2E',e2eSub:'Activo en todos los mensajes',notif:'Notificaciones',notifOn:'Activadas',notifOff:'Desactivadas',version:'Versión',support:'Apoyar Echo',share:'Compartir Echo',logout:'Cerrar sesión',deleteAcc:'Eliminar cuenta',deleteAccSub:'Acción irreversible',editProf:'✏️ Editar'},
+  ru:{tabs:['Сообщения','Группы','Каналы','Профиль'],searchCv:'Поиск...',searchGr:'Поиск...',searchCh:'Поиск...',write:'Написать сообщение...',writeGrp:'Написать в группе...',writeChan:'Написать в канале...',today:'Сегодня',online:'Онлайн',offline:'Офлайн',members:'участники',subscribers:'подписчики',langTitle:'Язык',privTitle:'Конфиденциальность',aboutTitle:'О приложении',e2e:'Шифрование E2E',e2eSub:'Активно для всех сообщений',notif:'Уведомления',notifOn:'Включены',notifOff:'Выключены',version:'Версия',support:'Поддержать Echo',share:'Поделиться Echo',logout:'Выйти',deleteAcc:'Удалить аккаунт',deleteAccSub:'Действие необратимо',editProf:'✏️ Изменить'},
+  zh:{tabs:['消息','群组','频道','个人资料'],searchCv:'搜索...',searchGr:'搜索...',searchCh:'搜索...',write:'输入消息...',writeGrp:'在群组中发送...',writeChan:'在频道中发送...',today:'今天',online:'在线',offline:'离线',members:'成员',subscribers:'订阅者',langTitle:'语言',privTitle:'隐私',aboutTitle:'关于',e2e:'E2E加密',e2eSub:'对所有消息有效',notif:'通知',notifOn:'已开启',notifOff:'已关闭',version:'版本',support:'支持Echo',share:'分享Echo',logout:'退出',deleteAcc:'删除账号',deleteAccSub:'不可逆操作',editProf:'✏️ 编辑'},
+  ja:{tabs:['メッセージ','グループ','チャンネル','プロフィール'],searchCv:'検索...',searchGr:'検索...',searchCh:'検索...',write:'メッセージを入力...',writeGrp:'グループに書く...',writeChan:'チャンネルに書く...',today:'今日',online:'オンライン',offline:'オフライン',members:'メンバー',subscribers:'購読者',langTitle:'言語',privTitle:'プライバシー',aboutTitle:'について',e2e:'E2E暗号化',e2eSub:'すべてのメッセージに有効',notif:'通知',notifOn:'有効',notifOff:'無効',version:'バージョン',support:'Echoを支援',share:'Echoを共有',logout:'ログアウト',deleteAcc:'アカウント削除',deleteAccSub:'取り消し不可',editProf:'✏️ 編集'},
+  ro:{tabs:['Mesaje','Grupuri','Canale','Profil'],searchCv:'Căutare...',searchGr:'Căutare...',searchCh:'Căutare...',write:'Scrie un mesaj...',writeGrp:'Scrie în grup...',writeChan:'Scrie în canal...',today:'Azi',online:'Online',offline:'Offline',members:'membri',subscribers:'abonați',langTitle:'Limbă',privTitle:'Confidențialitate',aboutTitle:'Despre',e2e:'Criptare E2E',e2eSub:'Activ pe toate mesajele',notif:'Notificări',notifOn:'Activate',notifOff:'Dezactivate',version:'Versiune',support:'Susține Echo',share:'Distribuie Echo',logout:'Deconectare',deleteAcc:'Șterge contul',deleteAccSub:'Acțiune ireversibilă',editProf:'✏️ Editează'},
+  af:{tabs:['Boodskappe','Groepe','Kanale','Profiel'],searchCv:'Soek...',searchGr:'Soek...',searchCh:'Soek...',write:'Skryf boodskap...',writeGrp:'Skryf in groep...',writeChan:'Skryf in kanaal...',today:'Vandag',online:'Aanlyn',offline:'Aflyn',members:'lede',subscribers:'intekenaars',langTitle:'Taal',privTitle:'Privaatheid',aboutTitle:'Oor',e2e:'E2E-enkripsie',e2eSub:'Aktief op alle boodskappe',notif:'Kennisgewings',notifOn:'Geaktiveer',notifOff:'Gedeaktiveer',version:'Weergawe',support:'Ondersteun Echo',share:'Deel Echo',logout:'Teken uit',deleteAcc:'Vee rekening uit',deleteAccSub:'Onomkeerbare aksie',editProf:'✏️ Wysig'},
+  sw:{tabs:['Ujumbe','Vikundi','Vituo','Wasifu'],searchCv:'Tafuta...',searchGr:'Tafuta...',searchCh:'Tafuta...',write:'Andika ujumbe...',writeGrp:'Andika kwenye kikundi...',writeChan:'Andika kwenye kituo...',today:'Leo',online:'Mtandaoni',offline:'Nje ya mtandao',members:'wanachama',subscribers:'wafuataji',langTitle:'Lugha',privTitle:'Faragha',aboutTitle:'Kuhusu',e2e:'Usimbaji E2E',e2eSub:'Inafanya kazi kwenye ujumbe wote',notif:'Arifa',notifOn:'Imewezeshwa',notifOff:'Imezimwa',version:'Toleo',support:'Saidia Echo',share:'Shiriki Echo',logout:'Toka',deleteAcc:'Futa akaunti yangu',deleteAccSub:'Haiwezi kurudishwa',editProf:'✏️ Hariri'},
+  // Langues avec traduction minimale (interface en français + termes clés traduits)
+  ee:{tabs:['Nùkplɔnmɛwo','Gbɔdodoawo','Nududuawo','Mɔfilikam'],searchCv:'Dia...',searchGr:'Dia...',searchCh:'Dia...',write:'Ŋlɔ nùkplɔnmɛ...',writeGrp:'Ŋlɔ gbɔdodo ŋu...',writeChan:'Ŋlɔ nududua ŋu...',today:'Egbe',online:'Internet ŋu',offline:'Internet mava o',members:'ƒomenyawo',subscribers:'nuɖoɖoawo',langTitle:'Gbe',privTitle:'Nyatefe',aboutTitle:'Esia',e2e:'E2E Encryption',e2eSub:'Le nùkplɔnmɛwo katã ŋu',notif:'Dzidzenu',notifOn:'Gbɔna',notifOff:'Kpɔna',version:'Ʋersio',support:'Kpe Echo ŋuti',share:'De Echo lɔ',logout:'Yi egbe',deleteAcc:'Bla account',deleteAccSub:'Mègaŋlɔ wòa o',editProf:'✏️ Trɔ'},
+  rw:{tabs:['Ubutumwa','Itsinda','Imiyoboro','Umwirondoro'],searchCv:'Shakisha...',searchGr:'Shakisha...',searchCh:'Shakisha...',write:'Andika ubutumwa...',writeGrp:'Andika mu itsinda...',writeChan:'Andika mu imiyoboro...',today:'Uyu munsi',online:'Interineti',offline:'Nta interineti',members:'abanyamuryango',subscribers:'abonera',langTitle:'Ururimi',privTitle:'Ibanga',aboutTitle:'Ibyerekeye',e2e:'Ubwirondoro E2E',e2eSub:'Ugira akamaro ku butumwa bwose',notif:'Imenyesha',notifOn:'Byafunguwe',notifOff:'Byfunze',version:'Verisiyo',support:'Shyigikira Echo',share:'Sangira Echo',logout:'Sohoka',deleteAcc:'Siba konti yanjye',deleteAccSub:'Ntibishoboka gusubira inyuma',editProf:'✏️ Hindura'},
+  ln:{tabs:['Nsango','Bato na bato','Nzela','Profil'],searchCv:'Koluka...',searchGr:'Koluka...',searchCh:'Koluka...',write:'Koma nsango...',writeGrp:'Koma na bato...',writeChan:'Koma na nzela...',today:'Lelo',online:'Na internet',offline:'Kozanga internet',members:'bato',subscribers:'bato ya nzela',langTitle:'Lokota',privTitle:'Bosenga',aboutTitle:'Mpo na',e2e:'E2E Encryption',e2eSub:'Ezali na mitindi nyonso',notif:'Lisango',notifOn:'Efungwami',notifOff:'Ebimwami',version:'Versiyo',support:'Sɛka Echo',share:'Pesa Echo',logout:'Kobima',deleteAcc:'Sila compte',deleteAccSub:'Ekoki kozonga te',editProf:'✏️ Kobongola'},
+  ms:{tabs:['Mesej','Kumpulan','Saluran','Profil'],searchCv:'Cari...',searchGr:'Cari...',searchCh:'Cari...',write:'Tulis mesej...',writeGrp:'Tulis dalam kumpulan...',writeChan:'Tulis dalam saluran...',today:'Hari ini',online:'Dalam talian',offline:'Luar talian',members:'ahli',subscribers:'pelanggan',langTitle:'Bahasa',privTitle:'Privasi',aboutTitle:'Tentang',e2e:'Penyulitan E2E',e2eSub:'Aktif pada semua mesej',notif:'Pemberitahuan',notifOn:'Diaktifkan',notifOff:'Dimatikan',version:'Versi',support:'Sokong Echo',share:'Kongsi Echo',logout:'Log keluar',deleteAcc:'Padam akaun saya',deleteAccSub:'Tindakan tidak boleh dibalikkan',editProf:'✏️ Edit'},
+  he:{tabs:['הודעות','קבוצות','ערוצים','פרופיל'],searchCv:'חיפוש...',searchGr:'חיפוש...',searchCh:'חיפוש...',write:'כתוב הודעה...',writeGrp:'כתוב בקבוצה...',writeChan:'כתוב בערוץ...',today:'היום',online:'מחובר',offline:'לא מחובר',members:'חברים',subscribers:'מנויים',langTitle:'שפה',privTitle:'פרטיות',aboutTitle:'אודות',e2e:'הצפנה E2E',e2eSub:'פעיל בכל ההודעות',notif:'התראות',notifOn:'מופעל',notifOff:'כבוי',version:'גרסה',support:'תמוך ב-Echo',share:'שתף Echo',logout:'התנתק',deleteAcc:'מחק את חשבוני',deleteAccSub:'פעולה בלתי הפיכה',editProf:'✏️ ערוך'},
 };
 
 function t(k){return (I18N[lang]||I18N['fr'])[k]||(I18N['fr'])[k]||k;}
